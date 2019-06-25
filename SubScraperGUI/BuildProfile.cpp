@@ -140,9 +140,9 @@ void BuildProfile::on_frameBack_clicked()
 {
 	//replace preview with a less advanced frame (if possible) when frameBack is clicked
 	if (cap.isOpened()) {
-		int position = cap.get(CAP_PROP_POS_FRAMES);
+		double position = cap.get(CAP_PROP_POS_FRAMES);
 		if (position >= 6) {
-			cap.set(CAP_PROP_POS_FRAMES, (position - 5));
+			cap.set(CAP_PROP_POS_FRAMES, (position - 5.0));
 			cap >> frame;
 			imwrite("frame.jpeg", frame);
 			QImage image("frame.jpeg");
