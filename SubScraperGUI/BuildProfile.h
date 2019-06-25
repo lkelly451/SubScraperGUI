@@ -2,6 +2,7 @@
 
 #include <QWidget>
 #include "ui_BuildProfile.h"
+#include <opencv2/videoio.hpp>
 
 class BuildProfile : public QWidget
 {
@@ -22,6 +23,13 @@ private slots:
 	void on_backButton_clicked();
 	void on_continueButton_clicked();
 	void on_fileSelect_clicked();
+	void on_previewButton_clicked();
+	void on_frameForward_clicked();
+	void on_frameBack_clicked();
 private:
 	Ui::BuildProfile ui;
+	cv::VideoCapture cap;
+	cv::Mat frame;
+	QGraphicsScene* scene;
+	QGraphicsPixmapItem* item;
 };

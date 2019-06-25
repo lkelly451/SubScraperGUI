@@ -70,6 +70,7 @@ QLineEdit* HeightSelect::getSingleLineEdit()
 void HeightSelect::on_backButton_clicked()
 {
 	BuildProfile* buildProfile = new BuildProfile();
+	buildProfile->setAttribute(Qt::WA_DeleteOnClose);
 	buildProfile->show();
 	this->close();
 }
@@ -77,6 +78,7 @@ void HeightSelect::on_backButton_clicked()
 void HeightSelect::on_continueButton_clicked() 
 {
 	OutputSelect* outputSelect = new OutputSelect();
+	outputSelect->setAttribute(Qt::WA_DeleteOnClose);
 	outputSelect->show();
 	this->close();
 }

@@ -2,6 +2,7 @@
 #include "SubScraperGUI.h"
 #include "qfiledialog.h"
 
+
 ExistingProfiles::ExistingProfiles(QWidget *parent)
 	: QWidget(parent)
 {
@@ -80,6 +81,7 @@ QLineEdit* ExistingProfiles::getTranscriptLineEdit()
 void ExistingProfiles::on_backButton_clicked()
 {
 	SubScraperGUI* subScraperGUI = new SubScraperGUI();
+	subScraperGUI->setAttribute(Qt::WA_DeleteOnClose);
 	subScraperGUI->show();
 	this->close();
 }

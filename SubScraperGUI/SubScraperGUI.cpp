@@ -27,6 +27,7 @@ QLabel* SubScraperGUI::getSelectLabel()
 void SubScraperGUI::on_buildButton_clicked()
 {
 	BuildProfile* buildProfile = new BuildProfile();
+	buildProfile->setAttribute(Qt::WA_DeleteOnClose);
 	buildProfile->show();
 	this->close();
 }
@@ -34,6 +35,7 @@ void SubScraperGUI::on_buildButton_clicked()
 void SubScraperGUI::on_selectButton_clicked()
 {
 	ExistingProfiles* existingProfiles = new ExistingProfiles();
+	existingProfiles->setAttribute(Qt::WA_DeleteOnClose);
 	existingProfiles->show();
 	this->close();
 }

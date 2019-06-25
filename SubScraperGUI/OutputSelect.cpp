@@ -55,6 +55,7 @@ QLineEdit* OutputSelect::getTranscriptLineEdit()
 void OutputSelect::on_backButton_clicked()
 {
 	HeightSelect* heightSelect = new HeightSelect();
+	heightSelect->setAttribute(Qt::WA_DeleteOnClose);
 	heightSelect->show();
 	this->close();
 }

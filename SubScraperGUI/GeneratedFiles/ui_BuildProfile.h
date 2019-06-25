@@ -30,6 +30,7 @@ public:
     QPushButton *frameBack;
     QPushButton *continueButton;
     QPushButton *backButton;
+    QPushButton *previewButton;
 
     void setupUi(QWidget *BuildProfile)
     {
@@ -60,6 +61,9 @@ public:
         backButton = new QPushButton(BuildProfile);
         backButton->setObjectName(QString::fromUtf8("backButton"));
         backButton->setGeometry(QRect(400, 650, 75, 23));
+        previewButton = new QPushButton(BuildProfile);
+        previewButton->setObjectName(QString::fromUtf8("previewButton"));
+        previewButton->setGeometry(QRect(320, 30, 75, 23));
 
         retranslateUi(BuildProfile);
 
@@ -75,6 +79,7 @@ public:
         frameBack->setText(QCoreApplication::translate("BuildProfile", "<<5", nullptr));
         continueButton->setText(QCoreApplication::translate("BuildProfile", "Continue", nullptr));
         backButton->setText(QCoreApplication::translate("BuildProfile", "Back", nullptr));
+        previewButton->setText(QCoreApplication::translate("BuildProfile", "Preview", nullptr));
     } // retranslateUi
 
 };
