@@ -11,12 +11,11 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -25,10 +24,8 @@ class Ui_SubScraperGUIClass
 {
 public:
     QWidget *centralWidget;
-    QWidget *widget;
-    QVBoxLayout *verticalLayout;
+    QHBoxLayout *horizontalLayout;
     QLabel *selectLabel;
-    QGridLayout *gridLayout;
     QPushButton *selectButton;
     QPushButton *buildButton;
     QStatusBar *statusBar;
@@ -40,34 +37,24 @@ public:
         SubScraperGUIClass->resize(600, 121);
         centralWidget = new QWidget(SubScraperGUIClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
-        widget = new QWidget(centralWidget);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(190, 20, 221, 61));
-        verticalLayout = new QVBoxLayout(widget);
-        verticalLayout->setSpacing(6);
-        verticalLayout->setContentsMargins(11, 11, 11, 11);
-        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
-        selectLabel = new QLabel(widget);
+        horizontalLayout = new QHBoxLayout(centralWidget);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        selectLabel = new QLabel(centralWidget);
         selectLabel->setObjectName(QString::fromUtf8("selectLabel"));
 
-        verticalLayout->addWidget(selectLabel);
+        horizontalLayout->addWidget(selectLabel);
 
-        gridLayout = new QGridLayout();
-        gridLayout->setSpacing(6);
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        selectButton = new QPushButton(widget);
+        selectButton = new QPushButton(centralWidget);
         selectButton->setObjectName(QString::fromUtf8("selectButton"));
 
-        gridLayout->addWidget(selectButton, 0, 0, 1, 1);
+        horizontalLayout->addWidget(selectButton);
 
-        buildButton = new QPushButton(widget);
+        buildButton = new QPushButton(centralWidget);
         buildButton->setObjectName(QString::fromUtf8("buildButton"));
 
-        gridLayout->addWidget(buildButton, 0, 1, 1, 1);
-
-
-        verticalLayout->addLayout(gridLayout);
+        horizontalLayout->addWidget(buildButton);
 
         SubScraperGUIClass->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(SubScraperGUIClass);

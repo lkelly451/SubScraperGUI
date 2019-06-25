@@ -12,6 +12,7 @@
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
@@ -22,14 +23,15 @@ QT_BEGIN_NAMESPACE
 class Ui_BuildProfile
 {
 public:
-    QLineEdit *inputLineEdit;
-    QLabel *inputLabel;
+    QGridLayout *gridLayout;
     QPushButton *fileSelect;
-    QGraphicsView *framePreview;
-    QPushButton *frameForward;
-    QPushButton *frameBack;
+    QLineEdit *inputLineEdit;
     QPushButton *continueButton;
     QPushButton *backButton;
+    QLabel *inputLabel;
+    QPushButton *frameForward;
+    QPushButton *frameBack;
+    QGraphicsView *framePreview;
     QPushButton *previewButton;
 
     void setupUi(QWidget *BuildProfile)
@@ -37,33 +39,55 @@ public:
         if (BuildProfile->objectName().isEmpty())
             BuildProfile->setObjectName(QString::fromUtf8("BuildProfile"));
         BuildProfile->resize(573, 705);
-        inputLineEdit = new QLineEdit(BuildProfile);
-        inputLineEdit->setObjectName(QString::fromUtf8("inputLineEdit"));
-        inputLineEdit->setGeometry(QRect(20, 30, 241, 21));
-        inputLabel = new QLabel(BuildProfile);
-        inputLabel->setObjectName(QString::fromUtf8("inputLabel"));
-        inputLabel->setGeometry(QRect(20, 10, 47, 13));
+        gridLayout = new QGridLayout(BuildProfile);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         fileSelect = new QPushButton(BuildProfile);
         fileSelect->setObjectName(QString::fromUtf8("fileSelect"));
-        fileSelect->setGeometry(QRect(270, 30, 31, 23));
-        framePreview = new QGraphicsView(BuildProfile);
-        framePreview->setObjectName(QString::fromUtf8("framePreview"));
-        framePreview->setGeometry(QRect(100, 70, 371, 431));
-        frameForward = new QPushButton(BuildProfile);
-        frameForward->setObjectName(QString::fromUtf8("frameForward"));
-        frameForward->setGeometry(QRect(400, 530, 75, 23));
-        frameBack = new QPushButton(BuildProfile);
-        frameBack->setObjectName(QString::fromUtf8("frameBack"));
-        frameBack->setGeometry(QRect(100, 530, 75, 23));
+
+        gridLayout->addWidget(fileSelect, 1, 3, 1, 1);
+
+        inputLineEdit = new QLineEdit(BuildProfile);
+        inputLineEdit->setObjectName(QString::fromUtf8("inputLineEdit"));
+
+        gridLayout->addWidget(inputLineEdit, 1, 0, 1, 3);
+
         continueButton = new QPushButton(BuildProfile);
         continueButton->setObjectName(QString::fromUtf8("continueButton"));
-        continueButton->setGeometry(QRect(250, 530, 75, 23));
+
+        gridLayout->addWidget(continueButton, 3, 2, 1, 1);
+
         backButton = new QPushButton(BuildProfile);
         backButton->setObjectName(QString::fromUtf8("backButton"));
-        backButton->setGeometry(QRect(400, 650, 75, 23));
+
+        gridLayout->addWidget(backButton, 4, 5, 1, 1);
+
+        inputLabel = new QLabel(BuildProfile);
+        inputLabel->setObjectName(QString::fromUtf8("inputLabel"));
+
+        gridLayout->addWidget(inputLabel, 0, 0, 1, 1);
+
+        frameForward = new QPushButton(BuildProfile);
+        frameForward->setObjectName(QString::fromUtf8("frameForward"));
+
+        gridLayout->addWidget(frameForward, 3, 5, 1, 1);
+
+        frameBack = new QPushButton(BuildProfile);
+        frameBack->setObjectName(QString::fromUtf8("frameBack"));
+
+        gridLayout->addWidget(frameBack, 3, 1, 1, 1);
+
+        framePreview = new QGraphicsView(BuildProfile);
+        framePreview->setObjectName(QString::fromUtf8("framePreview"));
+
+        gridLayout->addWidget(framePreview, 2, 1, 1, 5);
+
         previewButton = new QPushButton(BuildProfile);
         previewButton->setObjectName(QString::fromUtf8("previewButton"));
-        previewButton->setGeometry(QRect(320, 30, 75, 23));
+
+        gridLayout->addWidget(previewButton, 1, 4, 1, 1);
+
 
         retranslateUi(BuildProfile);
 
@@ -73,12 +97,12 @@ public:
     void retranslateUi(QWidget *BuildProfile)
     {
         BuildProfile->setWindowTitle(QCoreApplication::translate("BuildProfile", "BuildProfile", nullptr));
-        inputLabel->setText(QCoreApplication::translate("BuildProfile", "Input file:", nullptr));
         fileSelect->setText(QCoreApplication::translate("BuildProfile", "...", nullptr));
-        frameForward->setText(QCoreApplication::translate("BuildProfile", "5>>", nullptr));
-        frameBack->setText(QCoreApplication::translate("BuildProfile", "<<5", nullptr));
         continueButton->setText(QCoreApplication::translate("BuildProfile", "Continue", nullptr));
         backButton->setText(QCoreApplication::translate("BuildProfile", "Back", nullptr));
+        inputLabel->setText(QCoreApplication::translate("BuildProfile", "Input file:", nullptr));
+        frameForward->setText(QCoreApplication::translate("BuildProfile", "5>>", nullptr));
+        frameBack->setText(QCoreApplication::translate("BuildProfile", "<<5", nullptr));
         previewButton->setText(QCoreApplication::translate("BuildProfile", "Preview", nullptr));
     } // retranslateUi
 

@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QListView>
@@ -22,17 +23,18 @@ QT_BEGIN_NAMESPACE
 class Ui_ExistingProfiles
 {
 public:
-    QListView *existingList;
+    QGridLayout *gridLayout;
     QLabel *existingLabel;
+    QListView *existingList;
     QLabel *inputLabel;
     QLineEdit *inputLineEdit;
     QPushButton *fileSelect;
     QLabel *outputLabel;
     QLineEdit *outputLineEdit;
     QPushButton *outputFileSelect;
-    QPushButton *transcriptFileSelect;
-    QLineEdit *transcriptLineEdit;
     QLabel *transcriptLabel;
+    QLineEdit *transcriptLineEdit;
+    QPushButton *transcriptFileSelect;
     QPushButton *goButton;
     QPushButton *backButton;
 
@@ -41,45 +43,75 @@ public:
         if (ExistingProfiles->objectName().isEmpty())
             ExistingProfiles->setObjectName(QString::fromUtf8("ExistingProfiles"));
         ExistingProfiles->resize(646, 400);
-        existingList = new QListView(ExistingProfiles);
-        existingList->setObjectName(QString::fromUtf8("existingList"));
-        existingList->setGeometry(QRect(40, 60, 271, 311));
+        gridLayout = new QGridLayout(ExistingProfiles);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         existingLabel = new QLabel(ExistingProfiles);
         existingLabel->setObjectName(QString::fromUtf8("existingLabel"));
-        existingLabel->setGeometry(QRect(40, 40, 91, 16));
+
+        gridLayout->addWidget(existingLabel, 0, 0, 1, 1);
+
+        existingList = new QListView(ExistingProfiles);
+        existingList->setObjectName(QString::fromUtf8("existingList"));
+
+        gridLayout->addWidget(existingList, 1, 0, 8, 1);
+
         inputLabel = new QLabel(ExistingProfiles);
         inputLabel->setObjectName(QString::fromUtf8("inputLabel"));
-        inputLabel->setGeometry(QRect(330, 60, 47, 13));
+
+        gridLayout->addWidget(inputLabel, 1, 1, 1, 1);
+
         inputLineEdit = new QLineEdit(ExistingProfiles);
         inputLineEdit->setObjectName(QString::fromUtf8("inputLineEdit"));
-        inputLineEdit->setGeometry(QRect(330, 80, 241, 21));
+
+        gridLayout->addWidget(inputLineEdit, 2, 1, 1, 2);
+
         fileSelect = new QPushButton(ExistingProfiles);
         fileSelect->setObjectName(QString::fromUtf8("fileSelect"));
-        fileSelect->setGeometry(QRect(580, 80, 31, 23));
+
+        gridLayout->addWidget(fileSelect, 2, 3, 1, 1);
+
         outputLabel = new QLabel(ExistingProfiles);
         outputLabel->setObjectName(QString::fromUtf8("outputLabel"));
-        outputLabel->setGeometry(QRect(330, 120, 71, 16));
+
+        gridLayout->addWidget(outputLabel, 3, 1, 1, 1);
+
         outputLineEdit = new QLineEdit(ExistingProfiles);
         outputLineEdit->setObjectName(QString::fromUtf8("outputLineEdit"));
-        outputLineEdit->setGeometry(QRect(330, 140, 241, 21));
+
+        gridLayout->addWidget(outputLineEdit, 4, 1, 1, 2);
+
         outputFileSelect = new QPushButton(ExistingProfiles);
         outputFileSelect->setObjectName(QString::fromUtf8("outputFileSelect"));
-        outputFileSelect->setGeometry(QRect(580, 140, 31, 23));
-        transcriptFileSelect = new QPushButton(ExistingProfiles);
-        transcriptFileSelect->setObjectName(QString::fromUtf8("transcriptFileSelect"));
-        transcriptFileSelect->setGeometry(QRect(580, 200, 31, 23));
-        transcriptLineEdit = new QLineEdit(ExistingProfiles);
-        transcriptLineEdit->setObjectName(QString::fromUtf8("transcriptLineEdit"));
-        transcriptLineEdit->setGeometry(QRect(330, 200, 241, 21));
+
+        gridLayout->addWidget(outputFileSelect, 4, 3, 1, 1);
+
         transcriptLabel = new QLabel(ExistingProfiles);
         transcriptLabel->setObjectName(QString::fromUtf8("transcriptLabel"));
-        transcriptLabel->setGeometry(QRect(330, 180, 71, 16));
+
+        gridLayout->addWidget(transcriptLabel, 5, 1, 1, 1);
+
+        transcriptLineEdit = new QLineEdit(ExistingProfiles);
+        transcriptLineEdit->setObjectName(QString::fromUtf8("transcriptLineEdit"));
+
+        gridLayout->addWidget(transcriptLineEdit, 6, 1, 1, 2);
+
+        transcriptFileSelect = new QPushButton(ExistingProfiles);
+        transcriptFileSelect->setObjectName(QString::fromUtf8("transcriptFileSelect"));
+
+        gridLayout->addWidget(transcriptFileSelect, 6, 3, 1, 1);
+
         goButton = new QPushButton(ExistingProfiles);
         goButton->setObjectName(QString::fromUtf8("goButton"));
-        goButton->setGeometry(QRect(330, 260, 75, 23));
+
+        gridLayout->addWidget(goButton, 7, 1, 1, 1);
+
         backButton = new QPushButton(ExistingProfiles);
         backButton->setObjectName(QString::fromUtf8("backButton"));
-        backButton->setGeometry(QRect(560, 350, 75, 23));
+
+        gridLayout->addWidget(backButton, 8, 2, 1, 2);
+
 
         retranslateUi(ExistingProfiles);
 
@@ -94,8 +126,8 @@ public:
         fileSelect->setText(QCoreApplication::translate("ExistingProfiles", "...", nullptr));
         outputLabel->setText(QCoreApplication::translate("ExistingProfiles", "Output file:", nullptr));
         outputFileSelect->setText(QCoreApplication::translate("ExistingProfiles", "...", nullptr));
-        transcriptFileSelect->setText(QCoreApplication::translate("ExistingProfiles", "...", nullptr));
         transcriptLabel->setText(QCoreApplication::translate("ExistingProfiles", "Transcript file: ", nullptr));
+        transcriptFileSelect->setText(QCoreApplication::translate("ExistingProfiles", "...", nullptr));
         goButton->setText(QCoreApplication::translate("ExistingProfiles", "Go", nullptr));
         backButton->setText(QCoreApplication::translate("ExistingProfiles", "Back", nullptr));
     } // retranslateUi

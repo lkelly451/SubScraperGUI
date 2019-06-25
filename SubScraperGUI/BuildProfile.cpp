@@ -118,6 +118,7 @@ void BuildProfile::on_previewButton_clicked()
 //leaks!
 void BuildProfile::on_frameForward_clicked()
 {
+	//replace preview with a more advanced frame when frameForward is clicked
 	if (cap.isOpened()) {
 		for (size_t i = 0; i < 5; i++) {
 			cap.grab();
@@ -133,11 +134,11 @@ void BuildProfile::on_frameForward_clicked()
 		scene->addItem(item);
 		ui.framePreview->show();
 	}
-	cap.release();
 }
 //leaks!
 void BuildProfile::on_frameBack_clicked()
 {
+	//replace preview with a less advanced frame (if possible) when frameBack is clicked
 	if (cap.isOpened()) {
 		int position = cap.get(CAP_PROP_POS_FRAMES);
 		if (position >= 6) {

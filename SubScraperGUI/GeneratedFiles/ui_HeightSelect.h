@@ -13,6 +13,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QGraphicsView>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QtWidgets/QPushButton>
@@ -23,16 +24,17 @@ QT_BEGIN_NAMESPACE
 class Ui_HeightSelect
 {
 public:
+    QGridLayout *gridLayout;
     QGraphicsView *framePreview;
     QPushButton *frameBack;
-    QPushButton *frameForward;
     QPushButton *continueButton;
-    QLineEdit *singleLineEdit;
-    QLineEdit *doubleLineEdit;
+    QPushButton *frameForward;
     QLabel *singleLabel;
+    QLineEdit *doubleLineEdit;
     QLabel *doubleLabel;
-    QCheckBox *autoCheckBox;
+    QLineEdit *singleLineEdit;
     QLabel *autoLabel;
+    QCheckBox *autoCheckBox;
     QPushButton *backButton;
 
     void setupUi(QWidget *HeightSelect)
@@ -40,39 +42,65 @@ public:
         if (HeightSelect->objectName().isEmpty())
             HeightSelect->setObjectName(QString::fromUtf8("HeightSelect"));
         HeightSelect->resize(565, 706);
+        gridLayout = new QGridLayout(HeightSelect);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         framePreview = new QGraphicsView(HeightSelect);
         framePreview->setObjectName(QString::fromUtf8("framePreview"));
-        framePreview->setGeometry(QRect(90, 140, 371, 111));
+
+        gridLayout->addWidget(framePreview, 0, 0, 1, 4);
+
         frameBack = new QPushButton(HeightSelect);
         frameBack->setObjectName(QString::fromUtf8("frameBack"));
-        frameBack->setGeometry(QRect(90, 270, 75, 23));
-        frameForward = new QPushButton(HeightSelect);
-        frameForward->setObjectName(QString::fromUtf8("frameForward"));
-        frameForward->setGeometry(QRect(390, 270, 75, 23));
+
+        gridLayout->addWidget(frameBack, 1, 0, 1, 1);
+
         continueButton = new QPushButton(HeightSelect);
         continueButton->setObjectName(QString::fromUtf8("continueButton"));
-        continueButton->setGeometry(QRect(250, 270, 75, 23));
-        singleLineEdit = new QLineEdit(HeightSelect);
-        singleLineEdit->setObjectName(QString::fromUtf8("singleLineEdit"));
-        singleLineEdit->setGeometry(QRect(210, 360, 51, 20));
-        doubleLineEdit = new QLineEdit(HeightSelect);
-        doubleLineEdit->setObjectName(QString::fromUtf8("doubleLineEdit"));
-        doubleLineEdit->setGeometry(QRect(210, 330, 51, 20));
+
+        gridLayout->addWidget(continueButton, 1, 2, 1, 1);
+
+        frameForward = new QPushButton(HeightSelect);
+        frameForward->setObjectName(QString::fromUtf8("frameForward"));
+
+        gridLayout->addWidget(frameForward, 1, 3, 1, 1);
+
         singleLabel = new QLabel(HeightSelect);
         singleLabel->setObjectName(QString::fromUtf8("singleLabel"));
-        singleLabel->setGeometry(QRect(90, 330, 111, 16));
+
+        gridLayout->addWidget(singleLabel, 2, 0, 1, 1);
+
+        doubleLineEdit = new QLineEdit(HeightSelect);
+        doubleLineEdit->setObjectName(QString::fromUtf8("doubleLineEdit"));
+
+        gridLayout->addWidget(doubleLineEdit, 2, 1, 1, 2);
+
         doubleLabel = new QLabel(HeightSelect);
         doubleLabel->setObjectName(QString::fromUtf8("doubleLabel"));
-        doubleLabel->setGeometry(QRect(90, 360, 111, 16));
-        autoCheckBox = new QCheckBox(HeightSelect);
-        autoCheckBox->setObjectName(QString::fromUtf8("autoCheckBox"));
-        autoCheckBox->setGeometry(QRect(210, 510, 21, 17));
+
+        gridLayout->addWidget(doubleLabel, 3, 0, 1, 1);
+
+        singleLineEdit = new QLineEdit(HeightSelect);
+        singleLineEdit->setObjectName(QString::fromUtf8("singleLineEdit"));
+
+        gridLayout->addWidget(singleLineEdit, 3, 1, 1, 2);
+
         autoLabel = new QLabel(HeightSelect);
         autoLabel->setObjectName(QString::fromUtf8("autoLabel"));
-        autoLabel->setGeometry(QRect(90, 510, 121, 16));
+
+        gridLayout->addWidget(autoLabel, 4, 0, 1, 1);
+
+        autoCheckBox = new QCheckBox(HeightSelect);
+        autoCheckBox->setObjectName(QString::fromUtf8("autoCheckBox"));
+
+        gridLayout->addWidget(autoCheckBox, 4, 1, 1, 1);
+
         backButton = new QPushButton(HeightSelect);
         backButton->setObjectName(QString::fromUtf8("backButton"));
-        backButton->setGeometry(QRect(390, 510, 75, 23));
+
+        gridLayout->addWidget(backButton, 4, 3, 1, 1);
+
 
         retranslateUi(HeightSelect);
 
@@ -83,12 +111,12 @@ public:
     {
         HeightSelect->setWindowTitle(QCoreApplication::translate("HeightSelect", "HeightSelect", nullptr));
         frameBack->setText(QCoreApplication::translate("HeightSelect", "<<5", nullptr));
-        frameForward->setText(QCoreApplication::translate("HeightSelect", "5>>", nullptr));
         continueButton->setText(QCoreApplication::translate("HeightSelect", "Continue", nullptr));
+        frameForward->setText(QCoreApplication::translate("HeightSelect", "5>>", nullptr));
         singleLabel->setText(QCoreApplication::translate("HeightSelect", "Single box height (px)", nullptr));
         doubleLabel->setText(QCoreApplication::translate("HeightSelect", "Double box height (px)", nullptr));
-        autoCheckBox->setText(QString());
         autoLabel->setText(QCoreApplication::translate("HeightSelect", "auto detect box heights", nullptr));
+        autoCheckBox->setText(QString());
         backButton->setText(QCoreApplication::translate("HeightSelect", "Back", nullptr));
     } // retranslateUi
 
