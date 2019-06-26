@@ -3,6 +3,7 @@
 #include <QWidget>
 #include "ui_BuildProfile.h"
 #include <opencv2/videoio.hpp>
+#include "QMouseEvent"
 
 class BuildProfile : public QWidget
 {
@@ -19,6 +20,7 @@ public:
 	QGraphicsView* getFramePreview();
 	QLabel* getInputLabel();
 	QLineEdit* getInputLineEdit();
+
 private slots:
 	void on_backButton_clicked();
 	void on_continueButton_clicked();
@@ -26,6 +28,7 @@ private slots:
 	void on_previewButton_clicked();
 	void on_frameForward_clicked();
 	void on_frameBack_clicked();
+
 private:
 	Ui::BuildProfile ui;
 	cv::VideoCapture cap;

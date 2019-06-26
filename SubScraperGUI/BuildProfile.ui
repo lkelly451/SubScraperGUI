@@ -14,6 +14,36 @@
    <string>BuildProfile</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="3" column="1">
+    <widget class="QLineEdit" name="widthEnd"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="widthBeginLabel">
+     <property name="text">
+      <string>Width start:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="2">
+    <widget class="QPushButton" name="continueButton">
+     <property name="text">
+      <string>Continue</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="1">
+    <widget class="QPushButton" name="frameBack">
+     <property name="text">
+      <string>&lt;&lt;5</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="1" colspan="5">
+    <widget class="MyGraphicsView" name="framePreview"/>
+   </item>
+   <item row="2" column="1">
+    <widget class="QLineEdit" name="widthBegin"/>
+   </item>
    <item row="1" column="3">
     <widget class="QPushButton" name="fileSelect">
      <property name="text">
@@ -21,46 +51,26 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0" colspan="3">
-    <widget class="QLineEdit" name="inputLineEdit"/>
-   </item>
-   <item row="3" column="2">
-    <widget class="QPushButton" name="continueButton">
-     <property name="text">
-      <string>Continue</string>
-     </property>
-    </widget>
-   </item>
-   <item row="4" column="5">
-    <widget class="QPushButton" name="backButton">
-     <property name="text">
-      <string>Back</string>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="0">
-    <widget class="QLabel" name="inputLabel">
-     <property name="text">
-      <string>Input file:</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="5">
+   <item row="6" column="5">
     <widget class="QPushButton" name="frameForward">
      <property name="text">
       <string>5&gt;&gt;</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="1">
-    <widget class="QPushButton" name="frameBack">
+   <item row="2" column="2">
+    <widget class="QLabel" name="heightBeginLabel">
      <property name="text">
-      <string>&lt;&lt;5</string>
+      <string>Height start:</string>
      </property>
     </widget>
    </item>
-   <item row="2" column="1" colspan="5">
-    <widget class="QGraphicsView" name="framePreview"/>
+   <item row="7" column="5">
+    <widget class="QPushButton" name="backButton">
+     <property name="text">
+      <string>Back</string>
+     </property>
+    </widget>
    </item>
    <item row="1" column="4">
     <widget class="QPushButton" name="previewButton">
@@ -69,9 +79,46 @@
      </property>
     </widget>
    </item>
+   <item row="1" column="0" colspan="3">
+    <widget class="QLineEdit" name="inputLineEdit"/>
+   </item>
+   <item row="2" column="3">
+    <widget class="QLineEdit" name="heightBegin"/>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="inputLabel">
+     <property name="text">
+      <string>Input file:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <widget class="QLabel" name="heightEndLabel">
+     <property name="text">
+      <string>Height end:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="widthEndLabel">
+     <property name="text">
+      <string>Width end:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="3">
+    <widget class="QLineEdit" name="heightEnd"/>
+   </item>
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>MyGraphicsView</class>
+   <extends>QGraphicsView</extends>
+   <header>MyGraphicsView.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

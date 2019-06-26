@@ -152,7 +152,7 @@ void BuildProfile::on_frameBack_clicked()
 			item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
 			scene->addItem(item);
 			ui.framePreview->show();
-		}
-		
+		}	
 	}
 }
+
