@@ -24,13 +24,6 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="2">
-    <widget class="QPushButton" name="continueButton">
-     <property name="text">
-      <string>Continue</string>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="3">
     <widget class="QPushButton" name="frameForward">
      <property name="text">
@@ -76,6 +69,27 @@
     <widget class="QPushButton" name="backButton">
      <property name="text">
       <string>Back</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="3">
+    <widget class="QPushButton" name="singleGetHeight">
+     <property name="text">
+      <string>Get height</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="3">
+    <widget class="QPushButton" name="doubleGetHeight">
+     <property name="text">
+      <string>Get height</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QPushButton" name="continueButton">
+     <property name="text">
+      <string>Continue</string>
      </property>
     </widget>
    </item>

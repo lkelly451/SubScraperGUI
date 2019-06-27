@@ -74,7 +74,7 @@ void BuildProfile::on_backButton_clicked()
 
 void BuildProfile::on_continueButton_clicked()
 {
-	HeightSelect* heightSelect = new HeightSelect();
+	HeightSelect* heightSelect = new HeightSelect(ui.widthBegin->text(), ui.widthEnd->text(), ui.heightBegin->text(), ui.heightEnd->text(), ui.inputLineEdit->text(), cap.get(CAP_PROP_POS_FRAMES));
 	heightSelect->setAttribute(Qt::WA_DeleteOnClose);
 	heightSelect->show();
 	this->close();
