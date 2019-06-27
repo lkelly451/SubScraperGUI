@@ -120,7 +120,7 @@ void BuildProfile::on_frameForward_clicked()
 {
 	//replace preview with a more advanced frame when frameForward is clicked
 	if (cap.isOpened()) {
-		for (size_t i = 0; i < 5; i++) {
+		for (size_t i = 0; i < 30; i++) {
 			cap.grab();
 		}
 
@@ -141,8 +141,8 @@ void BuildProfile::on_frameBack_clicked()
 	//replace preview with a less advanced frame (if possible) when frameBack is clicked
 	if (cap.isOpened()) {
 		double position = cap.get(CAP_PROP_POS_FRAMES);
-		if (position >= 6) {
-			cap.set(CAP_PROP_POS_FRAMES, (position - 5.0));
+		if (position >= 30) {
+			cap.set(CAP_PROP_POS_FRAMES, (position - 30.0));
 			cap >> frame;
 			imwrite("frame.jpeg", frame);
 			QImage image("frame.jpeg");

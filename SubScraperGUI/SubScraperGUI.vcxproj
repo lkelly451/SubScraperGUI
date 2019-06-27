@@ -115,6 +115,7 @@
   <ItemGroup>
     <ClCompile Include="BuildProfile.cpp" />
     <ClCompile Include="ExistingProfiles.cpp" />
+    <ClCompile Include="Frame.cpp" />
     <ClCompile Include="HeightSelect.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyGraphicsView.cpp" />
@@ -163,6 +164,9 @@
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\opencv\build\include;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
     </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Frame.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

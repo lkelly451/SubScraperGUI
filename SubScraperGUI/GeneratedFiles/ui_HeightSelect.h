@@ -26,16 +26,18 @@ class Ui_HeightSelect
 public:
     QGridLayout *gridLayout;
     QGraphicsView *framePreview;
-    QPushButton *frameBack;
-    QPushButton *continueButton;
-    QPushButton *frameForward;
-    QLabel *singleLabel;
-    QLineEdit *doubleLineEdit;
-    QLabel *doubleLabel;
-    QLineEdit *singleLineEdit;
-    QLabel *autoLabel;
+    QPushButton *singleGetHeight;
     QCheckBox *autoCheckBox;
     QPushButton *backButton;
+    QPushButton *doubleGetHeight;
+    QPushButton *frameBack;
+    QLabel *doubleLabel;
+    QLabel *singleLabel;
+    QLabel *autoLabel;
+    QPushButton *frameForward;
+    QPushButton *continueButton;
+    QLineEdit *singleLineEdit;
+    QLineEdit *doubleLineEdit;
 
     void setupUi(QWidget *HeightSelect)
     {
@@ -51,55 +53,65 @@ public:
 
         gridLayout->addWidget(framePreview, 0, 0, 1, 4);
 
-        frameBack = new QPushButton(HeightSelect);
-        frameBack->setObjectName(QString::fromUtf8("frameBack"));
+        singleGetHeight = new QPushButton(HeightSelect);
+        singleGetHeight->setObjectName(QString::fromUtf8("singleGetHeight"));
 
-        gridLayout->addWidget(frameBack, 1, 0, 1, 1);
-
-        continueButton = new QPushButton(HeightSelect);
-        continueButton->setObjectName(QString::fromUtf8("continueButton"));
-
-        gridLayout->addWidget(continueButton, 1, 2, 1, 1);
-
-        frameForward = new QPushButton(HeightSelect);
-        frameForward->setObjectName(QString::fromUtf8("frameForward"));
-
-        gridLayout->addWidget(frameForward, 1, 3, 1, 1);
-
-        singleLabel = new QLabel(HeightSelect);
-        singleLabel->setObjectName(QString::fromUtf8("singleLabel"));
-
-        gridLayout->addWidget(singleLabel, 2, 0, 1, 1);
-
-        doubleLineEdit = new QLineEdit(HeightSelect);
-        doubleLineEdit->setObjectName(QString::fromUtf8("doubleLineEdit"));
-
-        gridLayout->addWidget(doubleLineEdit, 2, 1, 1, 2);
-
-        doubleLabel = new QLabel(HeightSelect);
-        doubleLabel->setObjectName(QString::fromUtf8("doubleLabel"));
-
-        gridLayout->addWidget(doubleLabel, 3, 0, 1, 1);
-
-        singleLineEdit = new QLineEdit(HeightSelect);
-        singleLineEdit->setObjectName(QString::fromUtf8("singleLineEdit"));
-
-        gridLayout->addWidget(singleLineEdit, 3, 1, 1, 2);
-
-        autoLabel = new QLabel(HeightSelect);
-        autoLabel->setObjectName(QString::fromUtf8("autoLabel"));
-
-        gridLayout->addWidget(autoLabel, 4, 0, 1, 1);
+        gridLayout->addWidget(singleGetHeight, 3, 3, 1, 1);
 
         autoCheckBox = new QCheckBox(HeightSelect);
         autoCheckBox->setObjectName(QString::fromUtf8("autoCheckBox"));
 
-        gridLayout->addWidget(autoCheckBox, 4, 1, 1, 1);
+        gridLayout->addWidget(autoCheckBox, 5, 1, 1, 1);
 
         backButton = new QPushButton(HeightSelect);
         backButton->setObjectName(QString::fromUtf8("backButton"));
 
-        gridLayout->addWidget(backButton, 4, 3, 1, 1);
+        gridLayout->addWidget(backButton, 5, 3, 1, 1);
+
+        doubleGetHeight = new QPushButton(HeightSelect);
+        doubleGetHeight->setObjectName(QString::fromUtf8("doubleGetHeight"));
+
+        gridLayout->addWidget(doubleGetHeight, 4, 3, 1, 1);
+
+        frameBack = new QPushButton(HeightSelect);
+        frameBack->setObjectName(QString::fromUtf8("frameBack"));
+
+        gridLayout->addWidget(frameBack, 2, 0, 1, 1);
+
+        doubleLabel = new QLabel(HeightSelect);
+        doubleLabel->setObjectName(QString::fromUtf8("doubleLabel"));
+
+        gridLayout->addWidget(doubleLabel, 4, 0, 1, 1);
+
+        singleLabel = new QLabel(HeightSelect);
+        singleLabel->setObjectName(QString::fromUtf8("singleLabel"));
+
+        gridLayout->addWidget(singleLabel, 3, 0, 1, 1);
+
+        autoLabel = new QLabel(HeightSelect);
+        autoLabel->setObjectName(QString::fromUtf8("autoLabel"));
+
+        gridLayout->addWidget(autoLabel, 5, 0, 1, 1);
+
+        frameForward = new QPushButton(HeightSelect);
+        frameForward->setObjectName(QString::fromUtf8("frameForward"));
+
+        gridLayout->addWidget(frameForward, 2, 3, 1, 1);
+
+        continueButton = new QPushButton(HeightSelect);
+        continueButton->setObjectName(QString::fromUtf8("continueButton"));
+
+        gridLayout->addWidget(continueButton, 2, 2, 1, 1);
+
+        singleLineEdit = new QLineEdit(HeightSelect);
+        singleLineEdit->setObjectName(QString::fromUtf8("singleLineEdit"));
+
+        gridLayout->addWidget(singleLineEdit, 3, 2, 1, 1);
+
+        doubleLineEdit = new QLineEdit(HeightSelect);
+        doubleLineEdit->setObjectName(QString::fromUtf8("doubleLineEdit"));
+
+        gridLayout->addWidget(doubleLineEdit, 4, 2, 1, 1);
 
 
         retranslateUi(HeightSelect);
@@ -110,14 +122,16 @@ public:
     void retranslateUi(QWidget *HeightSelect)
     {
         HeightSelect->setWindowTitle(QCoreApplication::translate("HeightSelect", "HeightSelect", nullptr));
-        frameBack->setText(QCoreApplication::translate("HeightSelect", "<<5", nullptr));
-        continueButton->setText(QCoreApplication::translate("HeightSelect", "Continue", nullptr));
-        frameForward->setText(QCoreApplication::translate("HeightSelect", "5>>", nullptr));
-        singleLabel->setText(QCoreApplication::translate("HeightSelect", "Single box height (px)", nullptr));
-        doubleLabel->setText(QCoreApplication::translate("HeightSelect", "Double box height (px)", nullptr));
-        autoLabel->setText(QCoreApplication::translate("HeightSelect", "auto detect box heights", nullptr));
+        singleGetHeight->setText(QCoreApplication::translate("HeightSelect", "Get height", nullptr));
         autoCheckBox->setText(QString());
         backButton->setText(QCoreApplication::translate("HeightSelect", "Back", nullptr));
+        doubleGetHeight->setText(QCoreApplication::translate("HeightSelect", "Get height", nullptr));
+        frameBack->setText(QCoreApplication::translate("HeightSelect", "<<5", nullptr));
+        doubleLabel->setText(QCoreApplication::translate("HeightSelect", "Double box height (px)", nullptr));
+        singleLabel->setText(QCoreApplication::translate("HeightSelect", "Single box height (px)", nullptr));
+        autoLabel->setText(QCoreApplication::translate("HeightSelect", "auto detect box heights", nullptr));
+        frameForward->setText(QCoreApplication::translate("HeightSelect", "5>>", nullptr));
+        continueButton->setText(QCoreApplication::translate("HeightSelect", "Continue", nullptr));
     } // retranslateUi
 
 };

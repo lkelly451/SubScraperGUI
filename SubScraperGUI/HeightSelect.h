@@ -28,6 +28,8 @@ private slots:
 	void on_continueButton_clicked();
 	void on_frameForward_clicked();
 	void on_frameBack_clicked();
+	void on_singleGetHeight_clicked();
+	void on_doubleGetHeight_clicked();
 private:
 	Ui::HeightSelect ui;
 	QString widthBegin;

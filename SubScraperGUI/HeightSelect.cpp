@@ -4,6 +4,7 @@
 #include <opencv2/imgcodecs.hpp>
 #include "QGraphicsPixmapItem"
 #include <iostream>
+#include <Frame.h>
 
 using namespace std;
 using namespace cv;
@@ -163,5 +164,35 @@ void HeightSelect::on_frameBack_clicked()
 		}
 	}
 
+}
+
+void HeightSelect::on_singleGetHeight_clicked()
+{
+	vector<cv::Vec2i> heightBoundaries;
+	Mat draw;
+	int height;
+	//construct frame 
+	Frame f(frame);
+	//detect box and get height
+	f.detectSingleBoxes(height);
+	//set height on singleLineEdit
+	ui.singleLineEdit->setText(QString::number(height));
+	cout << "Height: " << height << endl;
+
+	
+}
+
+void HeightSelect::on_doubleGetHeight_clicked()
+{
+	vector<cv::Vec2i> heightBoundaries;
+	Mat draw;
+	int height;
+	//construct frame 
+	Frame f(frame);
+	//detect box
+	f.detectDoubleBoxes(height);
+	//set height on doubleLineEdit
+	ui.doubleLineEdit->setText(QString::number(height));
+	cout << "Height: " << height << endl;
 }
 
