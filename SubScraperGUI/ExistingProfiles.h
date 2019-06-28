@@ -29,6 +29,15 @@ private slots:
 	void on_fileSelect_clicked();
 	void on_outputFileSelect_clicked();
 	void on_transcriptFileSelect_clicked();
+	void on_item_clicked(QListWidgetItem* item);
+	void on_goButton_clicked();
 private:
 	Ui::ExistingProfiles ui;
+	QString name;
+	int widthBegin;
+	int widthEnd;
+	int heightBegin;
+	int heightEnd;
+	int singleHeight;
+	int doubleHeight;
 };

@@ -9,6 +9,7 @@ class OutputSelect : public QWidget
 
 public:
 	OutputSelect(QWidget *parent = Q_NULLPTR);
+	OutputSelect(QString widthBegin, QString widthEnd, QString heightBegin, QString heightEnd, QString singleHeight, QString doubleHeight, QWidget* parent = Q_NULLPTR);
 	~OutputSelect();
 	QPushButton* getBackButton();
 	QPushButton* getGoButton();
@@ -24,7 +25,14 @@ private slots:
 	void on_outputFileSelect_clicked();
 	void on_transcriptFileSelect_clicked();
 	void on_goButton_clicked();
+	void on_saveProfileButton_clicked();
 
 private:
 	Ui::OutputSelect ui;
+	QString widthBegin;
+	QString widthEnd;
+	QString heightBegin;
+	QString heightEnd;
+	QString singleHeight;
+	QString doubleHeight;
 };
