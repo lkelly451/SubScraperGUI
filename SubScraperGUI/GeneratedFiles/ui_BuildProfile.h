@@ -34,7 +34,6 @@ public:
     QHBoxLayout *horizontalLayout_2;
     QLineEdit *inputLineEdit;
     QPushButton *fileSelect;
-    QSpacerItem *horizontalSpacer_2;
     QPushButton *previewButton;
     QHBoxLayout *horizontalLayout_3;
     QLabel *widthBeginLabel;
@@ -53,6 +52,7 @@ public:
     QPushButton *continueButton;
     QPushButton *frameForward;
     QHBoxLayout *horizontalLayout_5;
+    QLabel *continueWarning;
     QSpacerItem *horizontalSpacer;
     QPushButton *backButton;
 
@@ -94,10 +94,6 @@ public:
         fileSelect->setObjectName(QString::fromUtf8("fileSelect"));
 
         horizontalLayout_2->addWidget(fileSelect);
-
-        horizontalSpacer_2 = new QSpacerItem(88, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_2->addItem(horizontalSpacer_2);
 
         previewButton = new QPushButton(BuildProfile);
         previewButton->setObjectName(QString::fromUtf8("previewButton"));
@@ -203,6 +199,11 @@ public:
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setSpacing(6);
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
+        continueWarning = new QLabel(BuildProfile);
+        continueWarning->setObjectName(QString::fromUtf8("continueWarning"));
+
+        horizontalLayout_5->addWidget(continueWarning);
+
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_5->addItem(horizontalSpacer);
@@ -237,6 +238,7 @@ public:
         frameBack->setText(QCoreApplication::translate("BuildProfile", "<<5", nullptr));
         continueButton->setText(QCoreApplication::translate("BuildProfile", "Continue", nullptr));
         frameForward->setText(QCoreApplication::translate("BuildProfile", "5>>", nullptr));
+        continueWarning->setText(QString());
         backButton->setText(QCoreApplication::translate("BuildProfile", "Back", nullptr));
     } // retranslateUi
 

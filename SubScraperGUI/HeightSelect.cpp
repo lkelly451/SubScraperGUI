@@ -112,10 +112,15 @@ void HeightSelect::on_backButton_clicked()
 
 void HeightSelect::on_continueButton_clicked() 
 {
-	OutputSelect* outputSelect = new OutputSelect();
-	outputSelect->setAttribute(Qt::WA_DeleteOnClose);
-	outputSelect->show();
-	this->close();
+	if (ui.autoCheckBox->isChecked() || !ui.doubleLineEdit->text().isEmpty() && !ui.doubleLineEdit->text().isEmpty()) {
+		OutputSelect* outputSelect = new OutputSelect();
+		outputSelect->setAttribute(Qt::WA_DeleteOnClose);
+		outputSelect->show();
+		this->close();
+	}
+	else {
+		ui.continueWarning->setText("Please input heights for single and double subtitle boxes or check auto detect box heights before continuing.");
+	}
 }
 
 void HeightSelect::on_frameForward_clicked()

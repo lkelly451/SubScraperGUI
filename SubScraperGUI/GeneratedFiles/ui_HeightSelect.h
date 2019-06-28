@@ -38,6 +38,7 @@ public:
     QPushButton *continueButton;
     QLineEdit *singleLineEdit;
     QLineEdit *doubleLineEdit;
+    QLabel *continueWarning;
 
     void setupUi(QWidget *HeightSelect)
     {
@@ -113,6 +114,11 @@ public:
 
         gridLayout->addWidget(doubleLineEdit, 4, 2, 1, 1);
 
+        continueWarning = new QLabel(HeightSelect);
+        continueWarning->setObjectName(QString::fromUtf8("continueWarning"));
+
+        gridLayout->addWidget(continueWarning, 5, 2, 1, 1);
+
 
         retranslateUi(HeightSelect);
 
@@ -132,6 +138,7 @@ public:
         autoLabel->setText(QCoreApplication::translate("HeightSelect", "auto detect box heights", nullptr));
         frameForward->setText(QCoreApplication::translate("HeightSelect", "5>>", nullptr));
         continueButton->setText(QCoreApplication::translate("HeightSelect", "Continue", nullptr));
+        continueWarning->setText(QString());
     } // retranslateUi
 
 };

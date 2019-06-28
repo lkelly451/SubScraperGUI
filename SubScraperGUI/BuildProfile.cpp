@@ -74,10 +74,15 @@ void BuildProfile::on_backButton_clicked()
 
 void BuildProfile::on_continueButton_clicked()
 {
-	HeightSelect* heightSelect = new HeightSelect(ui.widthBegin->text(), ui.widthEnd->text(), ui.heightBegin->text(), ui.heightEnd->text(), ui.inputLineEdit->text(), cap.get(CAP_PROP_POS_FRAMES));
-	heightSelect->setAttribute(Qt::WA_DeleteOnClose);
-	heightSelect->show();
-	this->close();
+	if (ui.widthBegin->text().isEmpty() || ui.widthEnd->text().isEmpty() || ui.heightBegin->text().isEmpty() || ui.heightEnd->text().isEmpty() || ui.inputLineEdit->text().isEmpty()) {
+		ui.continueWarning->setText("Please select a video file and ensure all crop height and width parameters are filled before continuing.");
+	}
+	else {
+		HeightSelect* heightSelect = new HeightSelect(ui.widthBegin->text(), ui.widthEnd->text(), ui.heightBegin->text(), ui.heightEnd->text(), ui.inputLineEdit->text(), cap.get(CAP_PROP_POS_FRAMES));
+		heightSelect->setAttribute(Qt::WA_DeleteOnClose);
+		heightSelect->show();
+		this->close();
+	}
 }
 
 void BuildProfile::on_fileSelect_clicked()

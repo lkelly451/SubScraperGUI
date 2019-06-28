@@ -23,6 +23,7 @@ private slots:
 	void on_backButton_clicked();
 	void on_outputFileSelect_clicked();
 	void on_transcriptFileSelect_clicked();
+	void on_goButton_clicked();
 
 private:
 	Ui::OutputSelect ui;

@@ -73,3 +73,13 @@ void OutputSelect::on_transcriptFileSelect_clicked()
 		this, tr("Open File"), "C://", tr("Text files (*.txt)"));
 	ui.transcriptLineEdit->setText(filename);
 }
+
+void OutputSelect::on_goButton_clicked()
+{
+	if (ui.outputLineEdit->text().isEmpty()) {
+		ui.continueWarning->setText("Please select where to save the subtitle output before continuing.");
+	}
+	else {
+		//Go!
+	}
+}

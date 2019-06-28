@@ -23,14 +23,15 @@ class Ui_OutputSelect
 {
 public:
     QGridLayout *gridLayout;
-    QLabel *outputLabel;
     QLineEdit *outputLineEdit;
-    QPushButton *outputFileSelect;
     QLabel *transcriptLabel;
     QLineEdit *transcriptLineEdit;
-    QPushButton *transcriptFileSelect;
+    QPushButton *outputFileSelect;
     QPushButton *backButton;
+    QPushButton *transcriptFileSelect;
+    QLabel *outputLabel;
     QPushButton *goButton;
+    QLabel *continueWarning;
 
     void setupUi(QWidget *OutputSelect)
     {
@@ -41,20 +42,10 @@ public:
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        outputLabel = new QLabel(OutputSelect);
-        outputLabel->setObjectName(QString::fromUtf8("outputLabel"));
-
-        gridLayout->addWidget(outputLabel, 0, 0, 1, 1);
-
         outputLineEdit = new QLineEdit(OutputSelect);
         outputLineEdit->setObjectName(QString::fromUtf8("outputLineEdit"));
 
         gridLayout->addWidget(outputLineEdit, 1, 0, 1, 2);
-
-        outputFileSelect = new QPushButton(OutputSelect);
-        outputFileSelect->setObjectName(QString::fromUtf8("outputFileSelect"));
-
-        gridLayout->addWidget(outputFileSelect, 1, 2, 1, 1);
 
         transcriptLabel = new QLabel(OutputSelect);
         transcriptLabel->setObjectName(QString::fromUtf8("transcriptLabel"));
@@ -66,20 +57,35 @@ public:
 
         gridLayout->addWidget(transcriptLineEdit, 3, 0, 1, 2);
 
+        outputFileSelect = new QPushButton(OutputSelect);
+        outputFileSelect->setObjectName(QString::fromUtf8("outputFileSelect"));
+
+        gridLayout->addWidget(outputFileSelect, 1, 2, 1, 1);
+
+        backButton = new QPushButton(OutputSelect);
+        backButton->setObjectName(QString::fromUtf8("backButton"));
+
+        gridLayout->addWidget(backButton, 5, 0, 1, 1);
+
         transcriptFileSelect = new QPushButton(OutputSelect);
         transcriptFileSelect->setObjectName(QString::fromUtf8("transcriptFileSelect"));
 
         gridLayout->addWidget(transcriptFileSelect, 3, 2, 1, 1);
 
-        backButton = new QPushButton(OutputSelect);
-        backButton->setObjectName(QString::fromUtf8("backButton"));
+        outputLabel = new QLabel(OutputSelect);
+        outputLabel->setObjectName(QString::fromUtf8("outputLabel"));
 
-        gridLayout->addWidget(backButton, 4, 0, 1, 1);
+        gridLayout->addWidget(outputLabel, 0, 0, 1, 1);
 
         goButton = new QPushButton(OutputSelect);
         goButton->setObjectName(QString::fromUtf8("goButton"));
 
-        gridLayout->addWidget(goButton, 4, 1, 1, 2);
+        gridLayout->addWidget(goButton, 5, 1, 1, 2);
+
+        continueWarning = new QLabel(OutputSelect);
+        continueWarning->setObjectName(QString::fromUtf8("continueWarning"));
+
+        gridLayout->addWidget(continueWarning, 4, 0, 1, 1);
 
 
         retranslateUi(OutputSelect);
@@ -90,12 +96,13 @@ public:
     void retranslateUi(QWidget *OutputSelect)
     {
         OutputSelect->setWindowTitle(QCoreApplication::translate("OutputSelect", "OutputSelect", nullptr));
-        outputLabel->setText(QCoreApplication::translate("OutputSelect", "Output file:", nullptr));
-        outputFileSelect->setText(QCoreApplication::translate("OutputSelect", "...", nullptr));
         transcriptLabel->setText(QCoreApplication::translate("OutputSelect", "Transcript file:", nullptr));
-        transcriptFileSelect->setText(QCoreApplication::translate("OutputSelect", "...", nullptr));
+        outputFileSelect->setText(QCoreApplication::translate("OutputSelect", "...", nullptr));
         backButton->setText(QCoreApplication::translate("OutputSelect", "Back", nullptr));
+        transcriptFileSelect->setText(QCoreApplication::translate("OutputSelect", "...", nullptr));
+        outputLabel->setText(QCoreApplication::translate("OutputSelect", "Output file:", nullptr));
         goButton->setText(QCoreApplication::translate("OutputSelect", "Go", nullptr));
+        continueWarning->setText(QString());
     } // retranslateUi
 
 };
