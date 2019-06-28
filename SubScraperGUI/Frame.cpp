@@ -82,7 +82,7 @@ void Frame::drawHough(cv::Mat& dst, vector<cv::Vec4i> filteredLines)
 	if (!filteredLines.empty()) {
 		for (size_t i = 0; i < filteredLines.size(); i++) {
 			cv::Vec4i l = filteredLines[i];
-			line(dst, cv::Point(l[0], l[1]), cv::Point(l[2], l[3]), 255, 3, cv::LINE_AA);
+			line(dst, cv::Point(l[0], l[1]), cv::Point(l[2], l[3]), 255, 1, cv::LINE_AA);
 		}
 	}
 
@@ -193,10 +193,9 @@ void Frame::detectBoxes(int singleHeight, int doubleHeight, vector<cv::Vec2i> & 
 	heightBoundaryRecorder(filteredLines, heightBoundaries);
 }
 
-void Frame::detectDoubleBoxes(int& height) {
+void Frame::detectDoubleBoxes(int& height, vector <cv::Vec4i>& lines) {
 	std::vector<std::vector<cv::Point>> contours;
 	std::vector<cv::Vec4i> hierarchy;
-	vector <cv::Vec4i> lines;
 	vector<cv::Vec4i> filteredLines;
 	cv::Mat draw;
 
@@ -210,10 +209,9 @@ void Frame::detectDoubleBoxes(int& height) {
 	detectHorizontalHough(draw, lines, height);
 }
 
-void Frame::detectSingleBoxes(int& height) {
+void Frame::detectSingleBoxes(int& height, vector <cv::Vec4i>& lines) {
 	std::vector<std::vector<cv::Point>> contours;
 	std::vector<cv::Vec4i> hierarchy;
-	vector <cv::Vec4i> lines;
 	vector<cv::Vec4i> filteredLines;
 	cv::Mat draw;
 
@@ -228,10 +226,6 @@ void Frame::detectSingleBoxes(int& height) {
 	
 	//detect box and get height 
 	detectHorizontalHough(draw, lines, height);
-
-	drawHough(draw, lines);
-	imshow("image", draw);
-	cv::waitKey(0);
 }
 
 

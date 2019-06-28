@@ -169,30 +169,52 @@ void HeightSelect::on_frameBack_clicked()
 void HeightSelect::on_singleGetHeight_clicked()
 {
 	vector<cv::Vec2i> heightBoundaries;
+	vector <cv::Vec4i> lines;
 	Mat draw;
 	int height;
 	//construct frame 
 	Frame f(frame);
 	//detect box and get height
-	f.detectSingleBoxes(height);
+	f.detectSingleBoxes(height, lines);
 	//set height on singleLineEdit
 	ui.singleLineEdit->setText(QString::number(height));
-	cout << "Height: " << height << endl;
-
-	
+	//draw potential subtitle box lines onto image for user to view
+	if (lines.size() == 2) {
+		f.drawHough(frame, lines);
+		imwrite("frame.jpeg", frame);
+		QImage image("frame.jpeg");
+		scene = new QGraphicsScene(this);
+		ui.framePreview->scene()->deleteLater();
+		ui.framePreview->setScene(scene);
+		item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
+		scene->addItem(item);
+		ui.framePreview->show();
+	}	
 }
 
 void HeightSelect::on_doubleGetHeight_clicked()
 {
 	vector<cv::Vec2i> heightBoundaries;
+	vector <cv::Vec4i> lines;
 	Mat draw;
 	int height;
 	//construct frame 
 	Frame f(frame);
 	//detect box
-	f.detectDoubleBoxes(height);
+	f.detectDoubleBoxes(height, lines);
 	//set height on doubleLineEdit
 	ui.doubleLineEdit->setText(QString::number(height));
-	cout << "Height: " << height << endl;
+	//draw potential subtitle box lines onto image for user to view
+	if (lines.size() == 2) {
+		f.drawHough(frame, lines);
+		imwrite("frame.jpeg", frame);
+		QImage image("frame.jpeg");
+		scene = new QGraphicsScene(this);
+		ui.framePreview->scene()->deleteLater();
+		ui.framePreview->setScene(scene);
+		item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
+		scene->addItem(item);
+		ui.framePreview->show();
+	}
 }
 
