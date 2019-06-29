@@ -26,6 +26,12 @@ private slots:
 	void on_transcriptFileSelect_clicked();
 	void on_goButton_clicked();
 	void on_saveProfileButton_clicked();
+	void on_lengthFilterLineEdit_editingFinished();
+	void on_leftWindowLineEdit_editingFinished();
+	void on_rightWindowLineEdit_editingFinished();
+	void on_wordConfidenceLineEdit_editingFinished();
+	void on_lineConfidenceLineEdit_editingFinished();
+	void on_compareThresholdLineEdit_editingFinished();
 
 private:
 	Ui::OutputSelect ui;
@@ -35,4 +41,10 @@ private:
 	QString heightEnd;
 	QString singleHeight;
 	QString doubleHeight;
+	QString dropLength;
+	QString windowSizeLeft;
+	QString windowSizeRight;
+	QString wordConfidence;
+	QString lineConfidence;
+	QString compareThreshold;
 };

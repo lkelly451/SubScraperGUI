@@ -10,6 +10,7 @@ ExistingProfiles::ExistingProfiles(QWidget *parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
+	//load the names of any saved profiles into the profile list
 	ifstream loadProfile("Profiles.txt");
 	if (loadProfile) {
 		string name;
@@ -20,7 +21,7 @@ ExistingProfiles::ExistingProfiles(QWidget *parent)
 				QListWidgetItem* item = new QListWidgetItem(profileName, ui.profileList);
 				ui.profileList->setCurrentItem(item);
 			}
-			for (size_t i = 0; i < 7; i++) {
+			for (size_t i = 0; i < 13; i++) {
 				loadProfile.ignore(256, '\n');
 			}
 		}
@@ -138,6 +139,25 @@ void ExistingProfiles::on_item_clicked(QListWidgetItem* item)
 				loadProfile >> heightEnd;
 				loadProfile >> singleHeight;
 				loadProfile >> doubleHeight;
+				loadProfile >> dropLength;				
+				loadProfile >> windowSizeLeft;				
+				loadProfile >> windowSizeRight;			
+				loadProfile >> wordConfidence; 			
+				loadProfile >> lineConfidence;
+				loadProfile >> compareThreshold;
+
+				cout << widthBegin << endl;
+				cout << widthEnd << endl;
+				cout << heightBegin << endl;
+				cout << heightEnd << endl;
+				cout << singleHeight << endl;
+				cout << doubleHeight << endl;
+				cout << dropLength << endl;
+				cout << windowSizeLeft << endl;
+				cout << windowSizeRight << endl;
+				cout << wordConfidence << endl;
+				cout << lineConfidence << endl;
+				cout << compareThreshold << endl;
 				break;
 			}
 		}

@@ -21,6 +21,12 @@ OutputSelect::OutputSelect(QString widthBegin, QString widthEnd, QString heightB
 	this->heightEnd = heightEnd;
 	this->singleHeight = singleHeight;
 	this->doubleHeight = doubleHeight;
+	this->dropLength = ui.lengthFilterLineEdit->text();
+	this->windowSizeLeft = ui.leftWindowLineEdit->text();
+	this->windowSizeRight = ui.rightWindowLineEdit->text();
+	this->wordConfidence = ui.wordConfidenceLineEdit->text();
+	this->lineConfidence = ui.lineConfidenceLineEdit->text();
+	this->compareThreshold = ui.compareThresholdLineEdit->text();
 }
 OutputSelect::~OutputSelect()
 {
@@ -109,19 +115,58 @@ void OutputSelect::on_saveProfileButton_clicked()
 	if (ui.profileName->text().isEmpty()) {
 		ui.profileNameWarning->setText("Please enter a profile name to save a profile.");
 	}
-	else {
+	else if (!widthBegin.isEmpty() && !widthEnd.isEmpty() && !heightBegin.isEmpty() && !heightEnd.isEmpty() && !singleHeight.isEmpty() && !doubleHeight.isEmpty() && !dropLength.isEmpty()
+		&& !windowSizeLeft.isEmpty() && !windowSizeRight.isEmpty() && !wordConfidence.isEmpty() && !lineConfidence.isEmpty() && !compareThreshold.isEmpty()){
 		ofstream saveFile;
 		string fileName = "Profiles.txt";
 		saveFile.open(fileName, ios_base::app);
 		saveFile  << ui.profileName->text().toStdString() << endl;
-		saveFile  << this->widthBegin.toStdString() << endl;
-		saveFile  << this->widthEnd.toStdString() << endl;
-		saveFile  << this->heightBegin.toStdString() << endl;
-		saveFile  << this->heightEnd.toStdString() << endl;
-		saveFile  << this->singleHeight.toStdString() << endl;
-		saveFile  << this->doubleHeight.toStdString() << endl;
+		saveFile  << widthBegin.toStdString() << endl;
+		saveFile  << widthEnd.toStdString() << endl;
+		saveFile  << heightBegin.toStdString() << endl;
+		saveFile  << heightEnd.toStdString() << endl;
+		saveFile  << singleHeight.toStdString() << endl;
+		saveFile  << doubleHeight.toStdString() << endl;
+		saveFile << dropLength.toStdString() << endl;
+		saveFile << windowSizeLeft.toStdString() << endl;
+		saveFile << windowSizeRight.toStdString() << endl;
+		saveFile << wordConfidence.toStdString() << endl;
+		saveFile << lineConfidence.toStdString() << endl;
+		saveFile << compareThreshold.toStdString() << endl;
 		saveFile << endl;
 		saveFile.close();
 		ui.profileNameWarning->setText("Profile saved!");
+	} else {
+		ui.profileNameWarning->setText("Please ensure all fields are filled before saving a profile.");
 	}
+}
+
+void OutputSelect::on_lengthFilterLineEdit_editingFinished()
+{
+	this->dropLength = ui.lengthFilterLineEdit->text();
+}
+
+void OutputSelect::on_leftWindowLineEdit_editingFinished()
+{
+	this->windowSizeLeft = ui.leftWindowLineEdit->text();
+}
+
+void OutputSelect::on_rightWindowLineEdit_editingFinished()
+{
+	this->windowSizeRight = ui.rightWindowLineEdit->text();
+}
+
+void OutputSelect::on_wordConfidenceLineEdit_editingFinished()
+{
+	this->wordConfidence = ui.wordConfidenceLineEdit->text();
+}
+
+void OutputSelect::on_lineConfidenceLineEdit_editingFinished()
+{
+	this->lineConfidence = ui.lineConfidenceLineEdit->text();
+}
+
+void OutputSelect::on_compareThresholdLineEdit_editingFinished()
+{
+	this->compareThreshold = ui.compareThresholdLineEdit->text();
 }

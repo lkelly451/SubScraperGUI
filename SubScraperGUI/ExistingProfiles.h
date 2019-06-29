@@ -40,4 +40,10 @@ private:
 	int heightEnd;
 	int singleHeight;
 	int doubleHeight;
+	int dropLength;
+	int windowSizeLeft;
+	int windowSizeRight;
+	int wordConfidence;
+	int lineConfidence;
+	double compareThreshold;
 };
