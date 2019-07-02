@@ -16,14 +16,12 @@ public:
 	QPushButton* getOutputFileSelect();
 	QLabel* getOutputLabel();
 	QLineEdit* getOutputLineEdit();
-	QPushButton* getTranscriptFileSelect();
 	QLabel* getTranscriptLabel();
 	QLineEdit* getTranscriptLineEdit();
 
 private slots:
 	void on_backButton_clicked();
 	void on_outputFileSelect_clicked();
-	void on_transcriptFileSelect_clicked();
 	void on_goButton_clicked();
 	void on_saveProfileButton_clicked();
 	void on_lengthFilterLineEdit_editingFinished();
@@ -32,6 +30,7 @@ private slots:
 	void on_wordConfidenceLineEdit_editingFinished();
 	void on_lineConfidenceLineEdit_editingFinished();
 	void on_compareThresholdLineEdit_editingFinished();
+	void on_dupeThresholdLineEdit_editingFinished();
 
 private:
 	Ui::OutputSelect ui;
@@ -47,4 +46,5 @@ private:
 	QString wordConfidence;
 	QString lineConfidence;
 	QString compareThreshold;
+	QString dupeThreshold;
 };

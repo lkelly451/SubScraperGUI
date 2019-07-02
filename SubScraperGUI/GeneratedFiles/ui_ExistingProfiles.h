@@ -25,20 +25,17 @@ class Ui_ExistingProfiles
 public:
     QWidget *layoutWidget;
     QGridLayout *gridLayout;
-    QPushButton *fileSelect;
-    QPushButton *transcriptFileSelect;
-    QPushButton *outputFileSelect;
-    QLineEdit *transcriptLineEdit;
-    QLabel *inputLabel;
-    QLineEdit *inputLineEdit;
-    QLabel *existingLabel;
     QLabel *outputLabel;
-    QLabel *transcriptLabel;
+    QPushButton *goButton;
     QListWidget *profileList;
     QLineEdit *outputLineEdit;
-    QPushButton *goButton;
     QPushButton *backButton;
+    QLineEdit *inputLineEdit;
+    QPushButton *outputFileSelect;
+    QPushButton *fileSelect;
     QLabel *goWarningLabel;
+    QLabel *inputLabel;
+    QLabel *existingLabel;
 
     void setupUi(QWidget *ExistingProfiles)
     {
@@ -53,75 +50,60 @@ public:
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        fileSelect = new QPushButton(layoutWidget);
-        fileSelect->setObjectName(QString::fromUtf8("fileSelect"));
-
-        gridLayout->addWidget(fileSelect, 2, 3, 1, 1);
-
-        transcriptFileSelect = new QPushButton(layoutWidget);
-        transcriptFileSelect->setObjectName(QString::fromUtf8("transcriptFileSelect"));
-
-        gridLayout->addWidget(transcriptFileSelect, 6, 3, 1, 1);
-
-        outputFileSelect = new QPushButton(layoutWidget);
-        outputFileSelect->setObjectName(QString::fromUtf8("outputFileSelect"));
-
-        gridLayout->addWidget(outputFileSelect, 4, 3, 1, 1);
-
-        transcriptLineEdit = new QLineEdit(layoutWidget);
-        transcriptLineEdit->setObjectName(QString::fromUtf8("transcriptLineEdit"));
-
-        gridLayout->addWidget(transcriptLineEdit, 6, 1, 1, 2);
-
-        inputLabel = new QLabel(layoutWidget);
-        inputLabel->setObjectName(QString::fromUtf8("inputLabel"));
-
-        gridLayout->addWidget(inputLabel, 1, 1, 1, 1);
-
-        inputLineEdit = new QLineEdit(layoutWidget);
-        inputLineEdit->setObjectName(QString::fromUtf8("inputLineEdit"));
-
-        gridLayout->addWidget(inputLineEdit, 2, 1, 1, 2);
-
-        existingLabel = new QLabel(layoutWidget);
-        existingLabel->setObjectName(QString::fromUtf8("existingLabel"));
-
-        gridLayout->addWidget(existingLabel, 0, 0, 1, 1);
-
         outputLabel = new QLabel(layoutWidget);
         outputLabel->setObjectName(QString::fromUtf8("outputLabel"));
 
         gridLayout->addWidget(outputLabel, 3, 1, 1, 1);
 
-        transcriptLabel = new QLabel(layoutWidget);
-        transcriptLabel->setObjectName(QString::fromUtf8("transcriptLabel"));
+        goButton = new QPushButton(layoutWidget);
+        goButton->setObjectName(QString::fromUtf8("goButton"));
 
-        gridLayout->addWidget(transcriptLabel, 5, 1, 1, 1);
+        gridLayout->addWidget(goButton, 6, 1, 1, 1);
 
         profileList = new QListWidget(layoutWidget);
         profileList->setObjectName(QString::fromUtf8("profileList"));
 
-        gridLayout->addWidget(profileList, 1, 0, 8, 1);
+        gridLayout->addWidget(profileList, 1, 0, 6, 1);
 
         outputLineEdit = new QLineEdit(layoutWidget);
         outputLineEdit->setObjectName(QString::fromUtf8("outputLineEdit"));
 
         gridLayout->addWidget(outputLineEdit, 4, 1, 1, 2);
 
-        goButton = new QPushButton(layoutWidget);
-        goButton->setObjectName(QString::fromUtf8("goButton"));
-
-        gridLayout->addWidget(goButton, 8, 1, 1, 1);
-
         backButton = new QPushButton(layoutWidget);
         backButton->setObjectName(QString::fromUtf8("backButton"));
 
-        gridLayout->addWidget(backButton, 8, 3, 1, 1);
+        gridLayout->addWidget(backButton, 6, 3, 1, 1);
+
+        inputLineEdit = new QLineEdit(layoutWidget);
+        inputLineEdit->setObjectName(QString::fromUtf8("inputLineEdit"));
+
+        gridLayout->addWidget(inputLineEdit, 2, 1, 1, 2);
+
+        outputFileSelect = new QPushButton(layoutWidget);
+        outputFileSelect->setObjectName(QString::fromUtf8("outputFileSelect"));
+
+        gridLayout->addWidget(outputFileSelect, 4, 3, 1, 1);
+
+        fileSelect = new QPushButton(layoutWidget);
+        fileSelect->setObjectName(QString::fromUtf8("fileSelect"));
+
+        gridLayout->addWidget(fileSelect, 2, 3, 1, 1);
 
         goWarningLabel = new QLabel(layoutWidget);
         goWarningLabel->setObjectName(QString::fromUtf8("goWarningLabel"));
 
-        gridLayout->addWidget(goWarningLabel, 7, 1, 1, 1);
+        gridLayout->addWidget(goWarningLabel, 5, 1, 1, 1);
+
+        inputLabel = new QLabel(layoutWidget);
+        inputLabel->setObjectName(QString::fromUtf8("inputLabel"));
+
+        gridLayout->addWidget(inputLabel, 1, 1, 1, 1);
+
+        existingLabel = new QLabel(layoutWidget);
+        existingLabel->setObjectName(QString::fromUtf8("existingLabel"));
+
+        gridLayout->addWidget(existingLabel, 0, 0, 1, 1);
 
 
         retranslateUi(ExistingProfiles);
@@ -132,16 +114,14 @@ public:
     void retranslateUi(QWidget *ExistingProfiles)
     {
         ExistingProfiles->setWindowTitle(QCoreApplication::translate("ExistingProfiles", "ExistingProfiles", nullptr));
-        fileSelect->setText(QCoreApplication::translate("ExistingProfiles", "...", nullptr));
-        transcriptFileSelect->setText(QCoreApplication::translate("ExistingProfiles", "...", nullptr));
-        outputFileSelect->setText(QCoreApplication::translate("ExistingProfiles", "...", nullptr));
-        inputLabel->setText(QCoreApplication::translate("ExistingProfiles", "Input file:", nullptr));
-        existingLabel->setText(QCoreApplication::translate("ExistingProfiles", "Existing profiles:", nullptr));
         outputLabel->setText(QCoreApplication::translate("ExistingProfiles", "Output file:", nullptr));
-        transcriptLabel->setText(QCoreApplication::translate("ExistingProfiles", "Transcript file: ", nullptr));
         goButton->setText(QCoreApplication::translate("ExistingProfiles", "Go", nullptr));
         backButton->setText(QCoreApplication::translate("ExistingProfiles", "Back", nullptr));
+        outputFileSelect->setText(QCoreApplication::translate("ExistingProfiles", "...", nullptr));
+        fileSelect->setText(QCoreApplication::translate("ExistingProfiles", "...", nullptr));
         goWarningLabel->setText(QString());
+        inputLabel->setText(QCoreApplication::translate("ExistingProfiles", "Input file:", nullptr));
+        existingLabel->setText(QCoreApplication::translate("ExistingProfiles", "Existing profiles:", nullptr));
     } // retranslateUi
 
 };

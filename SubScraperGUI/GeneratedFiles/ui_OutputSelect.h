@@ -24,8 +24,8 @@ QT_BEGIN_NAMESPACE
 class Ui_OutputSelect
 {
 public:
-    QLabel *profileNameWarning;
-    QWidget *widget;
+    QGridLayout *gridLayout_2;
+    QVBoxLayout *verticalLayout_6;
     QGridLayout *gridLayout;
     QVBoxLayout *verticalLayout_2;
     QLabel *outputLabel;
@@ -42,11 +42,6 @@ public:
     QHBoxLayout *horizontalLayout_4;
     QPushButton *backButton;
     QPushButton *goButton;
-    QVBoxLayout *verticalLayout_3;
-    QLabel *transcriptLabel;
-    QHBoxLayout *horizontalLayout_3;
-    QLineEdit *transcriptLineEdit;
-    QPushButton *transcriptFileSelect;
     QVBoxLayout *verticalLayout_5;
     QLabel *advancedLabel;
     QHBoxLayout *horizontalLayout_5;
@@ -67,27 +62,30 @@ public:
     QHBoxLayout *horizontalLayout_10;
     QLabel *compareThresholdLabel;
     QLineEdit *compareThresholdLineEdit;
+    QHBoxLayout *horizontalLayout_11;
+    QLabel *dupeThresholdLabel;
+    QLineEdit *dupeThresholdLineEdit;
+    QLabel *profileNameWarning;
 
     void setupUi(QWidget *OutputSelect)
     {
         if (OutputSelect->objectName().isEmpty())
             OutputSelect->setObjectName(QString::fromUtf8("OutputSelect"));
         OutputSelect->resize(580, 345);
-        profileNameWarning = new QLabel(OutputSelect);
-        profileNameWarning->setObjectName(QString::fromUtf8("profileNameWarning"));
-        profileNameWarning->setGeometry(QRect(22, 71, 16, 16));
-        widget = new QWidget(OutputSelect);
-        widget->setObjectName(QString::fromUtf8("widget"));
-        widget->setGeometry(QRect(9, 9, 515, 289));
-        gridLayout = new QGridLayout(widget);
+        gridLayout_2 = new QGridLayout(OutputSelect);
+        gridLayout_2->setSpacing(6);
+        gridLayout_2->setContentsMargins(11, 11, 11, 11);
+        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        verticalLayout_6 = new QVBoxLayout();
+        verticalLayout_6->setSpacing(6);
+        verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
+        gridLayout = new QGridLayout();
         gridLayout->setSpacing(6);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        gridLayout->setContentsMargins(0, 0, 0, 0);
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
-        outputLabel = new QLabel(widget);
+        outputLabel = new QLabel(OutputSelect);
         outputLabel->setObjectName(QString::fromUtf8("outputLabel"));
 
         verticalLayout_2->addWidget(outputLabel);
@@ -95,12 +93,12 @@ public:
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
-        outputLineEdit = new QLineEdit(widget);
+        outputLineEdit = new QLineEdit(OutputSelect);
         outputLineEdit->setObjectName(QString::fromUtf8("outputLineEdit"));
 
         horizontalLayout_2->addWidget(outputLineEdit);
 
-        outputFileSelect = new QPushButton(widget);
+        outputFileSelect = new QPushButton(OutputSelect);
         outputFileSelect->setObjectName(QString::fromUtf8("outputFileSelect"));
 
         horizontalLayout_2->addWidget(outputFileSelect);
@@ -120,17 +118,17 @@ public:
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        profileLabel = new QLabel(widget);
+        profileLabel = new QLabel(OutputSelect);
         profileLabel->setObjectName(QString::fromUtf8("profileLabel"));
 
         horizontalLayout->addWidget(profileLabel);
 
-        profileName = new QLineEdit(widget);
+        profileName = new QLineEdit(OutputSelect);
         profileName->setObjectName(QString::fromUtf8("profileName"));
 
         horizontalLayout->addWidget(profileName);
 
-        saveProfileButton = new QPushButton(widget);
+        saveProfileButton = new QPushButton(OutputSelect);
         saveProfileButton->setObjectName(QString::fromUtf8("saveProfileButton"));
 
         horizontalLayout->addWidget(saveProfileButton);
@@ -138,64 +136,37 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
-        continueWarning = new QLabel(widget);
+        continueWarning = new QLabel(OutputSelect);
         continueWarning->setObjectName(QString::fromUtf8("continueWarning"));
 
         verticalLayout->addWidget(continueWarning);
 
-
-        verticalLayout_4->addLayout(verticalLayout);
-
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setSpacing(6);
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
-        backButton = new QPushButton(widget);
+        backButton = new QPushButton(OutputSelect);
         backButton->setObjectName(QString::fromUtf8("backButton"));
 
         horizontalLayout_4->addWidget(backButton);
 
-        goButton = new QPushButton(widget);
+        goButton = new QPushButton(OutputSelect);
         goButton->setObjectName(QString::fromUtf8("goButton"));
 
         horizontalLayout_4->addWidget(goButton);
 
 
-        verticalLayout_4->addLayout(horizontalLayout_4);
+        verticalLayout->addLayout(horizontalLayout_4);
+
+
+        verticalLayout_4->addLayout(verticalLayout);
 
 
         gridLayout->addLayout(verticalLayout_4, 0, 1, 2, 1);
 
-        verticalLayout_3 = new QVBoxLayout();
-        verticalLayout_3->setSpacing(6);
-        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
-        transcriptLabel = new QLabel(widget);
-        transcriptLabel->setObjectName(QString::fromUtf8("transcriptLabel"));
-
-        verticalLayout_3->addWidget(transcriptLabel);
-
-        horizontalLayout_3 = new QHBoxLayout();
-        horizontalLayout_3->setSpacing(6);
-        horizontalLayout_3->setObjectName(QString::fromUtf8("horizontalLayout_3"));
-        transcriptLineEdit = new QLineEdit(widget);
-        transcriptLineEdit->setObjectName(QString::fromUtf8("transcriptLineEdit"));
-
-        horizontalLayout_3->addWidget(transcriptLineEdit);
-
-        transcriptFileSelect = new QPushButton(widget);
-        transcriptFileSelect->setObjectName(QString::fromUtf8("transcriptFileSelect"));
-
-        horizontalLayout_3->addWidget(transcriptFileSelect);
-
-
-        verticalLayout_3->addLayout(horizontalLayout_3);
-
-
-        gridLayout->addLayout(verticalLayout_3, 1, 0, 1, 1);
-
         verticalLayout_5 = new QVBoxLayout();
         verticalLayout_5->setSpacing(6);
         verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
-        advancedLabel = new QLabel(widget);
+        advancedLabel = new QLabel(OutputSelect);
         advancedLabel->setObjectName(QString::fromUtf8("advancedLabel"));
 
         verticalLayout_5->addWidget(advancedLabel);
@@ -203,12 +174,12 @@ public:
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setSpacing(6);
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
-        lengthFilterLabel = new QLabel(widget);
+        lengthFilterLabel = new QLabel(OutputSelect);
         lengthFilterLabel->setObjectName(QString::fromUtf8("lengthFilterLabel"));
 
         horizontalLayout_5->addWidget(lengthFilterLabel);
 
-        lengthFilterLineEdit = new QLineEdit(widget);
+        lengthFilterLineEdit = new QLineEdit(OutputSelect);
         lengthFilterLineEdit->setObjectName(QString::fromUtf8("lengthFilterLineEdit"));
 
         horizontalLayout_5->addWidget(lengthFilterLineEdit);
@@ -219,12 +190,12 @@ public:
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setSpacing(6);
         horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
-        leftWindowLabel = new QLabel(widget);
+        leftWindowLabel = new QLabel(OutputSelect);
         leftWindowLabel->setObjectName(QString::fromUtf8("leftWindowLabel"));
 
         horizontalLayout_6->addWidget(leftWindowLabel);
 
-        leftWindowLineEdit = new QLineEdit(widget);
+        leftWindowLineEdit = new QLineEdit(OutputSelect);
         leftWindowLineEdit->setObjectName(QString::fromUtf8("leftWindowLineEdit"));
 
         horizontalLayout_6->addWidget(leftWindowLineEdit);
@@ -235,12 +206,12 @@ public:
         horizontalLayout_7 = new QHBoxLayout();
         horizontalLayout_7->setSpacing(6);
         horizontalLayout_7->setObjectName(QString::fromUtf8("horizontalLayout_7"));
-        rightWindowLabel = new QLabel(widget);
+        rightWindowLabel = new QLabel(OutputSelect);
         rightWindowLabel->setObjectName(QString::fromUtf8("rightWindowLabel"));
 
         horizontalLayout_7->addWidget(rightWindowLabel);
 
-        rightWindowLineEdit = new QLineEdit(widget);
+        rightWindowLineEdit = new QLineEdit(OutputSelect);
         rightWindowLineEdit->setObjectName(QString::fromUtf8("rightWindowLineEdit"));
 
         horizontalLayout_7->addWidget(rightWindowLineEdit);
@@ -251,12 +222,12 @@ public:
         horizontalLayout_8 = new QHBoxLayout();
         horizontalLayout_8->setSpacing(6);
         horizontalLayout_8->setObjectName(QString::fromUtf8("horizontalLayout_8"));
-        wordConfidenceLabel = new QLabel(widget);
+        wordConfidenceLabel = new QLabel(OutputSelect);
         wordConfidenceLabel->setObjectName(QString::fromUtf8("wordConfidenceLabel"));
 
         horizontalLayout_8->addWidget(wordConfidenceLabel);
 
-        wordConfidenceLineEdit = new QLineEdit(widget);
+        wordConfidenceLineEdit = new QLineEdit(OutputSelect);
         wordConfidenceLineEdit->setObjectName(QString::fromUtf8("wordConfidenceLineEdit"));
 
         horizontalLayout_8->addWidget(wordConfidenceLineEdit);
@@ -267,12 +238,12 @@ public:
         horizontalLayout_9 = new QHBoxLayout();
         horizontalLayout_9->setSpacing(6);
         horizontalLayout_9->setObjectName(QString::fromUtf8("horizontalLayout_9"));
-        lineConfidenceLabel = new QLabel(widget);
+        lineConfidenceLabel = new QLabel(OutputSelect);
         lineConfidenceLabel->setObjectName(QString::fromUtf8("lineConfidenceLabel"));
 
         horizontalLayout_9->addWidget(lineConfidenceLabel);
 
-        lineConfidenceLineEdit = new QLineEdit(widget);
+        lineConfidenceLineEdit = new QLineEdit(OutputSelect);
         lineConfidenceLineEdit->setObjectName(QString::fromUtf8("lineConfidenceLineEdit"));
 
         horizontalLayout_9->addWidget(lineConfidenceLineEdit);
@@ -283,12 +254,12 @@ public:
         horizontalLayout_10 = new QHBoxLayout();
         horizontalLayout_10->setSpacing(6);
         horizontalLayout_10->setObjectName(QString::fromUtf8("horizontalLayout_10"));
-        compareThresholdLabel = new QLabel(widget);
+        compareThresholdLabel = new QLabel(OutputSelect);
         compareThresholdLabel->setObjectName(QString::fromUtf8("compareThresholdLabel"));
 
         horizontalLayout_10->addWidget(compareThresholdLabel);
 
-        compareThresholdLineEdit = new QLineEdit(widget);
+        compareThresholdLineEdit = new QLineEdit(OutputSelect);
         compareThresholdLineEdit->setObjectName(QString::fromUtf8("compareThresholdLineEdit"));
 
         horizontalLayout_10->addWidget(compareThresholdLineEdit);
@@ -300,6 +271,33 @@ public:
         gridLayout->addLayout(verticalLayout_5, 2, 0, 1, 2);
 
 
+        verticalLayout_6->addLayout(gridLayout);
+
+        horizontalLayout_11 = new QHBoxLayout();
+        horizontalLayout_11->setSpacing(6);
+        horizontalLayout_11->setObjectName(QString::fromUtf8("horizontalLayout_11"));
+        dupeThresholdLabel = new QLabel(OutputSelect);
+        dupeThresholdLabel->setObjectName(QString::fromUtf8("dupeThresholdLabel"));
+
+        horizontalLayout_11->addWidget(dupeThresholdLabel);
+
+        dupeThresholdLineEdit = new QLineEdit(OutputSelect);
+        dupeThresholdLineEdit->setObjectName(QString::fromUtf8("dupeThresholdLineEdit"));
+
+        horizontalLayout_11->addWidget(dupeThresholdLineEdit);
+
+
+        verticalLayout_6->addLayout(horizontalLayout_11);
+
+
+        gridLayout_2->addLayout(verticalLayout_6, 0, 0, 2, 2);
+
+        profileNameWarning = new QLabel(OutputSelect);
+        profileNameWarning->setObjectName(QString::fromUtf8("profileNameWarning"));
+
+        gridLayout_2->addWidget(profileNameWarning, 1, 1, 1, 1);
+
+
         retranslateUi(OutputSelect);
 
         QMetaObject::connectSlotsByName(OutputSelect);
@@ -308,7 +306,6 @@ public:
     void retranslateUi(QWidget *OutputSelect)
     {
         OutputSelect->setWindowTitle(QCoreApplication::translate("OutputSelect", "OutputSelect", nullptr));
-        profileNameWarning->setText(QString());
         outputLabel->setText(QCoreApplication::translate("OutputSelect", "Output file:", nullptr));
         outputFileSelect->setText(QCoreApplication::translate("OutputSelect", "...", nullptr));
         profileLabel->setText(QCoreApplication::translate("OutputSelect", "Profile name:", nullptr));
@@ -316,8 +313,6 @@ public:
         continueWarning->setText(QString());
         backButton->setText(QCoreApplication::translate("OutputSelect", "Back", nullptr));
         goButton->setText(QCoreApplication::translate("OutputSelect", "Go", nullptr));
-        transcriptLabel->setText(QCoreApplication::translate("OutputSelect", "Transcript file:", nullptr));
-        transcriptFileSelect->setText(QCoreApplication::translate("OutputSelect", "...", nullptr));
         advancedLabel->setText(QCoreApplication::translate("OutputSelect", "Advanced options: ", nullptr));
         lengthFilterLabel->setText(QCoreApplication::translate("OutputSelect", "Box length filter(px): ", nullptr));
         lengthFilterLineEdit->setText(QCoreApplication::translate("OutputSelect", "0", nullptr));
@@ -331,6 +326,9 @@ public:
         lineConfidenceLineEdit->setText(QCoreApplication::translate("OutputSelect", "70", nullptr));
         compareThresholdLabel->setText(QCoreApplication::translate("OutputSelect", "Output comparison threshold (0.xx): ", nullptr));
         compareThresholdLineEdit->setText(QCoreApplication::translate("OutputSelect", "0.75", nullptr));
+        dupeThresholdLabel->setText(QCoreApplication::translate("OutputSelect", "Mark duplicates (min length):", nullptr));
+        dupeThresholdLineEdit->setText(QCoreApplication::translate("OutputSelect", "3", nullptr));
+        profileNameWarning->setText(QString());
     } // retranslateUi
 
 };

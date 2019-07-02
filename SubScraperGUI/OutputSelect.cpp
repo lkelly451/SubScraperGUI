@@ -27,6 +27,7 @@ OutputSelect::OutputSelect(QString widthBegin, QString widthEnd, QString heightB
 	this->wordConfidence = ui.wordConfidenceLineEdit->text();
 	this->lineConfidence = ui.lineConfidenceLineEdit->text();
 	this->compareThreshold = ui.compareThresholdLineEdit->text();
+	this->dupeThreshold = ui.dupeThresholdLineEdit->text();
 }
 OutputSelect::~OutputSelect()
 {
@@ -57,21 +58,6 @@ QLineEdit* OutputSelect::getOutputLineEdit()
 	return ui.outputLineEdit;
 }
 
-QPushButton* OutputSelect::getTranscriptFileSelect()
-{
-	return ui.transcriptFileSelect;
-}
-
-QLabel* OutputSelect::getTranscriptLabel()
-{
-	return ui.transcriptLabel;
-}
-
-QLineEdit* OutputSelect::getTranscriptLineEdit()
-{
-	return ui.transcriptLineEdit;
-}
-
 void OutputSelect::on_backButton_clicked()
 {
 	HeightSelect* heightSelect = new HeightSelect();
@@ -85,13 +71,6 @@ void OutputSelect::on_outputFileSelect_clicked()
 	QString filename = QFileDialog::getOpenFileName(
 		this, tr("Open File"), "C://", tr("Text files (*.txt)"));
 	ui.outputLineEdit->setText(filename);
-}
-
-void OutputSelect::on_transcriptFileSelect_clicked()
-{
-	QString filename = QFileDialog::getOpenFileName(
-		this, tr("Open File"), "C://", tr("Text files (*.txt)"));
-	ui.transcriptLineEdit->setText(filename);
 }
 
 void OutputSelect::on_goButton_clicked()
@@ -169,4 +148,9 @@ void OutputSelect::on_lineConfidenceLineEdit_editingFinished()
 void OutputSelect::on_compareThresholdLineEdit_editingFinished()
 {
 	this->compareThreshold = ui.compareThresholdLineEdit->text();
+}
+
+void OutputSelect::on_dupeThresholdLineEdit_editingFinished()
+{
+	this->dupeThreshold = ui.dupeThresholdLineEdit->text();
 }

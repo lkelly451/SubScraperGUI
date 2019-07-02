@@ -12,7 +12,7 @@ Video::Video(cv::VideoCapture cap, int singleHeight, int doubleHeight) {
 Video::~Video() {
 }
 
-int Video::getSubtitles(int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd, string outputFileName, string transcriptFileDirectory, int dropLength, int singleHeight, int doubleHeight, int windowSizeLeft, int windowSizeRight, bool autoDetectHeights, int wordConfidence, int lineConfidence, double compareThreshold, int dupeThreshold)
+int Video::getSubtitles(int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd, string outputFileName, int dropLength, int singleHeight, int doubleHeight, int windowSizeLeft, int windowSizeRight, bool autoDetectHeights, int wordConfidence, int lineConfidence, double compareThreshold, int dupeThreshold)
 {
 	string textLineOne;
 	string textLineTwo;
@@ -156,8 +156,6 @@ int Video::getSubtitles(int cropHeightStart, int cropHeightEnd, int cropWidthSta
 	//Mark doubles
 	markPotentialDuplicates(outputFileName, dupeThreshold);
 
-	//WAR
-	//cout << "Word Accuracy Rating: " << o.wordAccuracyRating(transcriptFileDirectory);
 	return 0;
 }
 

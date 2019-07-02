@@ -80,21 +80,6 @@ QLineEdit* ExistingProfiles::getOutputLineEdit()
 	return ui.outputLineEdit;
 }
 
-QPushButton* ExistingProfiles::getTranscriptFileSelect()
-{
-	return ui.transcriptFileSelect;
-}
-
-QLabel* ExistingProfiles::getTranscriptLabel()
-{
-	return ui.transcriptLabel;
-}
-
-QLineEdit* ExistingProfiles::getTranscriptLineEdit()
-{
-	return ui.transcriptLineEdit;
-}
-
 void ExistingProfiles::on_backButton_clicked()
 {
 	SubScraperGUI* subScraperGUI = new SubScraperGUI();
@@ -115,13 +100,6 @@ void ExistingProfiles::on_outputFileSelect_clicked()
 	QString filename = QFileDialog::getOpenFileName(
 		this, tr("Open File"), "C://", tr("Text files (*.txt)"));
 	ui.outputLineEdit->setText(filename);
-}
-
-void ExistingProfiles::on_transcriptFileSelect_clicked()
-{
-	QString filename = QFileDialog::getOpenFileName(
-		this, tr("Open File"), "C://", tr("Text files (*.txt)"));
-	ui.transcriptLineEdit->setText(filename);
 }
 
 void ExistingProfiles::on_item_clicked(QListWidgetItem* item)
