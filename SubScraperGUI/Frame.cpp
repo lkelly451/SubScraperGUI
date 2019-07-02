@@ -79,14 +79,13 @@ void Frame::detectHorizontalHough(cv::Mat frame, vector<cv::Vec4i>& lines, int& 
 void Frame::drawHough(cv::Mat& dst, vector<cv::Vec4i> filteredLines)
 {
 	//draw filtered lines
-	if (dst.channels() == 1) {
-		if (!filteredLines.empty()) {
-			for (size_t i = 0; i < filteredLines.size(); i++) {
-				cv::Vec4i l = filteredLines[i];
-				line(dst, cv::Point(l[0], l[1]), cv::Point(l[2], l[3]), 255, 2, cv::LINE_AA);
-			}
+	if (!filteredLines.empty()) {
+		for (size_t i = 0; i < filteredLines.size(); i++) {
+			cv::Vec4i l = filteredLines[i];
+			line(dst, cv::Point(l[0], l[1]), cv::Point(l[2], l[3]), 255, 3, cv::LINE_AA);
 		}
 	}
+	//additional handling for 3 channel images
 	else {
 		if (!filteredLines.empty()) {
 			for (size_t i = 0; i < filteredLines.size(); i++) {
@@ -103,10 +102,13 @@ void Frame::dropByLength(vector<cv::Vec4i>& filteredLines, int dropLength)
 {
 	//filter lines again to remove lines that are too long
 	//and remove lines that are too spaced apart on the x axis
-	if (!filteredLines.empty()) {
-		for (size_t i = 0; i < filteredLines.size(); i += 2) {
-			if ((filteredLines[i][2] - filteredLines[i][0]) > dropLength || (filteredLines[i + 1][2] - filteredLines[i + 1][0]) > dropLength || (filteredLines[i][0] - filteredLines[i + 1][0] > dropLength)) {
-				filteredLines.erase(filteredLines.begin() + i, filteredLines.begin() + (i + 2));
+	//droplength zero bypasses this filter
+	if (dropLength != 0) {
+		if (!filteredLines.empty()) {
+			for (size_t i = 0; i < filteredLines.size(); i += 2) {
+				if ((filteredLines[i][2] - filteredLines[i][0]) > dropLength || (filteredLines[i + 1][2] - filteredLines[i + 1][0]) > dropLength || (filteredLines[i][0] - filteredLines[i + 1][0] > dropLength)) {
+					filteredLines.erase(filteredLines.begin() + i, filteredLines.begin() + (i + 2));
+				}
 			}
 		}
 	}
@@ -203,7 +205,26 @@ void Frame::detectBoxes(int singleHeight, int doubleHeight, vector<cv::Vec2i> & 
 	heightBoundaryRecorder(filteredLines, heightBoundaries);
 }
 
-void Frame::detectDoubleBoxes(int& height, vector <cv::Vec4i>& lines) {
+void Frame::detectBoxes(int& height) {
+	std::vector<std::vector<cv::Point>> contours;
+	std::vector<cv::Vec4i> hierarchy;
+	vector <cv::Vec4i> lines;
+	vector<cv::Vec4i> filteredLines;
+	cv::Mat draw;
+
+	//image preprocessing
+	framePreprocessing(frame);
+
+	//find and draw contours
+	findDrawContours(frame, draw, contours, hierarchy);
+
+	//detect box and get height 
+	detectHorizontalHough(draw, lines, height);
+
+
+}
+
+void Frame::detectDoubleBoxes(int& height, vector <cv::Vec4i> & lines) {
 	std::vector<std::vector<cv::Point>> contours;
 	std::vector<cv::Vec4i> hierarchy;
 	vector<cv::Vec4i> filteredLines;
@@ -219,7 +240,7 @@ void Frame::detectDoubleBoxes(int& height, vector <cv::Vec4i>& lines) {
 	detectHorizontalHough(draw, lines, height);
 }
 
-void Frame::detectSingleBoxes(int& height, vector <cv::Vec4i>& lines) {
+void Frame::detectSingleBoxes(int& height, vector <cv::Vec4i> & lines) {
 	std::vector<std::vector<cv::Point>> contours;
 	std::vector<cv::Vec4i> hierarchy;
 	vector<cv::Vec4i> filteredLines;
@@ -233,11 +254,10 @@ void Frame::detectSingleBoxes(int& height, vector <cv::Vec4i>& lines) {
 
 	//find and draw contours
 	findDrawContours(frame, draw, contours, hierarchy);
-	
+
 	//detect box and get height 
 	detectHorizontalHough(draw, lines, height);
 }
-
 
 void Frame::differenceRecorder(cv::Mat draw, map<int, int> & frequency) {
 	vector<cv::Vec4i> lines;

@@ -22,6 +22,7 @@ public:
 	void findDrawContours(cv::Mat frame, cv::Mat& dst, std::vector<std::vector<cv::Point>> contours, std::vector<cv::Vec4i> hierarchy);
 	void heightBoundaryRecorder(std::vector<cv::Vec4i> filteredLines, std::vector<cv::Vec2i>& heightBoundaries);
 	void detectBoxes(int singleHeight, int doubleHeight, std::vector<cv::Vec2i>& heightBoundaries, int dropLength);
+	void detectBoxes(int& height);
 	void detectDoubleBoxes(int& height, std::vector <cv::Vec4i>& lines);
 	void detectSingleBoxes(int& height, std::vector <cv::Vec4i>& lines);
 	void differenceRecorder(cv::Mat draw, std::map<int, int>& frequency);
