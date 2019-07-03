@@ -138,6 +138,8 @@ public:
         autoLabel->setText(QCoreApplication::translate("HeightSelect", "auto detect box heights", nullptr));
         frameForward->setText(QCoreApplication::translate("HeightSelect", "5>>", nullptr));
         continueButton->setText(QCoreApplication::translate("HeightSelect", "Continue", nullptr));
+        singleLineEdit->setText(QCoreApplication::translate("HeightSelect", "0", nullptr));
+        doubleLineEdit->setText(QCoreApplication::translate("HeightSelect", "0", nullptr));
         continueWarning->setText(QString());
     } // retranslateUi
 

@@ -1,5 +1,6 @@
 #include "OutputSelect.h"
 #include "HeightSelect.h"
+#include "qvalidator.h"
 #include "qfiledialog.h"
 #include <iostream>
 #include <fstream>
@@ -12,7 +13,7 @@ OutputSelect::OutputSelect(QWidget *parent)
 {
 	ui.setupUi(this);
 }
-OutputSelect::OutputSelect(QString widthBegin, QString widthEnd, QString heightBegin, QString heightEnd, QString singleHeight, QString doubleHeight, QString inputFileName, bool autoBoxDetect, QWidget* parent)
+OutputSelect::OutputSelect(QString widthBegin, QString widthEnd, QString heightBegin, QString heightEnd, QString singleHeight, QString doubleHeight, QString inputFileName, bool autoBoxDetect, int width, QWidget* parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
@@ -31,6 +32,26 @@ OutputSelect::OutputSelect(QString widthBegin, QString widthEnd, QString heightB
 	this->dupeThreshold = ui.dupeThresholdLineEdit->text();
 	this->inputFileName = inputFileName;
 	this->autoDetectHeights = autoBoxDetect;
+	this->width = width;
+
+	//validation for advanced options, prevents invalid data type/size being set
+	//max size is width of the image
+	QValidator* intValidatorFilterWindow = new QIntValidator(0, width, this);
+	ui.lengthFilterLineEdit->setValidator(intValidatorFilterWindow);
+	ui.rightWindowLineEdit->setValidator(intValidatorFilterWindow);
+	ui.leftWindowLineEdit->setValidator(intValidatorFilterWindow);
+
+	//max size is arbitrary
+	QValidator* intValidatorDupe = new QIntValidator(0, 9999, this);
+	ui.dupeThresholdLineEdit->setValidator(intValidatorDupe);
+
+	//max size is 100
+	QValidator* intValidatorWordLineConfidenceThreshold = new QIntValidator(0, 100, this);
+	ui.lineConfidenceLineEdit->setValidator(intValidatorWordLineConfidenceThreshold);
+	ui.wordConfidenceLineEdit->setValidator(intValidatorWordLineConfidenceThreshold);
+
+	//max size is 1.0
+	QValidator* doubleValidatorOutputComparisonThreshold = new QDoubleValidator(0.0, 1.0, 1, this);
 }
 OutputSelect::~OutputSelect()
 {
@@ -83,55 +104,65 @@ void OutputSelect::on_goButton_clicked()
 	}
 	else {
 		//Go!
-		
-		int singleHeight = this->singleHeight.toInt();
-		int doubleHeight = this->doubleHeight.toInt();
-		int cropHeightStart = this->heightBegin.toInt();
-		int cropHeightEnd = this->heightEnd.toInt();
-		int cropWidthStart = this->widthBegin.toInt();
-		int cropWidthEnd = this->widthEnd.toInt();
-		int dropLength = ui.lengthFilterLineEdit->text().toInt();
-		int windowSizeLeft = ui.leftWindowLineEdit->text().toInt();
-		int windowSizeRight = ui.rightWindowLineEdit->text().toInt();
-		int wordConfidence = ui.wordConfidenceLineEdit->text().toInt();
-		int lineConfidence = ui.lineConfidenceLineEdit->text().toInt();
-		int dupeThreshold = ui.dupeThresholdLineEdit->text().toInt();
-		double compareThreshold = ui.compareThresholdLineEdit->text().toDouble();
-		string inputFileName = this->inputFileName.toStdString();
-		string outputFileName = ui.outputLineEdit->text().toStdString();
-		
-		cout << "singleHeight: " << singleHeight << endl;
-		cout << "doubleHeight: " << doubleHeight << endl;
-		cout << "cropHeightStart: " << heightBegin.toInt() << endl;
-		cout << "cropHeightEnd: " << heightEnd.toInt() << endl;
-		cout << "cropWidthStart: " << widthBegin.toInt() << endl;
-		cout << "cropWidthEnd: " << widthEnd.toInt() << endl;
-		cout << "dropLength: " << ui.lengthFilterLineEdit->text().toInt() << endl;
-		cout << "windowSizeLeft: " << ui.leftWindowLineEdit->text().toInt() << endl;
-		cout << "windowSizeRight: " << ui.rightWindowLineEdit->text().toInt() << endl;
-		cout << "wordConfidence: " << ui.wordConfidenceLineEdit->text().toInt() << endl;
-		cout << "lineConfidence: " << ui.lineConfidenceLineEdit->text().toInt() << endl;
-		cout << "dupeThreshold: " << ui.dupeThresholdLineEdit->text().toInt() << endl;
-		cout << "compareThreshold: " << ui.compareThresholdLineEdit->text().toDouble() << endl;
-		cout << "inputFileName: " << this->inputFileName.toStdString() << endl;
-		cout << "outputFileName: " << ui.outputLineEdit->text().toStdString() << endl;
-		cout << "autoDetectHeights: " << autoDetectHeights << endl;
+		if (!singleHeight.isEmpty() && !doubleHeight.isEmpty() && !heightBegin.isEmpty() && !heightEnd.isEmpty() && !widthBegin.isEmpty() && !widthEnd.isEmpty() && !ui.lengthFilterLineEdit->text().isEmpty()
+			&& !ui.leftWindowLineEdit->text().isEmpty() && !ui.rightWindowLineEdit->text().isEmpty() && !ui.wordConfidenceLineEdit->text().isEmpty() && !ui.lineConfidenceLineEdit->text().isEmpty()
+			&& !ui.dupeThresholdLineEdit->text().isEmpty() && !ui.compareThresholdLineEdit->text().isEmpty() && !inputFileName.isEmpty() && !ui.outputLineEdit->text().isEmpty()) {
+			if (ui.lengthFilterLineEdit->text().toInt() < width && ui.leftWindowLineEdit->text().toInt() < width && ui.rightWindowLineEdit->text().toInt() < width) {
+				int singleHeight = this->singleHeight.toInt();
+				int doubleHeight = this->doubleHeight.toInt();
+				int cropHeightStart = this->heightBegin.toInt();
+				int cropHeightEnd = this->heightEnd.toInt();
+				int cropWidthStart = this->widthBegin.toInt();
+				int cropWidthEnd = this->widthEnd.toInt();
+				int dropLength = ui.lengthFilterLineEdit->text().toInt();
+				int windowSizeLeft = ui.leftWindowLineEdit->text().toInt();
+				int windowSizeRight = ui.rightWindowLineEdit->text().toInt();
+				int wordConfidence = ui.wordConfidenceLineEdit->text().toInt();
+				int lineConfidence = ui.lineConfidenceLineEdit->text().toInt();
+				int dupeThreshold = ui.dupeThresholdLineEdit->text().toInt();
+				double compareThreshold = ui.compareThresholdLineEdit->text().toDouble();
+				string inputFileName = this->inputFileName.toStdString();
+				string outputFileName = ui.outputLineEdit->text().toStdString();
 
-		SubScraper subscraper;
-		this->close();
-		subscraper.getSubs(inputFileName, outputFileName, singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength,
-			windowSizeLeft, windowSizeRight, wordConfidence, lineConfidence, compareThreshold, dupeThreshold, autoDetectHeights);
-		
+				cout << "singleHeight: " << singleHeight << endl;
+				cout << "doubleHeight: " << doubleHeight << endl;
+				cout << "cropHeightStart: " << heightBegin.toInt() << endl;
+				cout << "cropHeightEnd: " << heightEnd.toInt() << endl;
+				cout << "cropWidthStart: " << widthBegin.toInt() << endl;
+				cout << "cropWidthEnd: " << widthEnd.toInt() << endl;
+				cout << "dropLength: " << ui.lengthFilterLineEdit->text().toInt() << endl;
+				cout << "windowSizeLeft: " << ui.leftWindowLineEdit->text().toInt() << endl;
+				cout << "windowSizeRight: " << ui.rightWindowLineEdit->text().toInt() << endl;
+				cout << "wordConfidence: " << ui.wordConfidenceLineEdit->text().toInt() << endl;
+				cout << "lineConfidence: " << ui.lineConfidenceLineEdit->text().toInt() << endl;
+				cout << "dupeThreshold: " << ui.dupeThresholdLineEdit->text().toInt() << endl;
+				cout << "compareThreshold: " << ui.compareThresholdLineEdit->text().toDouble() << endl;
+				cout << "inputFileName: " << this->inputFileName.toStdString() << endl;
+				cout << "outputFileName: " << ui.outputLineEdit->text().toStdString() << endl;
+				cout << "autoDetectHeights: " << autoDetectHeights << endl;
+
+				SubScraper subscraper;
+				this->close();
+				subscraper.getSubs(inputFileName, outputFileName, singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength,
+					windowSizeLeft, windowSizeRight, wordConfidence, lineConfidence, compareThreshold, dupeThreshold, autoDetectHeights);
+			}
+			else {
+				ui.continueWarning->setText("Sliding windows and box filter must be set to less than the width of the cropped image.");
+			}
+		}
+		else {
+			ui.continueWarning->setText("Please ensure all fields are filled before continuing.");
+		}
 	}
 }
 
 void OutputSelect::on_saveProfileButton_clicked()
 {
 	if (ui.profileName->text().isEmpty()) {
-		ui.profileNameWarning->setText("Please enter a profile name to save a profile.");
+		ui.continueWarning->setText("Please enter a profile name to save a profile.");
 	}
 	else if (!widthBegin.isEmpty() && !widthEnd.isEmpty() && !heightBegin.isEmpty() && !heightEnd.isEmpty() && !singleHeight.isEmpty() && !doubleHeight.isEmpty() && !dropLength.isEmpty()
-		&& !windowSizeLeft.isEmpty() && !windowSizeRight.isEmpty() && !wordConfidence.isEmpty() && !lineConfidence.isEmpty() && !compareThreshold.isEmpty()){
+		&& !windowSizeLeft.isEmpty() && !windowSizeRight.isEmpty() && !wordConfidence.isEmpty() && !lineConfidence.isEmpty() && !compareThreshold.isEmpty() && !ui.dupeThresholdLineEdit->text().isEmpty()){
 		ofstream saveFile;
 		string fileName = "Profiles.txt";
 		saveFile.open(fileName, ios_base::app);
@@ -148,11 +179,13 @@ void OutputSelect::on_saveProfileButton_clicked()
 		saveFile << wordConfidence.toStdString() << endl;
 		saveFile << lineConfidence.toStdString() << endl;
 		saveFile << compareThreshold.toStdString() << endl;
+		saveFile << ui.dupeThresholdLineEdit->text().toStdString() << endl;
+		saveFile << autoDetectHeights << endl;
 		saveFile << endl;
 		saveFile.close();
-		ui.profileNameWarning->setText("Profile saved!");
+		ui.continueWarning->setText("Profile saved!");
 	} else {
-		ui.profileNameWarning->setText("Please ensure all fields are filled before saving a profile.");
+		ui.continueWarning->setText("Please ensure all fields are filled before saving a profile.");
 	}
 }
 

@@ -65,7 +65,6 @@ public:
     QHBoxLayout *horizontalLayout_11;
     QLabel *dupeThresholdLabel;
     QLineEdit *dupeThresholdLineEdit;
-    QLabel *profileNameWarning;
 
     void setupUi(QWidget *OutputSelect)
     {
@@ -292,11 +291,6 @@ public:
 
         gridLayout_2->addLayout(verticalLayout_6, 0, 0, 2, 2);
 
-        profileNameWarning = new QLabel(OutputSelect);
-        profileNameWarning->setObjectName(QString::fromUtf8("profileNameWarning"));
-
-        gridLayout_2->addWidget(profileNameWarning, 1, 1, 1, 1);
-
 
         retranslateUi(OutputSelect);
 
@@ -328,7 +322,6 @@ public:
         compareThresholdLineEdit->setText(QCoreApplication::translate("OutputSelect", "0.75", nullptr));
         dupeThresholdLabel->setText(QCoreApplication::translate("OutputSelect", "Mark duplicates (min length):", nullptr));
         dupeThresholdLineEdit->setText(QCoreApplication::translate("OutputSelect", "3", nullptr));
-        profileNameWarning->setText(QString());
     } // retranslateUi
 
 };

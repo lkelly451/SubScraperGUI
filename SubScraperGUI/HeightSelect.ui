@@ -88,10 +88,18 @@
     </widget>
    </item>
    <item row="3" column="2">
-    <widget class="QLineEdit" name="singleLineEdit"/>
+    <widget class="QLineEdit" name="singleLineEdit">
+     <property name="text">
+      <string>0</string>
+     </property>
+    </widget>
    </item>
    <item row="4" column="2">
-    <widget class="QLineEdit" name="doubleLineEdit"/>
+    <widget class="QLineEdit" name="doubleLineEdit">
+     <property name="text">
+      <string>0</string>
+     </property>
+    </widget>
    </item>
    <item row="5" column="2">
     <widget class="QLabel" name="continueWarning">

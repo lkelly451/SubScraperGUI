@@ -116,6 +116,7 @@ public:
 
         widthBegin = new QLineEdit(BuildProfile);
         widthBegin->setObjectName(QString::fromUtf8("widthBegin"));
+        widthBegin->setReadOnly(false);
 
         horizontalLayout_3->addWidget(widthBegin);
 
@@ -126,6 +127,7 @@ public:
 
         heightBegin = new QLineEdit(BuildProfile);
         heightBegin->setObjectName(QString::fromUtf8("heightBegin"));
+        heightBegin->setReadOnly(false);
 
         horizontalLayout_3->addWidget(heightBegin);
 
@@ -142,6 +144,7 @@ public:
 
         widthEnd = new QLineEdit(BuildProfile);
         widthEnd->setObjectName(QString::fromUtf8("widthEnd"));
+        widthEnd->setReadOnly(false);
 
         horizontalLayout_4->addWidget(widthEnd);
 
@@ -152,6 +155,7 @@ public:
 
         heightEnd = new QLineEdit(BuildProfile);
         heightEnd->setObjectName(QString::fromUtf8("heightEnd"));
+        heightEnd->setReadOnly(false);
 
         horizontalLayout_4->addWidget(heightEnd);
 

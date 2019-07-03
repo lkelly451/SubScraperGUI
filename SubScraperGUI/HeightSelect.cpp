@@ -1,6 +1,7 @@
 #include "HeightSelect.h"
 #include "BuildProfile.h"
 #include "OutputSelect.h"
+#include "qvalidator.h"
 #include <opencv2/imgcodecs.hpp>
 #include "QGraphicsPixmapItem"
 #include <iostream>
@@ -41,6 +42,13 @@ HeightSelect::HeightSelect(QString widthBegin, QString widthEnd, QString heightB
 	item = new QGraphicsPixmapItem(QPixmap::fromImage(image));
 	scene->addItem(item);
 	ui.framePreview->show();
+
+	//the maximum box height is the height of the image
+	int maxBoxHeight = frame.rows;
+	//set validator to prevent non-numerical data or excessive values being input into box height fields
+	QValidator* intValidatorBoxHeights = new QIntValidator(0, maxBoxHeight, this);
+	ui.singleLineEdit->setValidator(intValidatorBoxHeights);
+	ui.doubleLineEdit->setValidator(intValidatorBoxHeights);
 }
 
 HeightSelect::~HeightSelect()
@@ -117,10 +125,15 @@ void HeightSelect::on_continueButton_clicked()
 		autoBoxDetect = true;
 	}
 	if (ui.autoCheckBox->isChecked() || !ui.doubleLineEdit->text().isEmpty() && !ui.doubleLineEdit->text().isEmpty()) {
-		OutputSelect* outputSelect = new OutputSelect(this->widthBegin, this->widthEnd, this->heightBegin, this->heightEnd, ui.singleLineEdit->text(), ui.doubleLineEdit->text(), videoDirectory, autoBoxDetect);
-		outputSelect->setAttribute(Qt::WA_DeleteOnClose);
-		outputSelect->show();
-		this->close();
+		if (ui.doubleLineEdit->text().toInt() > frame.cols || ui.singleLineEdit->text().toInt() > frame.cols) {
+			ui.continueWarning->setText("Box height cannot be larger than the image!");
+		}
+		else {
+			OutputSelect* outputSelect = new OutputSelect(this->widthBegin, this->widthEnd, this->heightBegin, this->heightEnd, ui.singleLineEdit->text(), ui.doubleLineEdit->text(), videoDirectory, autoBoxDetect, frame.rows);
+			outputSelect->setAttribute(Qt::WA_DeleteOnClose);
+			outputSelect->show();
+			this->close();
+		}
 	}
 	else {
 		ui.continueWarning->setText("Please input heights for single and double subtitle boxes or check auto detect box heights before continuing.");

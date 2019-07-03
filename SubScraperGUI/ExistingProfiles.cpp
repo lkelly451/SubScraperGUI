@@ -21,7 +21,7 @@ ExistingProfiles::ExistingProfiles(QWidget *parent)
 				QListWidgetItem* item = new QListWidgetItem(profileName, ui.profileList);
 				ui.profileList->setCurrentItem(item);
 			}
-			for (size_t i = 0; i < 13; i++) {
+			for (size_t i = 0; i < 15; i++) {
 				loadProfile.ignore(256, '\n');
 			}
 		}
