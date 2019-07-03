@@ -9,15 +9,14 @@ class OutputSelect : public QWidget
 
 public:
 	OutputSelect(QWidget *parent = Q_NULLPTR);
-	OutputSelect(QString widthBegin, QString widthEnd, QString heightBegin, QString heightEnd, QString singleHeight, QString doubleHeight, QWidget* parent = Q_NULLPTR);
+	OutputSelect(QString widthBegin, QString widthEnd, QString heightBegin, QString heightEnd, QString singleHeight, QString doubleHeight, QString inputFileName, bool autoBoxDetect, QWidget* parent = Q_NULLPTR);
 	~OutputSelect();
 	QPushButton* getBackButton();
 	QPushButton* getGoButton();
 	QPushButton* getOutputFileSelect();
 	QLabel* getOutputLabel();
 	QLineEdit* getOutputLineEdit();
-	QLabel* getTranscriptLabel();
-	QLineEdit* getTranscriptLineEdit();
+
 
 private slots:
 	void on_backButton_clicked();
@@ -47,4 +46,6 @@ private:
 	QString lineConfidence;
 	QString compareThreshold;
 	QString dupeThreshold;
+	QString inputFileName;
+	bool autoDetectHeights;
 };

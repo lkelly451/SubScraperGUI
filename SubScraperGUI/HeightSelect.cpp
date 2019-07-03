@@ -112,8 +112,12 @@ void HeightSelect::on_backButton_clicked()
 
 void HeightSelect::on_continueButton_clicked() 
 {
+	bool autoBoxDetect = false;
+	if (ui.autoCheckBox->isChecked()) {
+		autoBoxDetect = true;
+	}
 	if (ui.autoCheckBox->isChecked() || !ui.doubleLineEdit->text().isEmpty() && !ui.doubleLineEdit->text().isEmpty()) {
-		OutputSelect* outputSelect = new OutputSelect(this->widthBegin, this->widthEnd, this->heightBegin, this->heightEnd, ui.singleLineEdit->text(), ui.doubleLineEdit->text());
+		OutputSelect* outputSelect = new OutputSelect(this->widthBegin, this->widthEnd, this->heightBegin, this->heightEnd, ui.singleLineEdit->text(), ui.doubleLineEdit->text(), videoDirectory, autoBoxDetect);
 		outputSelect->setAttribute(Qt::WA_DeleteOnClose);
 		outputSelect->show();
 		this->close();

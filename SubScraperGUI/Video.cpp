@@ -86,7 +86,7 @@ int Video::getSubtitles(int cropHeightStart, int cropHeightEnd, int cropWidthSta
 		//detect box(es) on the frame and store their y coordinates in heightBoundaries
 		f.detectBoxes(singleHeight, doubleHeight, heightBoundaries, dropLength);
 	}
-
+	cout << "Done" << endl;
 	//get most frequent ROI coordinates from heightBoundaries
 	getBoxCoordinates(heightBoundaries, ROICoordinates, singleHeight, doubleHeight);
 

@@ -41,17 +41,18 @@ void Frame::detectHorizontalHough(cv::Mat frame, vector<cv::Vec4i>& lines, vecto
 
 	//filter lines into results that match height of subtitle boxes
 	//if there is a doubleHeight box, always want that rather than a smaller snippet
-	for (size_t i = 0; i < lines.size(); i++) {
-		for (size_t j = 0; j < lines.size(); j++) {
-			if (lines[i][1] - lines[j][1] == doubleHeight) {
-				//put results at beginning of list, so that results with the highest y elevation (most likely to be subtitle box) are processed first
-				filteredLines.insert(filteredLines.begin(), lines[i]);
-				filteredLines.insert(filteredLines.begin(), lines[j]);
-				i = lines.size();
-			}
-			else if (lines[i][1] - lines[j][1] == singleHeight) {
-				filteredLines.insert(filteredLines.begin(), lines[i]);
-				filteredLines.insert(filteredLines.begin(), lines[j]);
+	if (!lines.empty()) {
+		for (size_t i = 0; i < lines.size(); i++) {
+			for (size_t j = 0; j < lines.size(); j++) {
+				if (lines[i][1] - lines[j][1] == doubleHeight) {
+					//put results at beginning of list, so that results with the highest y elevation (most likely to be subtitle box) are processed first
+					filteredLines.insert(filteredLines.begin(), lines[i]);
+					filteredLines.insert(filteredLines.begin(), lines[j]);
+				}
+				else if (lines[i][1] - lines[j][1] == singleHeight) {
+					filteredLines.insert(filteredLines.begin(), lines[i]);
+					filteredLines.insert(filteredLines.begin(), lines[j]);
+				}
 			}
 		}
 	}

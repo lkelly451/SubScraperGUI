@@ -3,6 +3,7 @@
 #include "qfiledialog.h"
 #include <iostream>
 #include <fstream>
+#include "SubScraper.h"
 
 using namespace std;
 
@@ -11,7 +12,7 @@ OutputSelect::OutputSelect(QWidget *parent)
 {
 	ui.setupUi(this);
 }
-OutputSelect::OutputSelect(QString widthBegin, QString widthEnd, QString heightBegin, QString heightEnd, QString singleHeight, QString doubleHeight, QWidget* parent)
+OutputSelect::OutputSelect(QString widthBegin, QString widthEnd, QString heightBegin, QString heightEnd, QString singleHeight, QString doubleHeight, QString inputFileName, bool autoBoxDetect, QWidget* parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
@@ -28,6 +29,8 @@ OutputSelect::OutputSelect(QString widthBegin, QString widthEnd, QString heightB
 	this->lineConfidence = ui.lineConfidenceLineEdit->text();
 	this->compareThreshold = ui.compareThresholdLineEdit->text();
 	this->dupeThreshold = ui.dupeThresholdLineEdit->text();
+	this->inputFileName = inputFileName;
+	this->autoDetectHeights = autoBoxDetect;
 }
 OutputSelect::~OutputSelect()
 {
@@ -80,12 +83,45 @@ void OutputSelect::on_goButton_clicked()
 	}
 	else {
 		//Go!
-		cout << "Width begin: " << this->widthBegin.toInt();
-		cout << "Width end: " << this->widthEnd.toInt();
-		cout << "Height begin: " << this->heightBegin.toInt();
-		cout << "Height end: " << this->heightEnd.toInt();
-		cout << "Single height: " << this->singleHeight.toInt();
-		cout << "Double height: " << this->doubleHeight.toInt();
+		
+		int singleHeight = this->singleHeight.toInt();
+		int doubleHeight = this->doubleHeight.toInt();
+		int cropHeightStart = this->heightBegin.toInt();
+		int cropHeightEnd = this->heightEnd.toInt();
+		int cropWidthStart = this->widthBegin.toInt();
+		int cropWidthEnd = this->widthEnd.toInt();
+		int dropLength = ui.lengthFilterLineEdit->text().toInt();
+		int windowSizeLeft = ui.leftWindowLineEdit->text().toInt();
+		int windowSizeRight = ui.rightWindowLineEdit->text().toInt();
+		int wordConfidence = ui.wordConfidenceLineEdit->text().toInt();
+		int lineConfidence = ui.lineConfidenceLineEdit->text().toInt();
+		int dupeThreshold = ui.dupeThresholdLineEdit->text().toInt();
+		double compareThreshold = ui.compareThresholdLineEdit->text().toDouble();
+		string inputFileName = this->inputFileName.toStdString();
+		string outputFileName = ui.outputLineEdit->text().toStdString();
+		
+		cout << "singleHeight: " << singleHeight << endl;
+		cout << "doubleHeight: " << doubleHeight << endl;
+		cout << "cropHeightStart: " << heightBegin.toInt() << endl;
+		cout << "cropHeightEnd: " << heightEnd.toInt() << endl;
+		cout << "cropWidthStart: " << widthBegin.toInt() << endl;
+		cout << "cropWidthEnd: " << widthEnd.toInt() << endl;
+		cout << "dropLength: " << ui.lengthFilterLineEdit->text().toInt() << endl;
+		cout << "windowSizeLeft: " << ui.leftWindowLineEdit->text().toInt() << endl;
+		cout << "windowSizeRight: " << ui.rightWindowLineEdit->text().toInt() << endl;
+		cout << "wordConfidence: " << ui.wordConfidenceLineEdit->text().toInt() << endl;
+		cout << "lineConfidence: " << ui.lineConfidenceLineEdit->text().toInt() << endl;
+		cout << "dupeThreshold: " << ui.dupeThresholdLineEdit->text().toInt() << endl;
+		cout << "compareThreshold: " << ui.compareThresholdLineEdit->text().toDouble() << endl;
+		cout << "inputFileName: " << this->inputFileName.toStdString() << endl;
+		cout << "outputFileName: " << ui.outputLineEdit->text().toStdString() << endl;
+		cout << "autoDetectHeights: " << autoDetectHeights << endl;
+
+		SubScraper subscraper;
+		this->close();
+		subscraper.getSubs(inputFileName, outputFileName, singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength,
+			windowSizeLeft, windowSizeRight, wordConfidence, lineConfidence, compareThreshold, dupeThreshold, autoDetectHeights);
+		
 	}
 }
 
