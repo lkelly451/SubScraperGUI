@@ -9,7 +9,7 @@ class OutputSelect : public QWidget
 
 public:
 	OutputSelect(QWidget *parent = Q_NULLPTR);
-	OutputSelect(QString widthBegin, QString widthEnd, QString heightBegin, QString heightEnd, QString singleHeight, QString doubleHeight, QString inputFileName, bool autoBoxDetect, int width, QWidget* parent = Q_NULLPTR);
+	OutputSelect(QString widthBegin, QString widthEnd, QString heightBegin, QString heightEnd, QString singleHeight, QString doubleHeight, QString inputFileName, bool autoBoxDetect, int width, double position, QWidget* parent = Q_NULLPTR);
 	~OutputSelect();
 	QPushButton* getBackButton();
 	QPushButton* getGoButton();
@@ -49,4 +49,5 @@ private:
 	QString inputFileName;
 	bool autoDetectHeights;
 	int width;
+	double position;
 };

@@ -112,7 +112,7 @@ QLineEdit* HeightSelect::getSingleLineEdit()
 
 void HeightSelect::on_backButton_clicked()
 {
-	BuildProfile* buildProfile = new BuildProfile();
+	BuildProfile* buildProfile = new BuildProfile(videoDirectory);
 	buildProfile->setAttribute(Qt::WA_DeleteOnClose);
 	buildProfile->show();
 	this->close();
@@ -129,7 +129,7 @@ void HeightSelect::on_continueButton_clicked()
 			ui.continueWarning->setText("Box height cannot be larger than the image!");
 		}
 		else {
-			OutputSelect* outputSelect = new OutputSelect(this->widthBegin, this->widthEnd, this->heightBegin, this->heightEnd, ui.singleLineEdit->text(), ui.doubleLineEdit->text(), videoDirectory, autoBoxDetect, frame.rows);
+			OutputSelect* outputSelect = new OutputSelect(this->widthBegin, this->widthEnd, this->heightBegin, this->heightEnd, ui.singleLineEdit->text(), ui.doubleLineEdit->text(), videoDirectory, autoBoxDetect, frame.rows, position);
 			outputSelect->setAttribute(Qt::WA_DeleteOnClose);
 			outputSelect->show();
 			this->close();
@@ -142,9 +142,13 @@ void HeightSelect::on_continueButton_clicked()
 
 void HeightSelect::on_frameForward_clicked()
 {
+	//get the total number of frames in the video
+	int totalFrames = cap.get(CAP_PROP_FRAME_COUNT);
+	//get (rounded) 0.25% of that number
+	int frameAdvance = totalFrames / 400;
 	//replace preview with a more advanced frame when frameForward is clicked
 	if (cap.isOpened()) {
-		for (size_t i = 0; i < 30; i++) {
+		for (size_t i = 0; i < frameAdvance; i++) {
 			cap.grab();
 		}
 
@@ -166,11 +170,15 @@ void HeightSelect::on_frameForward_clicked()
 
 void HeightSelect::on_frameBack_clicked() 
 {
+	//get the total number of frames in the video
+	int totalFrames = cap.get(CAP_PROP_FRAME_COUNT);
+	//get (rounded) 0.25% of that number
+	int frameBack = totalFrames / 400;
 	//replace preview with a less advanced frame (if possible) when frameBack is clicked
 	if (cap.isOpened()) {
 		double position = cap.get(CAP_PROP_POS_FRAMES);
-		if (position >= 30) {
-			cap.set(CAP_PROP_POS_FRAMES, (position - 30.0));
+		if (position >= frameBack) {
+			cap.set(CAP_PROP_POS_FRAMES, (position - (double)frameBack));
 			cap >> frame;
 			//use the width and height data identified in the previous window to make a region of interest
 			frame = frame.rowRange(this->heightBegin.toInt(), this->heightEnd.toInt());

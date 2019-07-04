@@ -11,6 +11,7 @@ class BuildProfile : public QWidget
 
 public:
 	BuildProfile(QWidget *parent = Q_NULLPTR);
+	BuildProfile(QString videoDirectory, QWidget* parent = Q_NULLPTR);
 	~BuildProfile();
 	QPushButton* getBackButton();
 	QPushButton* getContinueButton();

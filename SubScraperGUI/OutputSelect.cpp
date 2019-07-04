@@ -13,7 +13,7 @@ OutputSelect::OutputSelect(QWidget *parent)
 {
 	ui.setupUi(this);
 }
-OutputSelect::OutputSelect(QString widthBegin, QString widthEnd, QString heightBegin, QString heightEnd, QString singleHeight, QString doubleHeight, QString inputFileName, bool autoBoxDetect, int width, QWidget* parent)
+OutputSelect::OutputSelect(QString widthBegin, QString widthEnd, QString heightBegin, QString heightEnd, QString singleHeight, QString doubleHeight, QString inputFileName, bool autoBoxDetect, int width, double position, QWidget* parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
@@ -33,6 +33,7 @@ OutputSelect::OutputSelect(QString widthBegin, QString widthEnd, QString heightB
 	this->inputFileName = inputFileName;
 	this->autoDetectHeights = autoBoxDetect;
 	this->width = width;
+	this->position = position;
 
 	//validation for advanced options, prevents invalid data type/size being set
 	//max size is width of the image
@@ -84,7 +85,7 @@ QLineEdit* OutputSelect::getOutputLineEdit()
 
 void OutputSelect::on_backButton_clicked()
 {
-	HeightSelect* heightSelect = new HeightSelect();
+	HeightSelect* heightSelect = new HeightSelect(widthBegin, widthEnd, heightBegin, heightEnd, inputFileName, position);
 	heightSelect->setAttribute(Qt::WA_DeleteOnClose);
 	heightSelect->show();
 	this->close();
@@ -163,27 +164,48 @@ void OutputSelect::on_saveProfileButton_clicked()
 	}
 	else if (!widthBegin.isEmpty() && !widthEnd.isEmpty() && !heightBegin.isEmpty() && !heightEnd.isEmpty() && !singleHeight.isEmpty() && !doubleHeight.isEmpty() && !dropLength.isEmpty()
 		&& !windowSizeLeft.isEmpty() && !windowSizeRight.isEmpty() && !wordConfidence.isEmpty() && !lineConfidence.isEmpty() && !compareThreshold.isEmpty() && !ui.dupeThresholdLineEdit->text().isEmpty()){
-		ofstream saveFile;
-		string fileName = "Profiles.txt";
-		saveFile.open(fileName, ios_base::app);
-		saveFile  << ui.profileName->text().toStdString() << endl;
-		saveFile  << widthBegin.toStdString() << endl;
-		saveFile  << widthEnd.toStdString() << endl;
-		saveFile  << heightBegin.toStdString() << endl;
-		saveFile  << heightEnd.toStdString() << endl;
-		saveFile  << singleHeight.toStdString() << endl;
-		saveFile  << doubleHeight.toStdString() << endl;
-		saveFile << dropLength.toStdString() << endl;
-		saveFile << windowSizeLeft.toStdString() << endl;
-		saveFile << windowSizeRight.toStdString() << endl;
-		saveFile << wordConfidence.toStdString() << endl;
-		saveFile << lineConfidence.toStdString() << endl;
-		saveFile << compareThreshold.toStdString() << endl;
-		saveFile << ui.dupeThresholdLineEdit->text().toStdString() << endl;
-		saveFile << autoDetectHeights << endl;
-		saveFile << endl;
-		saveFile.close();
-		ui.continueWarning->setText("Profile saved!");
+		//check that profile name is not already in use
+		ifstream loadProfile("Profiles.txt");
+		bool taken = false;
+		if (loadProfile) {
+			string name;
+			while (!loadProfile.eof()) {
+				getline(loadProfile, name);
+				if (name == ui.profileName->text().toStdString()) {
+					taken = true;
+				}
+				for (size_t i = 0; i < 15; i++) {
+					loadProfile.ignore(256, '\n');
+				}
+			}
+			loadProfile.close();
+		}
+		if (!taken) {
+			ofstream saveFile;
+			string fileName = "Profiles.txt";
+			saveFile.open(fileName, ios_base::app);
+			saveFile << ui.profileName->text().toStdString() << endl;
+			saveFile << widthBegin.toStdString() << endl;
+			saveFile << widthEnd.toStdString() << endl;
+			saveFile << heightBegin.toStdString() << endl;
+			saveFile << heightEnd.toStdString() << endl;
+			saveFile << singleHeight.toStdString() << endl;
+			saveFile << doubleHeight.toStdString() << endl;
+			saveFile << dropLength.toStdString() << endl;
+			saveFile << windowSizeLeft.toStdString() << endl;
+			saveFile << windowSizeRight.toStdString() << endl;
+			saveFile << wordConfidence.toStdString() << endl;
+			saveFile << lineConfidence.toStdString() << endl;
+			saveFile << compareThreshold.toStdString() << endl;
+			saveFile << ui.dupeThresholdLineEdit->text().toStdString() << endl;
+			saveFile << autoDetectHeights << endl;
+			saveFile << endl;
+			saveFile.close();
+			ui.continueWarning->setText("Profile saved!");
+		}
+		else {
+			ui.continueWarning->setText("This profile name is taken, please enter another.");
+		}
 	} else {
 		ui.continueWarning->setText("Please ensure all fields are filled before saving a profile.");
 	}

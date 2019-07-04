@@ -34,6 +34,31 @@ BuildProfile::BuildProfile(QWidget *parent)
 
 
 }
+//called when back button takes user back to here from HeightSelect
+BuildProfile::BuildProfile(QString videoDirectory, QWidget* parent)
+	: QWidget(parent)
+{
+	//perform usual window set up
+	ui.setupUi(this);
+	//the maximum valid height to set with no frame loaded is 0
+	int maxValidHeight = 0;
+	//as above, but with width
+	int maxValidWidth = 0;
+
+	//set validators to prevent non-numerical data and data of an invalid size being set in crop fields
+	QValidator* intValidatorWidth = new QIntValidator(0, maxValidWidth, this);
+	QValidator* intValidatorHeight = new QIntValidator(0, maxValidHeight, this);
+	ui.widthBegin->setValidator(intValidatorWidth);
+	ui.widthEnd->setValidator(intValidatorWidth);
+	ui.heightBegin->setValidator(intValidatorHeight);
+	ui.heightEnd->setValidator(intValidatorHeight);
+
+	//also load in previously selected video directory and set it to preview
+	ui.inputLineEdit->setText(videoDirectory);
+	on_previewButton_clicked();
+
+
+}
 
 BuildProfile::~BuildProfile()
 {
@@ -92,7 +117,7 @@ void BuildProfile::on_continueButton_clicked()
 	if (ui.widthBegin->text().isEmpty() || ui.widthEnd->text().isEmpty() || ui.heightBegin->text().isEmpty() || ui.heightEnd->text().isEmpty() || ui.inputLineEdit->text().isEmpty() || frame.empty()) {
 		ui.continueWarning->setText("Please select a video file, click preview to check it and ensure all crop height and width parameters are filled before continuing.");
 	}
-	else if ((ui.widthEnd->text().toInt() - ui.widthBegin->text().toInt()) > frame.rows || (ui.heightEnd->text().toInt() - ui.heightBegin->text().toInt()) > frame.cols 
+	else if ((ui.widthEnd->text().toInt() - ui.widthBegin->text().toInt()) > frame.cols || (ui.heightEnd->text().toInt() - ui.heightBegin->text().toInt()) > frame.rows 
 		|| (ui.widthEnd->text().toInt() - ui.widthBegin->text().toInt()) <= 0 || (ui.heightEnd->text().toInt() - ui.heightBegin->text().toInt()) <= 0){
 		ui.continueWarning->setText("Crop parameters outside image bounds. Please crop an area within the image.");
 	}
@@ -162,9 +187,13 @@ void BuildProfile::on_previewButton_clicked()
 //leaks!
 void BuildProfile::on_frameForward_clicked()
 {
+	//get the total number of frames in the video
+	int totalFrames = cap.get(CAP_PROP_FRAME_COUNT);
+	//get (rounded) 0.25% of that number
+	int frameAdvance = totalFrames / 400;
 	//replace preview with a more advanced frame when frameForward is clicked
 	if (cap.isOpened()) {
-		for (size_t i = 0; i < 30; i++) {
+		for (size_t i = 0; i < frameAdvance; i++) {
 			cap.grab();
 		}
 
@@ -182,11 +211,15 @@ void BuildProfile::on_frameForward_clicked()
 //leaks!
 void BuildProfile::on_frameBack_clicked()
 {
+	//get the total number of frames in the video
+	int totalFrames = cap.get(CAP_PROP_FRAME_COUNT);
+	//get (rounded) 0.25% of that number
+	int frameBack = totalFrames / 400;
 	//replace preview with a less advanced frame (if possible) when frameBack is clicked
 	if (cap.isOpened()) {
 		double position = cap.get(CAP_PROP_POS_FRAMES);
-		if (position >= 30) {
-			cap.set(CAP_PROP_POS_FRAMES, (position - 30.0));
+		if (position >= frameBack) {
+			cap.set(CAP_PROP_POS_FRAMES, (position - (double)frameBack));
 			cap >> frame;
 			imwrite("frame.jpeg", frame);
 			QImage image("frame.jpeg");
