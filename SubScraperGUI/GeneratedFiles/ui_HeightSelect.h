@@ -132,11 +132,11 @@ public:
         autoCheckBox->setText(QString());
         backButton->setText(QCoreApplication::translate("HeightSelect", "Back", nullptr));
         doubleGetHeight->setText(QCoreApplication::translate("HeightSelect", "Get height", nullptr));
-        frameBack->setText(QCoreApplication::translate("HeightSelect", "<<5", nullptr));
+        frameBack->setText(QCoreApplication::translate("HeightSelect", "<<", nullptr));
         doubleLabel->setText(QCoreApplication::translate("HeightSelect", "Double box height (px)", nullptr));
         singleLabel->setText(QCoreApplication::translate("HeightSelect", "Single box height (px)", nullptr));
         autoLabel->setText(QCoreApplication::translate("HeightSelect", "auto detect box heights", nullptr));
-        frameForward->setText(QCoreApplication::translate("HeightSelect", "5>>", nullptr));
+        frameForward->setText(QCoreApplication::translate("HeightSelect", ">>", nullptr));
         continueButton->setText(QCoreApplication::translate("HeightSelect", "Continue", nullptr));
         singleLineEdit->setText(QCoreApplication::translate("HeightSelect", "0", nullptr));
         doubleLineEdit->setText(QCoreApplication::translate("HeightSelect", "0", nullptr));

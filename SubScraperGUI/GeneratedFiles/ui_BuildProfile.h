@@ -239,9 +239,9 @@ public:
         heightBeginLabel->setText(QCoreApplication::translate("BuildProfile", "Height start:", nullptr));
         widthEndLabel->setText(QCoreApplication::translate("BuildProfile", "Width end:", nullptr));
         heightEndLabel->setText(QCoreApplication::translate("BuildProfile", "Height end:", nullptr));
-        frameBack->setText(QCoreApplication::translate("BuildProfile", "<<5", nullptr));
+        frameBack->setText(QCoreApplication::translate("BuildProfile", "<<", nullptr));
         continueButton->setText(QCoreApplication::translate("BuildProfile", "Continue", nullptr));
-        frameForward->setText(QCoreApplication::translate("BuildProfile", "5>>", nullptr));
+        frameForward->setText(QCoreApplication::translate("BuildProfile", ">>", nullptr));
         continueWarning->setText(QString());
         backButton->setText(QCoreApplication::translate("BuildProfile", "Back", nullptr));
     } // retranslateUi

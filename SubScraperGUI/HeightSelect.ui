@@ -48,7 +48,7 @@
    <item row="2" column="0">
     <widget class="QPushButton" name="frameBack">
      <property name="text">
-      <string>&lt;&lt;5</string>
+      <string>&lt;&lt;</string>
      </property>
     </widget>
    </item>
@@ -76,7 +76,7 @@
    <item row="2" column="3">
     <widget class="QPushButton" name="frameForward">
      <property name="text">
-      <string>5&gt;&gt;</string>
+      <string>&gt;&gt;</string>
      </property>
     </widget>
    </item>

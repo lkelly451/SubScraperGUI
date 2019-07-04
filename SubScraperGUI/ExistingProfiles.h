@@ -30,10 +30,12 @@ private slots:
 private:
 	Ui::ExistingProfiles ui;
 	QString name;
-	int widthBegin;
-	int widthEnd;
-	int heightBegin;
-	int heightEnd;
+	QString inputFileName;
+	QString outputFileName;
+	int cropWidthStart;
+	int cropWidthEnd;
+	int cropHeightStart;
+	int cropHeightEnd;
 	int singleHeight;
 	int doubleHeight;
 	int dropLength;
@@ -41,5 +43,7 @@ private:
 	int windowSizeRight;
 	int wordConfidence;
 	int lineConfidence;
+	int dupeThreshold;
 	double compareThreshold;
+	bool autoDetectHeights;
 };

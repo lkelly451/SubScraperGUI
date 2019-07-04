@@ -3,6 +3,7 @@
 #include "qfiledialog.h"
 #include <fstream>
 #include <iostream>
+#include <SubScraper.h>
 
 using namespace std;
 
@@ -106,15 +107,15 @@ void ExistingProfiles::on_item_clicked(QListWidgetItem* item)
 {
 	ifstream loadProfile("Profiles.txt");
 	if (loadProfile) {
-		string name;
+		string profileName;
 		while (!loadProfile.eof()) {
-			getline(loadProfile, name);
+			getline(loadProfile, profileName);
 			//load the profile's saved variables
-			if (name == item->text().toStdString()) {
-				loadProfile >> widthBegin;
-				loadProfile >> widthEnd;
-				loadProfile >> heightBegin;
-				loadProfile >> heightEnd;
+			if (profileName == item->text().toStdString()) {
+				loadProfile >> cropWidthStart;
+				loadProfile >> cropWidthEnd;
+				loadProfile >> cropHeightStart;
+				loadProfile >> cropHeightEnd;
 				loadProfile >> singleHeight;
 				loadProfile >> doubleHeight;
 				loadProfile >> dropLength;				
@@ -123,11 +124,13 @@ void ExistingProfiles::on_item_clicked(QListWidgetItem* item)
 				loadProfile >> wordConfidence; 			
 				loadProfile >> lineConfidence;
 				loadProfile >> compareThreshold;
+				loadProfile >> dupeThreshold;
+				loadProfile >> autoDetectHeights;
 
-				cout << widthBegin << endl;
-				cout << widthEnd << endl;
-				cout << heightBegin << endl;
-				cout << heightEnd << endl;
+				cout << cropWidthStart << endl;
+				cout << cropWidthEnd << endl;
+				cout << cropHeightStart << endl;
+				cout << cropHeightEnd << endl;
 				cout << singleHeight << endl;
 				cout << doubleHeight << endl;
 				cout << dropLength << endl;
@@ -145,10 +148,19 @@ void ExistingProfiles::on_item_clicked(QListWidgetItem* item)
 
 void ExistingProfiles::on_goButton_clicked()
 {
-	if (widthBegin > 0 && widthEnd > 0 && heightBegin > 0 && heightEnd > 0 && singleHeight > 0 && doubleHeight > 0) {
-		//go
+	inputFileName = ui.inputLineEdit->text();
+	outputFileName = ui.outputLineEdit->text();
+
+	//if inputs are all filled, get subtitles
+	if (!inputFileName.isEmpty() && !outputFileName.isEmpty() && cropWidthStart >= 0 && cropWidthEnd >= 0 && cropHeightStart >= 0 && cropHeightEnd >= 0 && singleHeight >= 0 && doubleHeight >= 0 && dropLength >=0
+		&& windowSizeLeft >= 0 && windowSizeRight >= 0 && wordConfidence >= 0 && lineConfidence >= 0 && compareThreshold >= 0) {
+		SubScraper subscraper;
+		this->close();
+		subscraper.getSubs(inputFileName.toStdString(), outputFileName.toStdString(), singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength,
+			windowSizeLeft, windowSizeRight, wordConfidence, lineConfidence, compareThreshold, dupeThreshold, autoDetectHeights);
 	}
+	//else print a warning
 	else {
-		ui.goWarningLabel->setText("Please click on a saved profile to select it before continuing.");
+		ui.goWarningLabel->setText("Please select a saved profile, a video to analyse and a destination for the subtitle output before continuing.");
 	}
 }
