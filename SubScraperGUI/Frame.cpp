@@ -80,7 +80,7 @@ void Frame::detectHorizontalHough(cv::Mat frame, vector<cv::Vec4i>& lines, int& 
 void Frame::drawHough(cv::Mat& dst, vector<cv::Vec4i> filteredLines)
 {
 	//draw filtered lines
-	if (!filteredLines.empty()) {
+	if (!filteredLines.empty() && dst.channels() < 3) {
 		for (size_t i = 0; i < filteredLines.size(); i++) {
 			cv::Vec4i l = filteredLines[i];
 			line(dst, cv::Point(l[0], l[1]), cv::Point(l[2], l[3]), 255, 3, cv::LINE_AA);
