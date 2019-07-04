@@ -17,6 +17,6 @@ private slots:
 	void mouseMoveEvent(QMouseEvent* e);
 
 private:
-	QRubberBand* rubberBand;
+	QRubberBand* rubberBand = new QRubberBand(QRubberBand::Rectangle, this);
 	QPoint origin;
 };

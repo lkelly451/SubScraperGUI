@@ -15,6 +15,9 @@ MyGraphicsView::~MyGraphicsView()
 }
 void MyGraphicsView::mousePressEvent(QMouseEvent* e)
 {
+	//hide any previously made rubber bands
+	rubberBand->hide();
+
 	//create a selection visual so the user can see the area they are targeting
 	origin = e->pos();
 	rubberBand = new QRubberBand(QRubberBand::Rectangle, this);
@@ -33,9 +36,10 @@ void MyGraphicsView::mousePressEvent(QMouseEvent* e)
 }
 void MyGraphicsView::mouseReleaseEvent(QMouseEvent* e) 
 {
-	//get the pixel coordinates where the user released a click and set these as the end values for the 
-	//height and width of the crop
+	
 	if (e->button() == Qt::LeftButton) {
+		//get the pixel coordinates where the user released a click and set these as the end values for the 
+		//height and width of the crop
 		QPoint globalPoint = this->mapFromGlobal(e->globalPos());
 		QPointF mousePoint = this->mapToScene(globalPoint);
 		QLineEdit* widthEnd = parent()->findChild<QLineEdit*>("widthEnd");
@@ -43,9 +47,6 @@ void MyGraphicsView::mouseReleaseEvent(QMouseEvent* e)
 		QLineEdit* heightEnd = parent()->findChild<QLineEdit*>("heightEnd");
 		heightEnd->setText(QString::number(mousePoint.y()));
 	}
-
-	//terminate the selection visual
-	rubberBand->hide();
 }
 
 void MyGraphicsView::mouseMoveEvent(QMouseEvent* e) 
