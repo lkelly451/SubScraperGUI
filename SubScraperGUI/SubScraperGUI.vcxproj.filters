@@ -69,6 +69,9 @@
     <ClCompile Include="SubScraper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Diagnostics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="SubScraperGUI.h">
@@ -89,6 +92,9 @@
     <QtMoc Include="MyGraphicsView.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="Diagnostics.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="SubScraperGUI.ui">
@@ -104,6 +110,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="ExistingProfiles.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Diagnostics.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
