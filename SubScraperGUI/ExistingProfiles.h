@@ -27,6 +27,7 @@ private slots:
 	void on_outputFileSelect_clicked();
 	void on_item_clicked(QListWidgetItem* item);
 	void on_goButton_clicked();
+	void on_deleteProfileButton_clicked();
 private:
 	Ui::ExistingProfiles ui;
 	QString name;

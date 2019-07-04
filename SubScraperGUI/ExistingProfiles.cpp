@@ -14,12 +14,12 @@ ExistingProfiles::ExistingProfiles(QWidget *parent)
 	//load the names of any saved profiles into the profile list
 	ifstream loadProfile("Profiles.txt");
 	if (loadProfile) {
-		string name;
+		string profileName;
 		while (!loadProfile.eof()) {
-			getline(loadProfile, name);
-			QString profileName = QString::fromStdString(name);
-			if (!profileName.isEmpty()) {
-				QListWidgetItem* item = new QListWidgetItem(profileName, ui.profileList);
+			getline(loadProfile, profileName);
+			name = QString::fromStdString(profileName);
+			if (!name.isEmpty()) {
+				QListWidgetItem* item = new QListWidgetItem(name, ui.profileList);
 				ui.profileList->setCurrentItem(item);
 			}
 			for (size_t i = 0; i < 15; i++) {
@@ -27,6 +27,9 @@ ExistingProfiles::ExistingProfiles(QWidget *parent)
 			}
 		}
 		loadProfile.close();
+		//load attributes of default selected profile
+		on_item_clicked(ui.profileList->currentItem());
+
 	}
 	connect(ui.profileList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(on_item_clicked(QListWidgetItem*)));
 }
@@ -112,6 +115,7 @@ void ExistingProfiles::on_item_clicked(QListWidgetItem* item)
 			getline(loadProfile, profileName);
 			//load the profile's saved variables
 			if (profileName == item->text().toStdString()) {
+				name = QString::fromStdString(profileName);
 				loadProfile >> cropWidthStart;
 				loadProfile >> cropWidthEnd;
 				loadProfile >> cropHeightStart;
@@ -163,4 +167,54 @@ void ExistingProfiles::on_goButton_clicked()
 	else {
 		ui.goWarningLabel->setText("Please select a saved profile, a video to analyse and a destination for the subtitle output before continuing.");
 	}
+}
+
+void ExistingProfiles::on_deleteProfileButton_clicked()
+{
+	ifstream loadProfile("Profiles.txt");
+	if (loadProfile) {
+		string line;
+		string selectedProfile = name.toStdString();
+		string interim;
+		while (getline(loadProfile, line)) {
+			//if the currently selected profile name matches an entry in Profiles.txt, delete the entry
+			if (line == selectedProfile) {
+				for (size_t i = 0; i < 15; i++) {
+					loadProfile.ignore(256, '\n');
+					ui.goWarningLabel->setText("Profile deleted.");
+				}
+			}
+			else {
+				interim.append(line);
+				interim.append("\n");
+			}
+			
+			
+		}
+		loadProfile.close();
+		ofstream overWriteProfile("Profiles.txt");
+		overWriteProfile << interim;
+		overWriteProfile.close();
+	}
+	//reload the list of saved profiles
+	loadProfile.open("Profiles.txt");
+	ui.profileList->clear();
+	if (loadProfile) {
+		string profileName;
+		while (!loadProfile.eof()) {
+			getline(loadProfile, profileName);
+			name = QString::fromStdString(profileName);
+			if (!name.isEmpty()) {
+				QListWidgetItem* item = new QListWidgetItem(name, ui.profileList);
+				ui.profileList->setCurrentItem(item);
+			}
+			for (size_t i = 0; i < 15; i++) {
+				loadProfile.ignore(256, '\n');
+			}
+		}
+		loadProfile.close();
+		//load attributes of default selected profile
+		on_item_clicked(ui.profileList->currentItem());
+	}
+
 }

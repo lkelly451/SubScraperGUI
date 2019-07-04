@@ -36,6 +36,7 @@ public:
     QLabel *goWarningLabel;
     QLabel *inputLabel;
     QLabel *existingLabel;
+    QPushButton *deleteProfileButton;
 
     void setupUi(QWidget *ExistingProfiles)
     {
@@ -105,6 +106,11 @@ public:
 
         gridLayout->addWidget(existingLabel, 0, 0, 1, 1);
 
+        deleteProfileButton = new QPushButton(layoutWidget);
+        deleteProfileButton->setObjectName(QString::fromUtf8("deleteProfileButton"));
+
+        gridLayout->addWidget(deleteProfileButton, 0, 3, 1, 1);
+
 
         retranslateUi(ExistingProfiles);
 
@@ -122,6 +128,7 @@ public:
         goWarningLabel->setText(QString());
         inputLabel->setText(QCoreApplication::translate("ExistingProfiles", "Input file:", nullptr));
         existingLabel->setText(QCoreApplication::translate("ExistingProfiles", "Existing profiles:", nullptr));
+        deleteProfileButton->setText(QCoreApplication::translate("ExistingProfiles", "Delete Profile", nullptr));
     } // retranslateUi
 
 };

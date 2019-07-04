@@ -88,6 +88,13 @@
       </property>
      </widget>
     </item>
+    <item row="0" column="3">
+     <widget class="QPushButton" name="deleteProfileButton">
+      <property name="text">
+       <string>Delete Profile</string>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
  </widget>
