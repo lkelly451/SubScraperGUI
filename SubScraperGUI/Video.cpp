@@ -1,5 +1,6 @@
 #include "Video.h"
 #include <iostream>
+#include <QtWidgets\qprogressbar.h>
 
 using namespace std;
 using namespace cv;
@@ -12,7 +13,7 @@ Video::Video(cv::VideoCapture cap, int singleHeight, int doubleHeight) {
 Video::~Video() {
 }
 
-int Video::getSubtitles(int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd, string outputFileName, int dropLength, int singleHeight, int doubleHeight, int windowSizeLeft, int windowSizeRight, bool autoDetectHeights, int wordConfidence, int lineConfidence, double compareThreshold, int dupeThreshold)
+int Video::getSubtitles(int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd, string outputFileName, int dropLength, int singleHeight, int doubleHeight, int windowSizeLeft, int windowSizeRight, bool autoDetectHeights, int wordConfidence, int lineConfidence, double compareThreshold, int dupeThreshold, QProgressBar* progressBar)
 {
 	string textLineOne;
 	string textLineTwo;
@@ -142,6 +143,10 @@ int Video::getSubtitles(int cropHeightStart, int cropHeightEnd, int cropWidthSta
 		catch (const exception & ex) {
 			cout << ex.what();
 		}
+		
+		//update progress bar with progress through frame processing
+		int frameProgress = (int)((cap.get(CAP_PROP_POS_FRAMES) / cap.get(CAP_PROP_FRAME_COUNT) * 100));
+		progressBar->setValue(frameProgress);
 	}
 
 	//add in any outputs from the last set of frames

@@ -1,6 +1,7 @@
 #include "OutputSelect.h"
 #include "HeightSelect.h"
 #include "qvalidator.h"
+#include <Diagnostics.h>
 #include "qfiledialog.h"
 #include <iostream>
 #include <fstream>
@@ -125,27 +126,13 @@ void OutputSelect::on_goButton_clicked()
 				string inputFileName = this->inputFileName.toStdString();
 				string outputFileName = ui.outputLineEdit->text().toStdString();
 
-				cout << "singleHeight: " << singleHeight << endl;
-				cout << "doubleHeight: " << doubleHeight << endl;
-				cout << "cropHeightStart: " << heightBegin.toInt() << endl;
-				cout << "cropHeightEnd: " << heightEnd.toInt() << endl;
-				cout << "cropWidthStart: " << widthBegin.toInt() << endl;
-				cout << "cropWidthEnd: " << widthEnd.toInt() << endl;
-				cout << "dropLength: " << ui.lengthFilterLineEdit->text().toInt() << endl;
-				cout << "windowSizeLeft: " << ui.leftWindowLineEdit->text().toInt() << endl;
-				cout << "windowSizeRight: " << ui.rightWindowLineEdit->text().toInt() << endl;
-				cout << "wordConfidence: " << ui.wordConfidenceLineEdit->text().toInt() << endl;
-				cout << "lineConfidence: " << ui.lineConfidenceLineEdit->text().toInt() << endl;
-				cout << "dupeThreshold: " << ui.dupeThresholdLineEdit->text().toInt() << endl;
-				cout << "compareThreshold: " << ui.compareThresholdLineEdit->text().toDouble() << endl;
-				cout << "inputFileName: " << this->inputFileName.toStdString() << endl;
-				cout << "outputFileName: " << ui.outputLineEdit->text().toStdString() << endl;
-				cout << "autoDetectHeights: " << autoDetectHeights << endl;
 
 				SubScraper subscraper;
+				Diagnostics* diagnostics = new Diagnostics(singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength, windowSizeLeft, windowSizeRight, wordConfidence, lineConfidence,
+					dupeThreshold, compareThreshold, inputFileName, outputFileName, autoDetectHeights);
+				diagnostics->setAttribute(Qt::WA_DeleteOnClose);
+				diagnostics->show();
 				this->close();
-				subscraper.getSubs(inputFileName, outputFileName, singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength,
-					windowSizeLeft, windowSizeRight, wordConfidence, lineConfidence, compareThreshold, dupeThreshold, autoDetectHeights);
 			}
 			else {
 				ui.continueWarning->setText("Sliding windows and box filter must be set to less than the width of the cropped image.");

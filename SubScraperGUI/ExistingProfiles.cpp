@@ -160,8 +160,8 @@ void ExistingProfiles::on_goButton_clicked()
 		&& windowSizeLeft >= 0 && windowSizeRight >= 0 && wordConfidence >= 0 && lineConfidence >= 0 && compareThreshold >= 0) {
 		SubScraper subscraper;
 		this->close();
-		subscraper.getSubs(inputFileName.toStdString(), outputFileName.toStdString(), singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength,
-			windowSizeLeft, windowSizeRight, wordConfidence, lineConfidence, compareThreshold, dupeThreshold, autoDetectHeights);
+		//subscraper.getSubs(inputFileName.toStdString(), outputFileName.toStdString(), singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength,
+			//windowSizeLeft, windowSizeRight, wordConfidence, lineConfidence, compareThreshold, dupeThreshold, autoDetectHeights);
 	}
 	//else print a warning
 	else {

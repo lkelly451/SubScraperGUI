@@ -23,18 +23,18 @@ QT_BEGIN_NAMESPACE
 class Ui_ExistingProfiles
 {
 public:
-    QWidget *layoutWidget;
+    QGridLayout *gridLayout_2;
     QGridLayout *gridLayout;
-    QLabel *outputLabel;
-    QPushButton *goButton;
-    QListWidget *profileList;
-    QLineEdit *outputLineEdit;
     QPushButton *backButton;
-    QLineEdit *inputLineEdit;
+    QLabel *outputLabel;
+    QLineEdit *outputLineEdit;
     QPushButton *outputFileSelect;
+    QPushButton *goButton;
+    QLineEdit *inputLineEdit;
+    QListWidget *profileList;
+    QLabel *inputLabel;
     QPushButton *fileSelect;
     QLabel *goWarningLabel;
-    QLabel *inputLabel;
     QLabel *existingLabel;
     QPushButton *deleteProfileButton;
 
@@ -43,73 +43,79 @@ public:
         if (ExistingProfiles->objectName().isEmpty())
             ExistingProfiles->setObjectName(QString::fromUtf8("ExistingProfiles"));
         ExistingProfiles->resize(646, 400);
-        layoutWidget = new QWidget(ExistingProfiles);
-        layoutWidget->setObjectName(QString::fromUtf8("layoutWidget"));
-        layoutWidget->setGeometry(QRect(9, 9, 621, 371));
-        gridLayout = new QGridLayout(layoutWidget);
+        gridLayout_2 = new QGridLayout(ExistingProfiles);
+        gridLayout_2->setSpacing(6);
+        gridLayout_2->setContentsMargins(11, 11, 11, 11);
+        gridLayout_2->setObjectName(QString::fromUtf8("gridLayout_2"));
+        gridLayout = new QGridLayout();
         gridLayout->setSpacing(6);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
-        gridLayout->setContentsMargins(0, 0, 0, 0);
-        outputLabel = new QLabel(layoutWidget);
+        backButton = new QPushButton(ExistingProfiles);
+        backButton->setObjectName(QString::fromUtf8("backButton"));
+
+        gridLayout->addWidget(backButton, 6, 1, 1, 1);
+
+        outputLabel = new QLabel(ExistingProfiles);
         outputLabel->setObjectName(QString::fromUtf8("outputLabel"));
+        outputLabel->setMaximumSize(QSize(143, 20));
 
         gridLayout->addWidget(outputLabel, 3, 1, 1, 1);
 
-        goButton = new QPushButton(layoutWidget);
-        goButton->setObjectName(QString::fromUtf8("goButton"));
-
-        gridLayout->addWidget(goButton, 6, 1, 1, 1);
-
-        profileList = new QListWidget(layoutWidget);
-        profileList->setObjectName(QString::fromUtf8("profileList"));
-
-        gridLayout->addWidget(profileList, 1, 0, 6, 1);
-
-        outputLineEdit = new QLineEdit(layoutWidget);
+        outputLineEdit = new QLineEdit(ExistingProfiles);
         outputLineEdit->setObjectName(QString::fromUtf8("outputLineEdit"));
 
         gridLayout->addWidget(outputLineEdit, 4, 1, 1, 2);
 
-        backButton = new QPushButton(layoutWidget);
-        backButton->setObjectName(QString::fromUtf8("backButton"));
+        outputFileSelect = new QPushButton(ExistingProfiles);
+        outputFileSelect->setObjectName(QString::fromUtf8("outputFileSelect"));
+        outputFileSelect->setMaximumSize(QSize(25, 23));
 
-        gridLayout->addWidget(backButton, 6, 3, 1, 1);
+        gridLayout->addWidget(outputFileSelect, 4, 3, 1, 1);
 
-        inputLineEdit = new QLineEdit(layoutWidget);
+        goButton = new QPushButton(ExistingProfiles);
+        goButton->setObjectName(QString::fromUtf8("goButton"));
+
+        gridLayout->addWidget(goButton, 6, 3, 1, 1);
+
+        inputLineEdit = new QLineEdit(ExistingProfiles);
         inputLineEdit->setObjectName(QString::fromUtf8("inputLineEdit"));
 
         gridLayout->addWidget(inputLineEdit, 2, 1, 1, 2);
 
-        outputFileSelect = new QPushButton(layoutWidget);
-        outputFileSelect->setObjectName(QString::fromUtf8("outputFileSelect"));
+        profileList = new QListWidget(ExistingProfiles);
+        profileList->setObjectName(QString::fromUtf8("profileList"));
 
-        gridLayout->addWidget(outputFileSelect, 4, 3, 1, 1);
+        gridLayout->addWidget(profileList, 1, 0, 6, 1);
 
-        fileSelect = new QPushButton(layoutWidget);
+        inputLabel = new QLabel(ExistingProfiles);
+        inputLabel->setObjectName(QString::fromUtf8("inputLabel"));
+        inputLabel->setMaximumSize(QSize(88, 20));
+
+        gridLayout->addWidget(inputLabel, 1, 1, 1, 1);
+
+        fileSelect = new QPushButton(ExistingProfiles);
         fileSelect->setObjectName(QString::fromUtf8("fileSelect"));
+        fileSelect->setMaximumSize(QSize(25, 23));
 
         gridLayout->addWidget(fileSelect, 2, 3, 1, 1);
 
-        goWarningLabel = new QLabel(layoutWidget);
+        goWarningLabel = new QLabel(ExistingProfiles);
         goWarningLabel->setObjectName(QString::fromUtf8("goWarningLabel"));
 
         gridLayout->addWidget(goWarningLabel, 5, 1, 1, 1);
 
-        inputLabel = new QLabel(layoutWidget);
-        inputLabel->setObjectName(QString::fromUtf8("inputLabel"));
-
-        gridLayout->addWidget(inputLabel, 1, 1, 1, 1);
-
-        existingLabel = new QLabel(layoutWidget);
+        existingLabel = new QLabel(ExistingProfiles);
         existingLabel->setObjectName(QString::fromUtf8("existingLabel"));
 
         gridLayout->addWidget(existingLabel, 0, 0, 1, 1);
 
-        deleteProfileButton = new QPushButton(layoutWidget);
+        deleteProfileButton = new QPushButton(ExistingProfiles);
         deleteProfileButton->setObjectName(QString::fromUtf8("deleteProfileButton"));
 
         gridLayout->addWidget(deleteProfileButton, 0, 3, 1, 1);
+
+
+        gridLayout_2->addLayout(gridLayout, 0, 0, 1, 1);
 
 
         retranslateUi(ExistingProfiles);
@@ -120,13 +126,13 @@ public:
     void retranslateUi(QWidget *ExistingProfiles)
     {
         ExistingProfiles->setWindowTitle(QCoreApplication::translate("ExistingProfiles", "ExistingProfiles", nullptr));
-        outputLabel->setText(QCoreApplication::translate("ExistingProfiles", "Output file:", nullptr));
-        goButton->setText(QCoreApplication::translate("ExistingProfiles", "Go", nullptr));
         backButton->setText(QCoreApplication::translate("ExistingProfiles", "Back", nullptr));
+        outputLabel->setText(QCoreApplication::translate("ExistingProfiles", "Output file for subtitles (.txt):", nullptr));
         outputFileSelect->setText(QCoreApplication::translate("ExistingProfiles", "...", nullptr));
+        goButton->setText(QCoreApplication::translate("ExistingProfiles", "Go", nullptr));
+        inputLabel->setText(QCoreApplication::translate("ExistingProfiles", "Video file to scan:", nullptr));
         fileSelect->setText(QCoreApplication::translate("ExistingProfiles", "...", nullptr));
         goWarningLabel->setText(QString());
-        inputLabel->setText(QCoreApplication::translate("ExistingProfiles", "Input file:", nullptr));
         existingLabel->setText(QCoreApplication::translate("ExistingProfiles", "Existing profiles:", nullptr));
         deleteProfileButton->setText(QCoreApplication::translate("ExistingProfiles", "Delete Profile", nullptr));
     } // retranslateUi

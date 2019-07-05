@@ -31,7 +31,7 @@ public:
         progressBar = new QProgressBar(Diagnostics);
         progressBar->setObjectName(QString::fromUtf8("progressBar"));
         progressBar->setGeometry(QRect(120, 110, 141, 23));
-        progressBar->setValue(24);
+        progressBar->setValue(0);
         progressBarLabel = new QLabel(Diagnostics);
         progressBarLabel->setObjectName(QString::fromUtf8("progressBarLabel"));
         progressBarLabel->setGeometry(QRect(60, 110, 61, 16));

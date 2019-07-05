@@ -5,6 +5,8 @@
 #include "Frame.h"
 #include "SubtitleBox.h"
 #include "Output.h"
+#include <QtWidgets\QWidget>
+#include <QtWidgets\qprogressbar.h>
 
 class Video
 {
@@ -13,7 +15,7 @@ private:
 public:
 	Video(cv::VideoCapture cap, int singleHeight, int doubleHeight);
 	~Video();
-	int getSubtitles(int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd, std::string outputFileName, int dropLength, int singleHeight, int doubleHeight, int windowSizeLeft, int windowSizeRight, bool autoDetectHeights, int wordConfidence, int lineConfidence, double compareThreshold, int dupeThreshold);
+	int getSubtitles(int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd, std::string outputFileName, int dropLength, int singleHeight, int doubleHeight, int windowSizeLeft, int windowSizeRight, bool autoDetectHeights, int wordConfidence, int lineConfidence, double compareThreshold, int dupeThreshold, QProgressBar* progressBar);
 	void sortYCoords(std::map<std::pair<int, int>, int>& frequency, std::vector<std::pair<int, int>>& ROICoordinates);
 	void sortYCoords(std::map<int, int>& frequency, std::vector<int>& heights);
 	void getBoxCoordinates(std::vector<cv::Vec2i> heightBoundaries, std::vector<std::pair<int, int>>& ROICoordinates, int singleHeight, int doubleHeight);
