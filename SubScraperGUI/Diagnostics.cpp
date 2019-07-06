@@ -1,6 +1,8 @@
 #include "Diagnostics.h"
 #include <opencv2/videoio.hpp>
 #include <SubScraper.h>
+#include <SubScraperGUI.h>
+#include <iostream>
 
 using namespace cv;
 using namespace std;
@@ -26,7 +28,12 @@ Diagnostics::Diagnostics(int singleHeight, int doubleHeight, int cropHeightStart
 	this->outputFileName = outputFileName;
 	this->autoDetectHeights = autoDetectHeights;
 
+	//hide exit and main menu buttons while the analysis loads
+	ui.exitButton->hide();
+	ui.mainButton->hide();
+
 	connect(this, SIGNAL(windowShown()), this, SLOT(on_windowShown()), Qt::ConnectionType(Qt::QueuedConnection));
+	connect(ui.cancelButton, SIGNAL(clicked()), this, SLOT(on_cancelButton_clicked()));
 }
 
 Diagnostics::Diagnostics(QString inputFileName, QWidget* parent)
@@ -42,14 +49,52 @@ Diagnostics::~Diagnostics()
 {
 }
 
-void Diagnostics::showEvent(QShowEvent* ev) {
+void Diagnostics::showEvent(QShowEvent* ev) 
+{
 	QWidget::showEvent(ev);
 	QApplication::processEvents();
 	emit windowShown();
 }
 
-void Diagnostics::on_windowShown() {
+void Diagnostics::on_windowShown() 
+{
 	SubScraper subscraper;
 	subscraper.getSubs(inputFileName, outputFileName, singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength,
-		windowSizeLeft, windowSizeRight, wordConfidence, lineConfidence, compareThreshold, dupeThreshold, autoDetectHeights, ui.progressBar);
+		windowSizeLeft, windowSizeRight, wordConfidence, lineConfidence, compareThreshold, dupeThreshold, autoDetectHeights, ui.progressBar, ui.cancelButton);
+	ui.progressBarLabel->setText("Complete!");
+	//provide a link to the subtitle output file
+	ui.outputLabel->setText(QString::QString("<a href='file:///") + QString::QString::fromStdString(outputFileName) + "'> Click to view subtitles.</a>");
+	ui.outputLabel->setOpenExternalLinks(true);
+	//hide cancel button, show exit and main menu buttons when analysis completes
+	ui.cancelButton->hide();
+	ui.exitButton->show();
+	ui.mainButton->show();
+}
+
+void Diagnostics::on_cancelButton_clicked() 
+{	
+	//set cancel button to checked in order to trigger Subscraper::getSubs() to cancel
+	//hide the cancel button and show the main menu and exit buttons
+	//set label to tell user that process has been cancelled
+	cout << "clicked" << endl;
+	ui.cancelButton->setChecked(true);
+	ui.cancelButton->hide();
+	ui.mainButton->show();
+	ui.exitButton->show();
+	ui.progressBarLabel->setText("Analysis cancelled.");
+}
+
+void Diagnostics::on_mainButton_clicked() 
+{
+	//return to main menu
+	SubScraperGUI* subScraperGUI = new SubScraperGUI();
+	subScraperGUI->setAttribute(Qt::WA_DeleteOnClose);
+	subScraperGUI->show();
+	this->close();
+}
+
+void Diagnostics::on_exitButton_clicked()
+{
+	//terminate the program
+	exit(0);
 }

@@ -19,6 +19,9 @@ signals:
 
 private slots:
 	void on_windowShown();
+	void on_cancelButton_clicked();
+	void on_mainButton_clicked();
+	void on_exitButton_clicked();
 
 private:
 	Ui::Diagnostics ui;

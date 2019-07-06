@@ -13,7 +13,7 @@ Video::Video(cv::VideoCapture cap, int singleHeight, int doubleHeight) {
 Video::~Video() {
 }
 
-int Video::getSubtitles(int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd, string outputFileName, int dropLength, int singleHeight, int doubleHeight, int windowSizeLeft, int windowSizeRight, bool autoDetectHeights, int wordConfidence, int lineConfidence, double compareThreshold, int dupeThreshold, QProgressBar* progressBar)
+int Video::getSubtitles(int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd, string outputFileName, int dropLength, int singleHeight, int doubleHeight, int windowSizeLeft, int windowSizeRight, bool autoDetectHeights, int wordConfidence, int lineConfidence, double compareThreshold, int dupeThreshold, QProgressBar* progressBar, QPushButton* cancelButton)
 {
 	string textLineOne;
 	string textLineTwo;
@@ -27,13 +27,19 @@ int Video::getSubtitles(int cropHeightStart, int cropHeightEnd, int cropWidthSta
 	cv::Mat frame;
 	cv::Mat morphFrame;
 	map<int, int> frequency;
+	double frameProgress;
 
 	if (!cap.isOpened()) {
+		//pass this to GUI
 		cout << "Error opening video file" << endl;
 		return -1;
 	}
 	if (autoDetectHeights) {
 		while (1) {
+			//cancel the function if cancel button is checked
+			if (cancelButton->isChecked()) {
+				return 0;
+			}
 			cap >> frame;
 
 			for (int i = 0; i < 15; i++) {
@@ -53,6 +59,10 @@ int Video::getSubtitles(int cropHeightStart, int cropHeightEnd, int cropWidthSta
 			f.detectHeights(frequency);
 			//allocate box heights
 
+			//mark progress in loading bar up to 25% 
+			frameProgress = (cap.get(CAP_PROP_POS_FRAMES) / cap.get(CAP_PROP_FRAME_COUNT)) * 25;
+			progressBar->setValue((int)frameProgress);
+
 		}
 		getBoxHeights(frequency, singleHeight, doubleHeight);
 		//print out the height frequencies
@@ -67,6 +77,9 @@ int Video::getSubtitles(int cropHeightStart, int cropHeightEnd, int cropWidthSta
 	//cap.set(CAP_PROP_POS_MSEC, 180000);
 	//cout << cap.get(CAP_PROP_POS_MSEC);
 	while (1) {
+		if (cancelButton->isChecked()) {
+			return 0;
+		}
 		cap >> frame;
 
 		//skip 15 frames (around half a second at 30fps - most subs are up for four, shortest seems to be around one)
@@ -86,6 +99,19 @@ int Video::getSubtitles(int cropHeightStart, int cropHeightEnd, int cropWidthSta
 
 		//detect box(es) on the frame and store their y coordinates in heightBoundaries
 		f.detectBoxes(singleHeight, doubleHeight, heightBoundaries, dropLength);
+
+		if (autoDetectHeights == true) {
+			//mark progress in loading bar up to 25% (50% total)
+			frameProgress = ((cap.get(CAP_PROP_POS_FRAMES) / cap.get(CAP_PROP_FRAME_COUNT)) * 25 + 25);
+			progressBar->setValue((int)frameProgress);
+		}
+		else {
+			//mark progress in loading bar up to 50%
+			frameProgress = (cap.get(CAP_PROP_POS_FRAMES) / cap.get(CAP_PROP_FRAME_COUNT)) * 50;
+			cout << "FrameProgress: " << frameProgress;
+			progressBar->setValue((int)frameProgress);
+		}
+
 	}
 	cout << "Done" << endl;
 	//get most frequent ROI coordinates from heightBoundaries
@@ -96,6 +122,9 @@ int Video::getSubtitles(int cropHeightStart, int cropHeightEnd, int cropWidthSta
 
 	while (1) {
 		try {
+			if (cancelButton->isChecked()) {
+				return 0;
+			}
 			cap >> frame;
 
 
@@ -143,10 +172,10 @@ int Video::getSubtitles(int cropHeightStart, int cropHeightEnd, int cropWidthSta
 		catch (const exception & ex) {
 			cout << ex.what();
 		}
-		
-		//update progress bar with progress through frame processing
-		int frameProgress = (int)((cap.get(CAP_PROP_POS_FRAMES) / cap.get(CAP_PROP_FRAME_COUNT) * 100));
-		progressBar->setValue(frameProgress);
+
+		//mark progress in progress bar up to 50% (total 100%)
+		frameProgress = ((cap.get(CAP_PROP_POS_FRAMES) / cap.get(CAP_PROP_FRAME_COUNT)) * 50) + 50;
+		progressBar->setValue((int)frameProgress);
 	}
 
 	//add in any outputs from the last set of frames
