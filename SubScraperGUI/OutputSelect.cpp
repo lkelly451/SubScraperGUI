@@ -127,7 +127,6 @@ void OutputSelect::on_goButton_clicked()
 				string outputFileName = ui.outputLineEdit->text().toStdString();
 
 
-				SubScraper subscraper;
 				Diagnostics* diagnostics = new Diagnostics(singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength, windowSizeLeft, windowSizeRight, wordConfidence, lineConfidence,
 					dupeThreshold, compareThreshold, inputFileName, outputFileName, autoDetectHeights);
 				diagnostics->setAttribute(Qt::WA_DeleteOnClose);
