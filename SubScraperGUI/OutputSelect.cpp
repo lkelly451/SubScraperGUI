@@ -5,7 +5,6 @@
 #include "qfiledialog.h"
 #include <iostream>
 #include <fstream>
-#include "SubScraper.h"
 
 using namespace std;
 

@@ -3,7 +3,6 @@
 #include "qfiledialog.h"
 #include <fstream>
 #include <iostream>
-#include <SubScraper.h>
 #include <Diagnostics.h>
 
 using namespace std;

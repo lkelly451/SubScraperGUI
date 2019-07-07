@@ -1,6 +1,5 @@
 #include "Diagnostics.h"
 #include <opencv2/videoio.hpp>
-#include <SubScraper.h>
 #include <SubScraperGUI.h>
 #include <iostream>
 #include <Video.h>

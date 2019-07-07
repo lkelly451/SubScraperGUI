@@ -125,7 +125,6 @@
     <ClCompile Include="Output.cpp" />
     <ClCompile Include="OutputSelect.cpp" />
     <ClCompile Include="StringComparer.cpp" />
-    <ClCompile Include="SubScraper.cpp" />
     <ClCompile Include="SubScraperGUI.cpp" />
     <ClCompile Include="SubtitleBox.cpp" />
     <ClCompile Include="Video.cpp" />
@@ -182,7 +181,6 @@
     <ClInclude Include="Frame.h" />
     <ClInclude Include="Output.h" />
     <ClInclude Include="StringComparer.h" />
-    <ClInclude Include="SubScraper.h" />
     <ClInclude Include="SubtitleBox.h" />
     <QtMoc Include="Video.h">
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Luke\vcpkg\packages\tesseract_x64-windows\include\tesseract;C:\Users\Luke\vcpkg\packages\leptonica_x64-windows\include\leptonica;C:\opencv\build\include;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
