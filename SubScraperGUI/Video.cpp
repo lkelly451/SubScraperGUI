@@ -5,16 +5,33 @@
 using namespace std;
 using namespace cv;
 
-Video::Video(cv::VideoCapture cap, int singleHeight, int doubleHeight) {
-	this->cap = cap;
+Video::Video(std::string inputFileName, std::string outputFileName, int singleHeight, int doubleHeight, int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd,  int dropLength, int windowSizeLeft,
+	int windowSizeRight, bool autoDetectHeights, int wordConfidence, int lineConfidence, double compareThreshold, int dupeThreshold, QProgressBar* progressBar, QPushButton* cancelButton) {
+	this->inputFileName = inputFileName;
+	this->outputFileName = outputFileName;
+	this->cropHeightStart = cropHeightStart;
+	this->cropHeightEnd = cropHeightEnd;
+	this->cropWidthStart = cropWidthStart;
+	this->cropWidthEnd = cropWidthEnd;
+	this->dropLength = dropLength;
+	this->singleHeight = singleHeight;
+	this->doubleHeight = doubleHeight;
+	this->windowSizeLeft = windowSizeLeft;
+	this->windowSizeRight = windowSizeRight;
+	this->autoDetectHeights = autoDetectHeights;
+	this->wordConfidence = wordConfidence;
+	this->lineConfidence = lineConfidence;
+	this->compareThreshold = compareThreshold;
+	this->dupeThreshold = dupeThreshold;
+	this->progressBar = progressBar;
+	this->cancelButton = cancelButton;
 }
-
 
 Video::~Video() {
 }
 
-int Video::getSubtitles(int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd, string outputFileName, int dropLength, int singleHeight, int doubleHeight, int windowSizeLeft, int windowSizeRight, bool autoDetectHeights, int wordConfidence, int lineConfidence, double compareThreshold, int dupeThreshold, QProgressBar* progressBar, QPushButton* cancelButton)
-{
+void Video::run(){
+	VideoCapture cap(inputFileName);
 	string textLineOne;
 	string textLineTwo;
 	int prevLineOneConfidence = 0;
@@ -32,14 +49,15 @@ int Video::getSubtitles(int cropHeightStart, int cropHeightEnd, int cropWidthSta
 	if (!cap.isOpened()) {
 		//pass this to GUI
 		cout << "Error opening video file" << endl;
-		return -1;
+		//interrupt
 	}
 	if (autoDetectHeights) {
 		while (1) {
 			//cancel the function if cancel button is checked
-			if (cancelButton->isChecked()) {
-				return 0;
+			if (cancelButton->isFlat()) {
+				break;
 			}
+
 			cap >> frame;
 
 			for (int i = 0; i < 15; i++) {
@@ -50,9 +68,11 @@ int Video::getSubtitles(int cropHeightStart, int cropHeightEnd, int cropWidthSta
 				break;
 			}
 			//crop frame image
+			cout << "CHS, CHE, CWS, CWE" << endl;
+			cout << cropHeightStart << " " << cropHeightEnd << " " << cropWidthStart << " " << cropWidthEnd << endl;
 			crop(frame, frame, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd);
-			//imshow("image", frame);
-			//waitKey(0);
+			imshow("image", frame);
+			waitKey(0);
 			//construct frame
 			Frame f(frame);
 			//detect and record box heights
@@ -64,12 +84,14 @@ int Video::getSubtitles(int cropHeightStart, int cropHeightEnd, int cropWidthSta
 			progressBar->setValue((int)frameProgress);
 
 		}
-		getBoxHeights(frequency, singleHeight, doubleHeight);
-		//print out the height frequencies
-		printFrequencyMap(frequency);
+		if (!cancelButton->isFlat()) {
+			getBoxHeights(frequency, singleHeight, doubleHeight);
+			//print out the height frequencies
+			printFrequencyMap(frequency);
 
-		//reset video
-		cap.set(cv::CAP_PROP_POS_FRAMES, 0);
+			//reset video
+			cap.set(cv::CAP_PROP_POS_FRAMES, 0);
+		}
 	}
 	//challenging contrast at 153k
 	//single at 32k
@@ -77,9 +99,12 @@ int Video::getSubtitles(int cropHeightStart, int cropHeightEnd, int cropWidthSta
 	//cap.set(CAP_PROP_POS_MSEC, 180000);
 	//cout << cap.get(CAP_PROP_POS_MSEC);
 	while (1) {
-		if (cancelButton->isChecked()) {
-			return 0;
+		//interrupt if cancel clicked
+		if (cancelButton->isFlat()) {
+			break;
 		}
+
+
 		cap >> frame;
 
 		//skip 15 frames (around half a second at 30fps - most subs are up for four, shortest seems to be around one)
@@ -114,17 +139,21 @@ int Video::getSubtitles(int cropHeightStart, int cropHeightEnd, int cropWidthSta
 
 	}
 	cout << "Done" << endl;
-	//get most frequent ROI coordinates from heightBoundaries
-	getBoxCoordinates(heightBoundaries, ROICoordinates, singleHeight, doubleHeight);
+	if (!cancelButton->isFlat()) {
+		//get most frequent ROI coordinates from heightBoundaries
+		getBoxCoordinates(heightBoundaries, ROICoordinates, singleHeight, doubleHeight);
 
-	//reset video
-	cap.set(cv::CAP_PROP_POS_FRAMES, 0);
+		//reset video
+		cap.set(cv::CAP_PROP_POS_FRAMES, 0);
+	}
 
 	while (1) {
 		try {
-			if (cancelButton->isChecked()) {
-				return 0;
+			//interrupt if cancel clicked
+			if (cancelButton->isFlat()) {
+				break;
 			}
+
 			cap >> frame;
 
 
@@ -177,20 +206,19 @@ int Video::getSubtitles(int cropHeightStart, int cropHeightEnd, int cropWidthSta
 		frameProgress = ((cap.get(CAP_PROP_POS_FRAMES) / cap.get(CAP_PROP_FRAME_COUNT)) * 50) + 50;
 		progressBar->setValue((int)frameProgress);
 	}
+	if (!cancelButton->isFlat()) {
+		//add in any outputs from the last set of frames
+		Output o(outputFileName);
+		o.outputFinalLines(textLineOne, textLineTwo);
 
-	//add in any outputs from the last set of frames
-	Output o(outputFileName);
-	o.outputFinalLines(textLineOne, textLineTwo);
+		//Change | to I and filter various characters in output
+		o.letterConverter();
 
-	//Change | to I and filter various characters in output
-	o.letterConverter();
+		//spellcheck
 
-	//spellcheck
-
-	//Mark doubles
-	markPotentialDuplicates(outputFileName, dupeThreshold);
-
-	return 0;
+		//Mark doubles
+		markPotentialDuplicates(outputFileName, dupeThreshold);
+	}
 }
 
 
@@ -579,6 +607,11 @@ void Video::markPotentialDuplicates(string outputFileName, int dupeThreshold)
 	output << interim;
 	output.close();
 
+}
+
+void Video::on_cancelButton_clicked()
+{
+	this->exit();
 }
 
 

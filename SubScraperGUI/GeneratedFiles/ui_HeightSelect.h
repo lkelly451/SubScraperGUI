@@ -208,7 +208,7 @@ public:
 
     void retranslateUi(QWidget *HeightSelect)
     {
-        HeightSelect->setWindowTitle(QCoreApplication::translate("HeightSelect", "HeightSelect", nullptr));
+        HeightSelect->setWindowTitle(QCoreApplication::translate("HeightSelect", "Height Select", nullptr));
         continueWarning->setText(QString());
         backButton->setText(QCoreApplication::translate("HeightSelect", "Back", nullptr));
         autoLabel->setText(QCoreApplication::translate("HeightSelect", "auto detect box heights", nullptr));

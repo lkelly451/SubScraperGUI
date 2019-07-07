@@ -10,10 +10,13 @@
 #define UI_SUBSCRAPERGUI_H
 
 #include <QtCore/QVariant>
+#include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMenu>
+#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QWidget>
@@ -29,6 +32,9 @@ public:
     QPushButton *selectButton;
     QPushButton *buildButton;
     QStatusBar *statusBar;
+    QMenuBar *menuBar;
+    QMenu *menuAbout;
+    QMenu *menuHelp;
 
     void setupUi(QMainWindow *SubScraperGUIClass)
     {
@@ -60,6 +66,17 @@ public:
         statusBar = new QStatusBar(SubScraperGUIClass);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
         SubScraperGUIClass->setStatusBar(statusBar);
+        menuBar = new QMenuBar(SubScraperGUIClass);
+        menuBar->setObjectName(QString::fromUtf8("menuBar"));
+        menuBar->setGeometry(QRect(0, 0, 600, 21));
+        menuAbout = new QMenu(menuBar);
+        menuAbout->setObjectName(QString::fromUtf8("menuAbout"));
+        menuHelp = new QMenu(menuBar);
+        menuHelp->setObjectName(QString::fromUtf8("menuHelp"));
+        SubScraperGUIClass->setMenuBar(menuBar);
+
+        menuBar->addAction(menuAbout->menuAction());
+        menuBar->addAction(menuHelp->menuAction());
 
         retranslateUi(SubScraperGUIClass);
 
@@ -68,10 +85,12 @@ public:
 
     void retranslateUi(QMainWindow *SubScraperGUIClass)
     {
-        SubScraperGUIClass->setWindowTitle(QCoreApplication::translate("SubScraperGUIClass", "SubScraperGUI", nullptr));
+        SubScraperGUIClass->setWindowTitle(QCoreApplication::translate("SubScraperGUIClass", "Main", nullptr));
         selectLabel->setText(QCoreApplication::translate("SubScraperGUIClass", "Select an existing profile or build a new one.", nullptr));
         selectButton->setText(QCoreApplication::translate("SubScraperGUIClass", "Select existing profile", nullptr));
         buildButton->setText(QCoreApplication::translate("SubScraperGUIClass", "Build new profile", nullptr));
+        menuAbout->setTitle(QCoreApplication::translate("SubScraperGUIClass", "About", nullptr));
+        menuHelp->setTitle(QCoreApplication::translate("SubScraperGUIClass", "Help", nullptr));
     } // retranslateUi
 
 };

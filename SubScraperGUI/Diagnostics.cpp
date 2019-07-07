@@ -3,7 +3,7 @@
 #include <SubScraper.h>
 #include <SubScraperGUI.h>
 #include <iostream>
-
+#include <Video.h>
 using namespace cv;
 using namespace std;
 Diagnostics::Diagnostics(int singleHeight, int doubleHeight, int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd, int dropLength, int windowSizeLeft, 
@@ -58,9 +58,14 @@ void Diagnostics::showEvent(QShowEvent* ev)
 
 void Diagnostics::on_windowShown() 
 {
-	SubScraper subscraper;
-	subscraper.getSubs(inputFileName, outputFileName, singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength,
-		windowSizeLeft, windowSizeRight, wordConfidence, lineConfidence, compareThreshold, dupeThreshold, autoDetectHeights, ui.progressBar, ui.cancelButton);
+	//SubScraper subscraper;
+	//subscraper.getSubs(inputFileName, outputFileName, singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength,
+		//windowSizeLeft, windowSizeRight, wordConfidence, lineConfidence, compareThreshold, dupeThreshold, autoDetectHeights, ui.progressBar, ui.cancelButton);
+	cout << "At diagnostics: " << autoDetectHeights;
+	video = new Video(inputFileName, outputFileName, singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength, windowSizeLeft,
+		windowSizeRight, autoDetectHeights, wordConfidence, lineConfidence, compareThreshold, dupeThreshold,  ui.progressBar, ui.cancelButton);
+	video->start();
+	/*
 	ui.progressBarLabel->setText("Complete!");
 	//provide a link to the subtitle output file
 	ui.outputLabel->setText(QString::QString("<a href='file:///") + QString::QString::fromStdString(outputFileName) + "'> Click to view subtitles.</a>");
@@ -69,6 +74,7 @@ void Diagnostics::on_windowShown()
 	ui.cancelButton->hide();
 	ui.exitButton->show();
 	ui.mainButton->show();
+	*/
 }
 
 void Diagnostics::on_cancelButton_clicked() 
@@ -76,12 +82,14 @@ void Diagnostics::on_cancelButton_clicked()
 	//set cancel button to checked in order to trigger Subscraper::getSubs() to cancel
 	//hide the cancel button and show the main menu and exit buttons
 	//set label to tell user that process has been cancelled
-	cout << "clicked" << endl;
-	ui.cancelButton->setChecked(true);
+	
+	
+	ui.cancelButton->setFlat(true);
 	ui.cancelButton->hide();
 	ui.mainButton->show();
 	ui.exitButton->show();
 	ui.progressBarLabel->setText("Analysis cancelled.");
+	
 }
 
 void Diagnostics::on_mainButton_clicked() 

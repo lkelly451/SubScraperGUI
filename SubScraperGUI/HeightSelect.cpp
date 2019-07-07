@@ -129,6 +129,7 @@ void HeightSelect::on_continueButton_clicked()
 			ui.continueWarning->setText("Box height cannot be larger than the image!");
 		}
 		else {
+			cout << "At height select: " << autoBoxDetect << endl;
 			OutputSelect* outputSelect = new OutputSelect(this->widthBegin, this->widthEnd, this->heightBegin, this->heightEnd, ui.singleLineEdit->text(), ui.doubleLineEdit->text(), videoDirectory, autoBoxDetect, frame.rows, position);
 			outputSelect->setAttribute(Qt::WA_DeleteOnClose);
 			outputSelect->show();

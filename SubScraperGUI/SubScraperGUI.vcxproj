@@ -184,7 +184,10 @@
     <ClInclude Include="StringComparer.h" />
     <ClInclude Include="SubScraper.h" />
     <ClInclude Include="SubtitleBox.h" />
-    <ClInclude Include="Video.h" />
+    <QtMoc Include="Video.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Luke\vcpkg\packages\tesseract_x64-windows\include\tesseract;C:\Users\Luke\vcpkg\packages\leptonica_x64-windows\include\leptonica;C:\opencv\build\include;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;C:\opencv\build\include;C:\Users\Luke\vcpkg\packages\leptonica_x64-windows\include\leptonica;C:\Users\Luke\vcpkg\packages\tesseract_x64-windows\include\tesseract</IncludePath>
+    </QtMoc>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

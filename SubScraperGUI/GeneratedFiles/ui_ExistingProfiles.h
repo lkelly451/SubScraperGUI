@@ -125,7 +125,7 @@ public:
 
     void retranslateUi(QWidget *ExistingProfiles)
     {
-        ExistingProfiles->setWindowTitle(QCoreApplication::translate("ExistingProfiles", "ExistingProfiles", nullptr));
+        ExistingProfiles->setWindowTitle(QCoreApplication::translate("ExistingProfiles", "Existing Profiles", nullptr));
         backButton->setText(QCoreApplication::translate("ExistingProfiles", "Back", nullptr));
         outputLabel->setText(QCoreApplication::translate("ExistingProfiles", "Output file for subtitles (.txt):", nullptr));
         outputFileSelect->setText(QCoreApplication::translate("ExistingProfiles", "...", nullptr));

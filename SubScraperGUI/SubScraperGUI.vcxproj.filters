@@ -95,6 +95,9 @@
     <QtMoc Include="Diagnostics.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="Video.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="SubScraperGUI.ui">
@@ -132,9 +135,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SubtitleBox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Video.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SubScraper.h">

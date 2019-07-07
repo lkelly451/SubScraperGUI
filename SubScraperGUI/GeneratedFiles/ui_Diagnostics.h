@@ -62,7 +62,7 @@ public:
     {
         Diagnostics->setWindowTitle(QCoreApplication::translate("Diagnostics", "Diagnostics", nullptr));
         progressBarLabel->setText(QCoreApplication::translate("Diagnostics", "Analysing:", nullptr));
-        outputLabel->setText(QCoreApplication::translate("Diagnostics", "l", nullptr));
+        outputLabel->setText(QString());
         exitButton->setText(QCoreApplication::translate("Diagnostics", "Exit", nullptr));
         mainButton->setText(QCoreApplication::translate("Diagnostics", "Main menu", nullptr));
         cancelButton->setText(QCoreApplication::translate("Diagnostics", "Cancel", nullptr));

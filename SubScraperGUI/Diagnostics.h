@@ -2,6 +2,7 @@
 
 #include <QWidget>
 #include "ui_Diagnostics.h"
+#include <Video.h>
 
 class Diagnostics : public QWidget
 {
@@ -41,4 +42,6 @@ private:
 	std::string inputFileName;
 	std::string outputFileName;
 	bool autoDetectHeights;
+	Video* video;
+	
 };

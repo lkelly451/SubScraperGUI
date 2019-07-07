@@ -132,6 +132,8 @@ void OutputSelect::on_goButton_clicked()
 				diagnostics->setAttribute(Qt::WA_DeleteOnClose);
 				diagnostics->show();
 				this->close();
+
+			
 			}
 			else {
 				ui.continueWarning->setText("Sliding windows and box filter must be set to less than the width of the cropped image.");
