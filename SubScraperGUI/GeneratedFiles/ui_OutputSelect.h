@@ -43,30 +43,37 @@ public:
     QHBoxLayout *horizontalLayout_5;
     QLabel *lengthFilterLabel;
     QLineEdit *lengthFilterLineEdit;
+    QLineEdit *toolTipBoxLength;
     QSpacerItem *horizontalSpacer_2;
     QHBoxLayout *horizontalLayout_6;
     QLabel *leftWindowLabel;
     QLineEdit *leftWindowLineEdit;
+    QLineEdit *toolTipLeftSlidingWindow;
     QSpacerItem *horizontalSpacer_3;
     QHBoxLayout *horizontalLayout_7;
     QLabel *rightWindowLabel;
     QLineEdit *rightWindowLineEdit;
+    QLineEdit *toolTipRightSlidingWindow;
     QSpacerItem *horizontalSpacer_4;
     QHBoxLayout *horizontalLayout_8;
     QLabel *wordConfidenceLabel;
     QLineEdit *wordConfidenceLineEdit;
+    QLineEdit *toolTipWordConfidence;
     QSpacerItem *horizontalSpacer_5;
     QHBoxLayout *horizontalLayout_9;
     QLabel *lineConfidenceLabel;
     QLineEdit *lineConfidenceLineEdit;
+    QLineEdit *toolTipLineConfidence;
     QSpacerItem *horizontalSpacer_6;
     QHBoxLayout *horizontalLayout_3;
     QLabel *dupeThresholdLabel;
     QLineEdit *dupeThresholdLineEdit;
+    QLineEdit *toolTipMarkDuplicates;
     QSpacerItem *horizontalSpacer_7;
     QHBoxLayout *horizontalLayout_10;
     QLabel *compareThresholdLabel;
     QLineEdit *compareThresholdLineEdit;
+    QLineEdit *toolTipComparisonThreshold;
     QSpacerItem *horizontalSpacer_8;
     QHBoxLayout *horizontalLayout_12;
     QHBoxLayout *horizontalLayout_4;
@@ -174,6 +181,13 @@ public:
 
         horizontalLayout_5->addWidget(lengthFilterLineEdit);
 
+        toolTipBoxLength = new QLineEdit(OutputSelect);
+        toolTipBoxLength->setObjectName(QString::fromUtf8("toolTipBoxLength"));
+        toolTipBoxLength->setMaximumSize(QSize(20, 20));
+        toolTipBoxLength->setReadOnly(true);
+
+        horizontalLayout_5->addWidget(toolTipBoxLength);
+
         horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_5->addItem(horizontalSpacer_2);
@@ -194,6 +208,13 @@ public:
         leftWindowLineEdit->setMaximumSize(QSize(30, 20));
 
         horizontalLayout_6->addWidget(leftWindowLineEdit);
+
+        toolTipLeftSlidingWindow = new QLineEdit(OutputSelect);
+        toolTipLeftSlidingWindow->setObjectName(QString::fromUtf8("toolTipLeftSlidingWindow"));
+        toolTipLeftSlidingWindow->setMaximumSize(QSize(20, 20));
+        toolTipLeftSlidingWindow->setReadOnly(true);
+
+        horizontalLayout_6->addWidget(toolTipLeftSlidingWindow);
 
         horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -216,6 +237,13 @@ public:
 
         horizontalLayout_7->addWidget(rightWindowLineEdit);
 
+        toolTipRightSlidingWindow = new QLineEdit(OutputSelect);
+        toolTipRightSlidingWindow->setObjectName(QString::fromUtf8("toolTipRightSlidingWindow"));
+        toolTipRightSlidingWindow->setMaximumSize(QSize(20, 20));
+        toolTipRightSlidingWindow->setReadOnly(true);
+
+        horizontalLayout_7->addWidget(toolTipRightSlidingWindow);
+
         horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_7->addItem(horizontalSpacer_4);
@@ -236,6 +264,13 @@ public:
         wordConfidenceLineEdit->setMaximumSize(QSize(30, 20));
 
         horizontalLayout_8->addWidget(wordConfidenceLineEdit);
+
+        toolTipWordConfidence = new QLineEdit(OutputSelect);
+        toolTipWordConfidence->setObjectName(QString::fromUtf8("toolTipWordConfidence"));
+        toolTipWordConfidence->setMaximumSize(QSize(20, 20));
+        toolTipWordConfidence->setReadOnly(true);
+
+        horizontalLayout_8->addWidget(toolTipWordConfidence);
 
         horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -258,6 +293,13 @@ public:
 
         horizontalLayout_9->addWidget(lineConfidenceLineEdit);
 
+        toolTipLineConfidence = new QLineEdit(OutputSelect);
+        toolTipLineConfidence->setObjectName(QString::fromUtf8("toolTipLineConfidence"));
+        toolTipLineConfidence->setMaximumSize(QSize(20, 20));
+        toolTipLineConfidence->setReadOnly(true);
+
+        horizontalLayout_9->addWidget(toolTipLineConfidence);
+
         horizontalSpacer_6 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_9->addItem(horizontalSpacer_6);
@@ -279,6 +321,13 @@ public:
 
         horizontalLayout_3->addWidget(dupeThresholdLineEdit);
 
+        toolTipMarkDuplicates = new QLineEdit(OutputSelect);
+        toolTipMarkDuplicates->setObjectName(QString::fromUtf8("toolTipMarkDuplicates"));
+        toolTipMarkDuplicates->setMaximumSize(QSize(20, 20));
+        toolTipMarkDuplicates->setReadOnly(true);
+
+        horizontalLayout_3->addWidget(toolTipMarkDuplicates);
+
         horizontalSpacer_7 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_3->addItem(horizontalSpacer_7);
@@ -299,6 +348,13 @@ public:
         compareThresholdLineEdit->setMaximumSize(QSize(30, 20));
 
         horizontalLayout_10->addWidget(compareThresholdLineEdit);
+
+        toolTipComparisonThreshold = new QLineEdit(OutputSelect);
+        toolTipComparisonThreshold->setObjectName(QString::fromUtf8("toolTipComparisonThreshold"));
+        toolTipComparisonThreshold->setMaximumSize(QSize(20, 20));
+        toolTipComparisonThreshold->setReadOnly(true);
+
+        horizontalLayout_10->addWidget(toolTipComparisonThreshold);
 
         horizontalSpacer_8 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -362,21 +418,28 @@ public:
         profileLabel->setText(QCoreApplication::translate("OutputSelect", "Profile name:", nullptr));
         saveProfileButton->setText(QCoreApplication::translate("OutputSelect", "Save Profile", nullptr));
         continueWarning->setText(QString());
-        advancedLabel->setText(QCoreApplication::translate("OutputSelect", "Advanced options: ", nullptr));
+        advancedLabel->setText(QCoreApplication::translate("OutputSelect", "Advanced options (mouse over '?' next to each option for more information): ", nullptr));
         lengthFilterLabel->setText(QCoreApplication::translate("OutputSelect", "Box length filter(px):                          ", nullptr));
         lengthFilterLineEdit->setText(QCoreApplication::translate("OutputSelect", "0", nullptr));
+        toolTipBoxLength->setText(QCoreApplication::translate("OutputSelect", " ?", nullptr));
         leftWindowLabel->setText(QCoreApplication::translate("OutputSelect", "Left sliding window size(px):              ", nullptr));
         leftWindowLineEdit->setText(QCoreApplication::translate("OutputSelect", "0", nullptr));
+        toolTipLeftSlidingWindow->setText(QCoreApplication::translate("OutputSelect", " ?", nullptr));
         rightWindowLabel->setText(QCoreApplication::translate("OutputSelect", "Right sliding window size(px):            ", nullptr));
         rightWindowLineEdit->setText(QCoreApplication::translate("OutputSelect", "9", nullptr));
+        toolTipRightSlidingWindow->setText(QCoreApplication::translate("OutputSelect", " ?", nullptr));
         wordConfidenceLabel->setText(QCoreApplication::translate("OutputSelect", "Word confidence threshold (0xx):     ", nullptr));
         wordConfidenceLineEdit->setText(QCoreApplication::translate("OutputSelect", "70", nullptr));
+        toolTipWordConfidence->setText(QCoreApplication::translate("OutputSelect", " ?", nullptr));
         lineConfidenceLabel->setText(QCoreApplication::translate("OutputSelect", "Line confidence threshold (0xx):       ", nullptr));
         lineConfidenceLineEdit->setText(QCoreApplication::translate("OutputSelect", "70", nullptr));
+        toolTipLineConfidence->setText(QCoreApplication::translate("OutputSelect", " ?", nullptr));
         dupeThresholdLabel->setText(QCoreApplication::translate("OutputSelect", "Mark duplicates (min length):             ", nullptr));
         dupeThresholdLineEdit->setText(QCoreApplication::translate("OutputSelect", "3", nullptr));
+        toolTipMarkDuplicates->setText(QCoreApplication::translate("OutputSelect", " ?", nullptr));
         compareThresholdLabel->setText(QCoreApplication::translate("OutputSelect", "Output comparison threshold (0.xx):", nullptr));
         compareThresholdLineEdit->setText(QCoreApplication::translate("OutputSelect", "0.75", nullptr));
+        toolTipComparisonThreshold->setText(QCoreApplication::translate("OutputSelect", " ?", nullptr));
         backButton->setText(QCoreApplication::translate("OutputSelect", "Back", nullptr));
         goButton->setText(QCoreApplication::translate("OutputSelect", "Go", nullptr));
     } // retranslateUi

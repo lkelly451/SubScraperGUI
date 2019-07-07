@@ -53,6 +53,15 @@ OutputSelect::OutputSelect(QString widthBegin, QString widthEnd, QString heightB
 
 	//max size is 1.0
 	QValidator* doubleValidatorOutputComparisonThreshold = new QDoubleValidator(0.0, 1.0, 1, this);
+
+	//set tooltips
+	ui.toolTipBoxLength->setToolTip("Lines greater in length than this threshold will not be detected as potential subtitle boxes.");
+	ui.toolTipLeftSlidingWindow->setToolTip("Sets the width of a sliding window that attempts to find the left boundary of the subtitle box and cut out extraneous pixels. Set to zero if cropped zone is flush with the left of the subtitle box.");
+	ui.toolTipRightSlidingWindow->setToolTip("Sets the width of a sliding window that attempts to find the right boundary of the subtitle box and cut out extraneous pixels.");
+	ui.toolTipWordConfidence->setToolTip("Sets the minimum percentage confidence the OCR engine must have in a word to output it.");
+	ui.toolTipLineConfidence->setToolTip("Sets the minimum percentage confidence the OCR engine must have in a line to output it (average across all words).");
+	ui.toolTipMarkDuplicates->setToolTip("Sets the minimum length that a series of repeated characters across two subtitle boxes must be to be marked as a potential duplicate in the output text file.");
+	ui.toolTipComparisonThreshold->setToolTip("Sets the percentage difference two consecutive reads must have for the system to output them (from 0.10 to 1.00)." );
 }
 OutputSelect::~OutputSelect()
 {
