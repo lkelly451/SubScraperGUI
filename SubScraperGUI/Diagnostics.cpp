@@ -58,23 +58,11 @@ void Diagnostics::showEvent(QShowEvent* ev)
 
 void Diagnostics::on_windowShown() 
 {
-	//SubScraper subscraper;
-	//subscraper.getSubs(inputFileName, outputFileName, singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength,
-		//windowSizeLeft, windowSizeRight, wordConfidence, lineConfidence, compareThreshold, dupeThreshold, autoDetectHeights, ui.progressBar, ui.cancelButton);
-	cout << "At diagnostics: " << autoDetectHeights;
+	//begin subtitle analysis thread when Diagnostics screen loads
 	video = new Video(inputFileName, outputFileName, singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength, windowSizeLeft,
-		windowSizeRight, autoDetectHeights, wordConfidence, lineConfidence, compareThreshold, dupeThreshold,  ui.progressBar, ui.cancelButton);
+		windowSizeRight, autoDetectHeights, wordConfidence, lineConfidence, compareThreshold, dupeThreshold,  ui.progressBar, ui.cancelButton, ui.exitButton, ui.mainButton, ui.progressBarLabel, ui.outputLabel);
 	video->start();
-	/*
-	ui.progressBarLabel->setText("Complete!");
-	//provide a link to the subtitle output file
-	ui.outputLabel->setText(QString::QString("<a href='file:///") + QString::QString::fromStdString(outputFileName) + "'> Click to view subtitles.</a>");
-	ui.outputLabel->setOpenExternalLinks(true);
-	//hide cancel button, show exit and main menu buttons when analysis completes
-	ui.cancelButton->hide();
-	ui.exitButton->show();
-	ui.mainButton->show();
-	*/
+
 }
 
 void Diagnostics::on_cancelButton_clicked() 
@@ -82,8 +70,6 @@ void Diagnostics::on_cancelButton_clicked()
 	//set cancel button to checked in order to trigger Subscraper::getSubs() to cancel
 	//hide the cancel button and show the main menu and exit buttons
 	//set label to tell user that process has been cancelled
-	
-	
 	ui.cancelButton->setFlat(true);
 	ui.cancelButton->hide();
 	ui.mainButton->show();
@@ -106,3 +92,5 @@ void Diagnostics::on_exitButton_clicked()
 	//terminate the program
 	exit(0);
 }
+
+

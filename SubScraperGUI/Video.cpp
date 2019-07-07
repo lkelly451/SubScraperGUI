@@ -6,7 +6,8 @@ using namespace std;
 using namespace cv;
 
 Video::Video(std::string inputFileName, std::string outputFileName, int singleHeight, int doubleHeight, int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd,  int dropLength, int windowSizeLeft,
-	int windowSizeRight, bool autoDetectHeights, int wordConfidence, int lineConfidence, double compareThreshold, int dupeThreshold, QProgressBar* progressBar, QPushButton* cancelButton) {
+	int windowSizeRight, bool autoDetectHeights, int wordConfidence, int lineConfidence, double compareThreshold, int dupeThreshold, QProgressBar* progressBar, QPushButton* cancelButton, QPushButton* exitButton, QPushButton* mainButton, QLabel* progressBarLabel,
+	QLabel* outputLabel) {
 	this->inputFileName = inputFileName;
 	this->outputFileName = outputFileName;
 	this->cropHeightStart = cropHeightStart;
@@ -25,6 +26,10 @@ Video::Video(std::string inputFileName, std::string outputFileName, int singleHe
 	this->dupeThreshold = dupeThreshold;
 	this->progressBar = progressBar;
 	this->cancelButton = cancelButton;
+	this->exitButton = exitButton;
+	this->mainButton = mainButton;
+	this->progressBarLabel = progressBarLabel;
+	this->outputLabel = outputLabel;
 }
 
 Video::~Video() {
@@ -68,11 +73,7 @@ void Video::run(){
 				break;
 			}
 			//crop frame image
-			cout << "CHS, CHE, CWS, CWE" << endl;
-			cout << cropHeightStart << " " << cropHeightEnd << " " << cropWidthStart << " " << cropWidthEnd << endl;
 			crop(frame, frame, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd);
-			imshow("image", frame);
-			waitKey(0);
 			//construct frame
 			Frame f(frame);
 			//detect and record box heights
@@ -214,10 +215,16 @@ void Video::run(){
 		//Change | to I and filter various characters in output
 		o.letterConverter();
 
-		//spellcheck
-
 		//Mark doubles
 		markPotentialDuplicates(outputFileName, dupeThreshold);
+
+		//set the progress bar label to "Complete!"
+		progressBarLabel->setText("Complete!");
+		//hide the cancel button
+		cancelButton->hide();
+		//show the exit and main menu buttons
+		exitButton->show();
+		mainButton->show();
 	}
 }
 

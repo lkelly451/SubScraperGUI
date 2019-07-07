@@ -9,6 +9,7 @@
 #include <QtWidgets\qprogressbar.h>
 #include <QtWidgets\qpushbutton.h>
 #include <qthread.h>
+#include <QtWidgets\qlabel.h>
 
 class Video: public QThread
 {
@@ -32,6 +33,10 @@ private:
 	int dupeThreshold; 
 	QProgressBar* progressBar;
 	QPushButton* cancelButton;
+	QPushButton* mainButton;
+	QPushButton* exitButton;
+	QLabel* progressBarLabel;
+	QLabel* outputLabel;
 
 private slots: 
 	void on_cancelButton_clicked();
@@ -39,7 +44,8 @@ private slots:
 public:
 	Video(cv::VideoCapture cap, int singleHeight, int doubleHeight);
 	Video(std::string inputFileName, std::string outputFileName, int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd,  int dropLength, int singleHeight, int doubleHeight, int windowSizeLeft, int windowSizeRight,
-		bool autoDetectHeights, int wordConfidence, int lineConfidence, double compareThreshold, int dupeThreshold, QProgressBar* progressBar, QPushButton* cancelButton);
+		bool autoDetectHeights, int wordConfidence, int lineConfidence, double compareThreshold, int dupeThreshold, QProgressBar* progressBar, QPushButton* cancelButton, QPushButton* exitButton, QPushButton* mainButton, QLabel* progressBarLabel, 
+		QLabel* outputLabel);
 	~Video();
 	void run();
 	void sortYCoords(std::map<std::pair<int, int>, int>& frequency, std::vector<std::pair<int, int>>& ROICoordinates);
