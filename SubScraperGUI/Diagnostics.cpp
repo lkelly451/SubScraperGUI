@@ -31,6 +31,10 @@ Diagnostics::Diagnostics(int singleHeight, int doubleHeight, int cropHeightStart
 	//hide exit and main menu buttons while the analysis loads
 	ui.exitButton->hide();
 	ui.mainButton->hide();
+	//set a link to the output file and then hide it until the analysis is complete
+	ui.outputLabel->setText(QString::fromStdString("<a href= 'file:///") + QString::fromStdString(outputFileName) + "'> Click here to view subtitles.</a>");
+	ui.outputLabel->setOpenExternalLinks(true);
+	ui.outputLabel->hide();
 
 	connect(this, SIGNAL(windowShown()), this, SLOT(on_windowShown()), Qt::ConnectionType(Qt::QueuedConnection));
 	connect(ui.cancelButton, SIGNAL(clicked()), this, SLOT(on_cancelButton_clicked()));

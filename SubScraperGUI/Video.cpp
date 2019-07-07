@@ -222,9 +222,10 @@ void Video::run(){
 		progressBarLabel->setText("Complete!");
 		//hide the cancel button
 		cancelButton->hide();
-		//show the exit and main menu buttons
+		//show the exit and main menu buttons, and output link
 		exitButton->show();
 		mainButton->show();
+		outputLabel->show();
 	}
 }
 
