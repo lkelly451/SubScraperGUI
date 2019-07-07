@@ -159,11 +159,11 @@ void ExistingProfiles::on_goButton_clicked()
 	//if inputs are all filled, get subtitles
 	if (!inputFileName.isEmpty() && !outputFileName.isEmpty() && cropWidthStart >= 0 && cropWidthEnd >= 0 && cropHeightStart >= 0 && cropHeightEnd >= 0 && singleHeight >= 0 && doubleHeight >= 0 && dropLength >=0
 		&& windowSizeLeft >= 0 && windowSizeRight >= 0 && wordConfidence >= 0 && lineConfidence >= 0 && compareThreshold >= 0) {
-		//Diagnostics* diagnostics = new Diagnostics(singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength, windowSizeLeft, windowSizeRight, wordConfidence, lineConfidence,
-			//dupeThreshold, compareThreshold, inputFileName.toStdString(), outputFileName.toStdString(), autoDetectHeights);
-		//diagnostics->setAttribute(Qt::WA_DeleteOnClose);
-		//diagnostics->show();
-		//this->close();
+		Diagnostics* diagnostics = new Diagnostics(singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength, windowSizeLeft, windowSizeRight, wordConfidence, lineConfidence,
+			dupeThreshold, compareThreshold, inputFileName.toStdString(), outputFileName.toStdString(), autoDetectHeights);
+		diagnostics->setAttribute(Qt::WA_DeleteOnClose);
+		diagnostics->show();
+		this->close();
 	}
 	//else print a warning
 	else {
