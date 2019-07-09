@@ -220,28 +220,30 @@ void Video::run(){
 //sorts the Y coordinates in a map of coordinates and returns a vector of pairs
 void Video::sortYCoords(map<pair<int, int>, int>& frequency, vector<pair<int, int>>& ROICoordinates)
 {
-	for (size_t i = 0; i <= frequency.size(); i++) {
-		map<pair<int, int>, int>::iterator freqIterator = frequency.begin();
-		pair<int, int> mostFrequent = freqIterator->first;
-		int frequencyValue = freqIterator->second;
+	if (frequency.size() != 0) {
+		for (size_t i = 0; i <= frequency.size(); i++) {
+			map<pair<int, int>, int>::iterator freqIterator = frequency.begin();
+			pair<int, int> mostFrequent = freqIterator->first;
+			int frequencyValue = freqIterator->second;
 
-		while (freqIterator != frequency.end()) {
-			if (freqIterator->second > frequencyValue) {
-				mostFrequent = freqIterator->first;
-				frequencyValue = freqIterator->second;
+			while (freqIterator != frequency.end()) {
+				if (freqIterator->second > frequencyValue) {
+					mostFrequent = freqIterator->first;
+					frequencyValue = freqIterator->second;
+				}
+
+				freqIterator++;
+
 			}
-
-			freqIterator++;
-
+			frequency.erase(mostFrequent);
+			ROICoordinates.push_back(mostFrequent);
 		}
-		frequency.erase(mostFrequent);
-		ROICoordinates.push_back(mostFrequent);
 	}
 }
 
 void Video::sortYCoords(map<int, int>& frequency, vector<int>& heights)
 {
-	if (!frequency.empty()) {
+	if (frequency.size() != 0) {
 		for (size_t i = 0; i <= frequency.size(); i++) {
 			map<int, int>::iterator freqIterator = frequency.begin();
 			int mostFrequent = freqIterator->first;
