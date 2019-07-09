@@ -35,8 +35,17 @@ Diagnostics::Diagnostics(int singleHeight, int doubleHeight, int cropHeightStart
 	ui.outputLabel->setOpenExternalLinks(true);
 	ui.outputLabel->hide();
 
-	connect(this, SIGNAL(windowShown()), this, SLOT(on_windowShown()), Qt::ConnectionType(Qt::QueuedConnection));
+	//begin subtitle analysis thread when Diagnostics screen loads
+	video = new Video(inputFileName, outputFileName, singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength, windowSizeLeft,
+		windowSizeRight, autoDetectHeights, wordConfidence, lineConfidence, compareThreshold, dupeThreshold, ui.cancelButton);
+	video->start();
+	
+	//connection between cancel button clicked signal and its function
 	connect(ui.cancelButton, SIGNAL(clicked()), this, SLOT(on_cancelButton_clicked()));
+
+	//connection between video thread signals and their functions
+	connect(video, SIGNAL(finished()), this, SLOT(onVideoFinished()));
+	connect(video, SIGNAL(progressUpdate(int)), this, SLOT(onProgressUpdated(int)));
 }
 
 Diagnostics::Diagnostics(QString inputFileName, QWidget* parent)
@@ -52,21 +61,6 @@ Diagnostics::~Diagnostics()
 {
 }
 
-void Diagnostics::showEvent(QShowEvent* ev) 
-{
-	QWidget::showEvent(ev);
-	QApplication::processEvents();
-	emit windowShown();
-}
-
-void Diagnostics::on_windowShown() 
-{
-	//begin subtitle analysis thread when Diagnostics screen loads
-	video = new Video(inputFileName, outputFileName, singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength, windowSizeLeft,
-		windowSizeRight, autoDetectHeights, wordConfidence, lineConfidence, compareThreshold, dupeThreshold,  ui.progressBar, ui.cancelButton, ui.exitButton, ui.mainButton, ui.progressBarLabel, ui.outputLabel);
-	video->start();
-
-}
 
 void Diagnostics::on_cancelButton_clicked() 
 {	
@@ -94,6 +88,26 @@ void Diagnostics::on_exitButton_clicked()
 {
 	//terminate the program
 	exit(0);
+}
+
+void Diagnostics::onVideoFinished()
+{
+	//if loading has not finished, then these values are not set to avoid conflicting with the on_cancelButton_clicked() setup
+	if (ui.progressBar->value() == 100) {
+		//change the progress bar label to notify the user that analysis is complete
+		ui.progressBarLabel->setText("Complete");
+		//hide the cancel button
+		ui.cancelButton->hide();
+		//show the exit and main menu buttons, and output link
+		ui.exitButton->show();
+		ui.mainButton->show();
+		ui.outputLabel->show();
+	}
+}
+
+void Diagnostics::onProgressUpdated(int progress)
+{
+	ui.progressBar->setValue(progress);
 }
 
 

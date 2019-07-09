@@ -4,6 +4,7 @@
 #include "ui_BuildProfile.h"
 #include <opencv2/videoio.hpp>
 #include "QMouseEvent"
+#include <QtWidgets/QMainWindow>
 
 class BuildProfile : public QWidget
 {

@@ -128,6 +128,9 @@ void HeightSelect::on_continueButton_clicked()
 		if (ui.doubleLineEdit->text().toInt() > frame.cols || ui.singleLineEdit->text().toInt() > frame.cols) {
 			ui.continueWarning->setText("Box height cannot be larger than the image!");
 		}
+		else if (ui.doubleLineEdit->text().toInt() == 0 || ui.singleLineEdit->text().toInt()==0) {
+			ui.continueWarning->setText("Box heights cannot be zero. Please input a height for single and double line boxes that is greater than zero.");
+		}
 		else {
 			cout << "At height select: " << autoBoxDetect << endl;
 			OutputSelect* outputSelect = new OutputSelect(this->widthBegin, this->widthEnd, this->heightBegin, this->heightEnd, ui.singleLineEdit->text(), ui.doubleLineEdit->text(), videoDirectory, autoBoxDetect, frame.rows, position);

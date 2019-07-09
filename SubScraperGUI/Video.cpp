@@ -6,8 +6,7 @@ using namespace std;
 using namespace cv;
 
 Video::Video(std::string inputFileName, std::string outputFileName, int singleHeight, int doubleHeight, int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd,  int dropLength, int windowSizeLeft,
-	int windowSizeRight, bool autoDetectHeights, int wordConfidence, int lineConfidence, double compareThreshold, int dupeThreshold, QProgressBar* progressBar, QPushButton* cancelButton, QPushButton* exitButton, QPushButton* mainButton, QLabel* progressBarLabel,
-	QLabel* outputLabel) {
+	int windowSizeRight, bool autoDetectHeights, int wordConfidence, int lineConfidence, double compareThreshold, int dupeThreshold, QPushButton* cancelButton) {
 	this->inputFileName = inputFileName;
 	this->outputFileName = outputFileName;
 	this->cropHeightStart = cropHeightStart;
@@ -26,10 +25,6 @@ Video::Video(std::string inputFileName, std::string outputFileName, int singleHe
 	this->dupeThreshold = dupeThreshold;
 	this->progressBar = progressBar;
 	this->cancelButton = cancelButton;
-	this->exitButton = exitButton;
-	this->mainButton = mainButton;
-	this->progressBarLabel = progressBarLabel;
-	this->outputLabel = outputLabel;
 }
 
 Video::~Video() {
@@ -82,7 +77,7 @@ void Video::run(){
 
 			//mark progress in loading bar up to 25% 
 			frameProgress = (cap.get(CAP_PROP_POS_FRAMES) / cap.get(CAP_PROP_FRAME_COUNT)) * 25;
-			progressBar->setValue((int)frameProgress);
+			emit progressUpdate(frameProgress);
 
 		}
 		if (!cancelButton->isFlat()) {
@@ -129,13 +124,13 @@ void Video::run(){
 		if (autoDetectHeights == true) {
 			//mark progress in loading bar up to 25% (50% total)
 			frameProgress = ((cap.get(CAP_PROP_POS_FRAMES) / cap.get(CAP_PROP_FRAME_COUNT)) * 25 + 25);
-			progressBar->setValue((int)frameProgress);
+			emit progressUpdate(frameProgress);
 		}
 		else {
 			//mark progress in loading bar up to 50%
 			frameProgress = (cap.get(CAP_PROP_POS_FRAMES) / cap.get(CAP_PROP_FRAME_COUNT)) * 50;
 			cout << "FrameProgress: " << frameProgress;
-			progressBar->setValue((int)frameProgress);
+			emit progressUpdate(frameProgress);
 		}
 
 	}
@@ -205,7 +200,7 @@ void Video::run(){
 
 		//mark progress in progress bar up to 50% (total 100%)
 		frameProgress = ((cap.get(CAP_PROP_POS_FRAMES) / cap.get(CAP_PROP_FRAME_COUNT)) * 50) + 50;
-		progressBar->setValue((int)frameProgress);
+		emit progressUpdate(frameProgress);
 	}
 	if (!cancelButton->isFlat()) {
 		//add in any outputs from the last set of frames
@@ -217,16 +212,8 @@ void Video::run(){
 
 		//Mark doubles
 		markPotentialDuplicates(outputFileName, dupeThreshold);
-
-		//set the progress bar label to "Complete!"
-		progressBarLabel->setText("Complete!");
-		//hide the cancel button
-		cancelButton->hide();
-		//show the exit and main menu buttons, and output link
-		exitButton->show();
-		mainButton->show();
-		outputLabel->show();
 	}
+	cout << "ended" << endl;
 }
 
 
@@ -254,22 +241,24 @@ void Video::sortYCoords(map<pair<int, int>, int>& frequency, vector<pair<int, in
 
 void Video::sortYCoords(map<int, int>& frequency, vector<int>& heights)
 {
-	for (size_t i = 0; i <= frequency.size(); i++) {
-		map<int, int>::iterator freqIterator = frequency.begin();
-		int mostFrequent = freqIterator->first;
-		int frequencyValue = freqIterator->second;
+	if (!frequency.empty()) {
+		for (size_t i = 0; i <= frequency.size(); i++) {
+			map<int, int>::iterator freqIterator = frequency.begin();
+			int mostFrequent = freqIterator->first;
+			int frequencyValue = freqIterator->second;
 
-		while (freqIterator != frequency.end()) {
-			if (freqIterator->second > frequencyValue) {
-				mostFrequent = freqIterator->first;
-				frequencyValue = freqIterator->second;
+			while (freqIterator != frequency.end()) {
+				if (freqIterator->second > frequencyValue) {
+					mostFrequent = freqIterator->first;
+					frequencyValue = freqIterator->second;
+				}
+
+				freqIterator++;
+
 			}
-
-			freqIterator++;
-
+			frequency.erase(mostFrequent);
+			heights.push_back(mostFrequent);
 		}
-		frequency.erase(mostFrequent);
-		heights.push_back(mostFrequent);
 	}
 }
 

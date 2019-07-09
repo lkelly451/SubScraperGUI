@@ -36,6 +36,17 @@ public:
     QPushButton *fileSelect;
     QPushButton *previewButton;
     QSpacerItem *horizontalSpacer_10;
+    MyGraphicsView *framePreview;
+    QHBoxLayout *horizontalLayout_7;
+    QSpacerItem *horizontalSpacer_8;
+    QLabel *instructionLabel2;
+    QSpacerItem *horizontalSpacer_11;
+    QHBoxLayout *horizontalLayout_5;
+    QPushButton *backButton;
+    QSpacerItem *horizontalSpacer;
+    QSpacerItem *horizontalSpacer_6;
+    QLabel *continueWarning;
+    QPushButton *continueButton;
     QHBoxLayout *horizontalLayout_3;
     QLabel *widthBeginLabel;
     QLineEdit *widthBegin;
@@ -43,6 +54,11 @@ public:
     QLabel *heightBeginLabel;
     QLineEdit *heightBegin;
     QSpacerItem *horizontalSpacer_5;
+    QHBoxLayout *horizontalLayout;
+    QPushButton *frameBack;
+    QSpacerItem *horizontalSpacer_7;
+    QSpacerItem *horizontalSpacer_9;
+    QPushButton *frameForward;
     QHBoxLayout *horizontalLayout_4;
     QLabel *widthEndLabel;
     QLineEdit *widthEnd;
@@ -50,22 +66,6 @@ public:
     QLabel *heightEndLabel;
     QLineEdit *heightEnd;
     QSpacerItem *horizontalSpacer_2;
-    MyGraphicsView *framePreview;
-    QHBoxLayout *horizontalLayout_7;
-    QSpacerItem *horizontalSpacer_8;
-    QLabel *instructionLabel2;
-    QSpacerItem *horizontalSpacer_11;
-    QHBoxLayout *horizontalLayout;
-    QSpacerItem *horizontalSpacer_6;
-    QPushButton *frameBack;
-    QSpacerItem *horizontalSpacer_7;
-    QPushButton *continueButton;
-    QSpacerItem *horizontalSpacer_9;
-    QPushButton *frameForward;
-    QHBoxLayout *horizontalLayout_5;
-    QLabel *continueWarning;
-    QPushButton *backButton;
-    QSpacerItem *horizontalSpacer;
 
     void setupUi(QWidget *BuildProfile)
     {
@@ -116,6 +116,8 @@ public:
 
         previewButton = new QPushButton(BuildProfile);
         previewButton->setObjectName(QString::fromUtf8("previewButton"));
+        previewButton->setMinimumSize(QSize(75, 23));
+        previewButton->setMaximumSize(QSize(75, 23));
 
         horizontalLayout_2->addWidget(previewButton);
 
@@ -125,6 +127,61 @@ public:
 
 
         gridLayout->addLayout(horizontalLayout_2, 1, 0, 1, 1);
+
+        framePreview = new MyGraphicsView(BuildProfile);
+        framePreview->setObjectName(QString::fromUtf8("framePreview"));
+
+        gridLayout->addWidget(framePreview, 4, 0, 1, 1);
+
+        horizontalLayout_7 = new QHBoxLayout();
+        horizontalLayout_7->setSpacing(6);
+        horizontalLayout_7->setObjectName(QString::fromUtf8("horizontalLayout_7"));
+        horizontalSpacer_8 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_7->addItem(horizontalSpacer_8);
+
+        instructionLabel2 = new QLabel(BuildProfile);
+        instructionLabel2->setObjectName(QString::fromUtf8("instructionLabel2"));
+
+        horizontalLayout_7->addWidget(instructionLabel2);
+
+        horizontalSpacer_11 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_7->addItem(horizontalSpacer_11);
+
+
+        gridLayout->addLayout(horizontalLayout_7, 5, 0, 1, 1);
+
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setSpacing(6);
+        horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
+        backButton = new QPushButton(BuildProfile);
+        backButton->setObjectName(QString::fromUtf8("backButton"));
+        backButton->setMaximumSize(QSize(75, 23));
+
+        horizontalLayout_5->addWidget(backButton);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_5->addItem(horizontalSpacer);
+
+        horizontalSpacer_6 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_5->addItem(horizontalSpacer_6);
+
+        continueWarning = new QLabel(BuildProfile);
+        continueWarning->setObjectName(QString::fromUtf8("continueWarning"));
+
+        horizontalLayout_5->addWidget(continueWarning);
+
+        continueButton = new QPushButton(BuildProfile);
+        continueButton->setObjectName(QString::fromUtf8("continueButton"));
+        continueButton->setMaximumSize(QSize(75, 23));
+
+        horizontalLayout_5->addWidget(continueButton);
+
+
+        gridLayout->addLayout(horizontalLayout_5, 7, 0, 1, 1);
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setSpacing(6);
@@ -164,6 +221,32 @@ public:
 
         gridLayout->addLayout(horizontalLayout_3, 2, 0, 1, 1);
 
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
+        frameBack = new QPushButton(BuildProfile);
+        frameBack->setObjectName(QString::fromUtf8("frameBack"));
+        frameBack->setMinimumSize(QSize(200, 23));
+
+        horizontalLayout->addWidget(frameBack);
+
+        horizontalSpacer_7 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer_7);
+
+        horizontalSpacer_9 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout->addItem(horizontalSpacer_9);
+
+        frameForward = new QPushButton(BuildProfile);
+        frameForward->setObjectName(QString::fromUtf8("frameForward"));
+        frameForward->setMinimumSize(QSize(200, 23));
+
+        horizontalLayout->addWidget(frameForward);
+
+
+        gridLayout->addLayout(horizontalLayout, 6, 0, 1, 1);
+
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setSpacing(6);
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
@@ -202,83 +285,6 @@ public:
 
         gridLayout->addLayout(horizontalLayout_4, 3, 0, 1, 1);
 
-        framePreview = new MyGraphicsView(BuildProfile);
-        framePreview->setObjectName(QString::fromUtf8("framePreview"));
-
-        gridLayout->addWidget(framePreview, 4, 0, 1, 1);
-
-        horizontalLayout_7 = new QHBoxLayout();
-        horizontalLayout_7->setSpacing(6);
-        horizontalLayout_7->setObjectName(QString::fromUtf8("horizontalLayout_7"));
-        horizontalSpacer_8 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_7->addItem(horizontalSpacer_8);
-
-        instructionLabel2 = new QLabel(BuildProfile);
-        instructionLabel2->setObjectName(QString::fromUtf8("instructionLabel2"));
-
-        horizontalLayout_7->addWidget(instructionLabel2);
-
-        horizontalSpacer_11 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_7->addItem(horizontalSpacer_11);
-
-
-        gridLayout->addLayout(horizontalLayout_7, 5, 0, 1, 1);
-
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
-        horizontalSpacer_6 = new QSpacerItem(11, 20, QSizePolicy::Fixed, QSizePolicy::Minimum);
-
-        horizontalLayout->addItem(horizontalSpacer_6);
-
-        frameBack = new QPushButton(BuildProfile);
-        frameBack->setObjectName(QString::fromUtf8("frameBack"));
-
-        horizontalLayout->addWidget(frameBack);
-
-        horizontalSpacer_7 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout->addItem(horizontalSpacer_7);
-
-        continueButton = new QPushButton(BuildProfile);
-        continueButton->setObjectName(QString::fromUtf8("continueButton"));
-
-        horizontalLayout->addWidget(continueButton);
-
-        horizontalSpacer_9 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout->addItem(horizontalSpacer_9);
-
-        frameForward = new QPushButton(BuildProfile);
-        frameForward->setObjectName(QString::fromUtf8("frameForward"));
-
-        horizontalLayout->addWidget(frameForward);
-
-
-        gridLayout->addLayout(horizontalLayout, 6, 0, 1, 1);
-
-        horizontalLayout_5 = new QHBoxLayout();
-        horizontalLayout_5->setSpacing(6);
-        horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
-        continueWarning = new QLabel(BuildProfile);
-        continueWarning->setObjectName(QString::fromUtf8("continueWarning"));
-
-        horizontalLayout_5->addWidget(continueWarning);
-
-        backButton = new QPushButton(BuildProfile);
-        backButton->setObjectName(QString::fromUtf8("backButton"));
-
-        horizontalLayout_5->addWidget(backButton);
-
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_5->addItem(horizontalSpacer);
-
-
-        gridLayout->addLayout(horizontalLayout_5, 7, 0, 1, 1);
-
 
         retranslateUi(BuildProfile);
 
@@ -292,16 +298,16 @@ public:
         inputLabel->setText(QCoreApplication::translate("BuildProfile", "Video file to scan:", nullptr));
         fileSelect->setText(QCoreApplication::translate("BuildProfile", "...", nullptr));
         previewButton->setText(QCoreApplication::translate("BuildProfile", "Preview", nullptr));
-        widthBeginLabel->setText(QCoreApplication::translate("BuildProfile", "Width start:", nullptr));
-        heightBeginLabel->setText(QCoreApplication::translate("BuildProfile", "Height start:", nullptr));
-        widthEndLabel->setText(QCoreApplication::translate("BuildProfile", "Width end:  ", nullptr));
-        heightEndLabel->setText(QCoreApplication::translate("BuildProfile", "Height end:  ", nullptr));
         instructionLabel2->setText(QCoreApplication::translate("BuildProfile", " Click and drag to crop the area where the subtitles appear on the video. Use << and >> to check different frames and click continue once you have identified the subtitle region.", nullptr));
-        frameBack->setText(QCoreApplication::translate("BuildProfile", "<<", nullptr));
-        continueButton->setText(QCoreApplication::translate("BuildProfile", "Continue", nullptr));
-        frameForward->setText(QCoreApplication::translate("BuildProfile", ">>", nullptr));
-        continueWarning->setText(QString());
         backButton->setText(QCoreApplication::translate("BuildProfile", "Back", nullptr));
+        continueWarning->setText(QString());
+        continueButton->setText(QCoreApplication::translate("BuildProfile", "Continue", nullptr));
+        widthBeginLabel->setText(QCoreApplication::translate("BuildProfile", "Width start (px):", nullptr));
+        heightBeginLabel->setText(QCoreApplication::translate("BuildProfile", "Height start (px):", nullptr));
+        frameBack->setText(QCoreApplication::translate("BuildProfile", "<<", nullptr));
+        frameForward->setText(QCoreApplication::translate("BuildProfile", ">>", nullptr));
+        widthEndLabel->setText(QCoreApplication::translate("BuildProfile", "Width end (px):  ", nullptr));
+        heightEndLabel->setText(QCoreApplication::translate("BuildProfile", "Height end (px):  ", nullptr));
     } // retranslateUi
 
 };
