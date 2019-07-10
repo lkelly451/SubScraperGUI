@@ -9,15 +9,13 @@ class SubScraperGUI : public QMainWindow
 
 public:
 	SubScraperGUI(QWidget *parent = Q_NULLPTR);
-	QPushButton* getBuildButton();
-	QPushButton* getSelectButton();
-	QLabel* getSelectLabel();
 
 private slots:
-	void on_buildButton_clicked();
-	void on_selectButton_clicked();
 	void on_help_clicked();
 	void on_about_clicked();
+	void on_continueButton_clicked();
+	void on_buildProfileRadio_toggled();
 private:
 	Ui::SubScraperGUIClass ui;
+	bool selection = 0;
 };

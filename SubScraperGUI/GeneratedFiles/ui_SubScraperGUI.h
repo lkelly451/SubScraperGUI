@@ -27,11 +27,10 @@ public:
     QAction *actionHelp;
     QAction *actionAbout;
     QWidget *centralWidget;
-    QRadioButton *radioButton;
-    QRadioButton *radioButton_2;
-    QPushButton *buildButton;
+    QRadioButton *buildProfileRadio;
+    QRadioButton *existingProfileRadio;
     QLabel *selectLabel;
-    QPushButton *selectButton;
+    QPushButton *continueButton;
     QStatusBar *statusBar;
 
     void setupUi(QMainWindow *SubScraperGUIClass)
@@ -45,22 +44,20 @@ public:
         actionAbout->setObjectName(QString::fromUtf8("actionAbout"));
         centralWidget = new QWidget(SubScraperGUIClass);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
-        radioButton = new QRadioButton(centralWidget);
-        radioButton->setObjectName(QString::fromUtf8("radioButton"));
-        radioButton->setGeometry(QRect(140, 50, 151, 17));
-        radioButton_2 = new QRadioButton(centralWidget);
-        radioButton_2->setObjectName(QString::fromUtf8("radioButton_2"));
-        radioButton_2->setGeometry(QRect(140, 30, 121, 17));
-        buildButton = new QPushButton(centralWidget);
-        buildButton->setObjectName(QString::fromUtf8("buildButton"));
-        buildButton->setGeometry(QRect(500, 30, 86, 23));
+        buildProfileRadio = new QRadioButton(centralWidget);
+        buildProfileRadio->setObjectName(QString::fromUtf8("buildProfileRadio"));
+        buildProfileRadio->setGeometry(QRect(140, 50, 151, 17));
+        existingProfileRadio = new QRadioButton(centralWidget);
+        existingProfileRadio->setObjectName(QString::fromUtf8("existingProfileRadio"));
+        existingProfileRadio->setGeometry(QRect(140, 30, 121, 17));
+        existingProfileRadio->setChecked(true);
         selectLabel = new QLabel(centralWidget);
         selectLabel->setObjectName(QString::fromUtf8("selectLabel"));
         selectLabel->setGeometry(QRect(120, 0, 381, 16));
-        selectButton = new QPushButton(centralWidget);
-        selectButton->setObjectName(QString::fromUtf8("selectButton"));
-        selectButton->setGeometry(QRect(490, 80, 75, 23));
-        selectButton->setMaximumSize(QSize(75, 23));
+        continueButton = new QPushButton(centralWidget);
+        continueButton->setObjectName(QString::fromUtf8("continueButton"));
+        continueButton->setGeometry(QRect(490, 80, 75, 23));
+        continueButton->setMaximumSize(QSize(75, 23));
         SubScraperGUIClass->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(SubScraperGUIClass);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
@@ -76,11 +73,10 @@ public:
         SubScraperGUIClass->setWindowTitle(QCoreApplication::translate("SubScraperGUIClass", "Main", nullptr));
         actionHelp->setText(QCoreApplication::translate("SubScraperGUIClass", "Help", nullptr));
         actionAbout->setText(QCoreApplication::translate("SubScraperGUIClass", "About", nullptr));
-        radioButton->setText(QCoreApplication::translate("SubScraperGUIClass", "Use existing profile", nullptr));
-        radioButton_2->setText(QCoreApplication::translate("SubScraperGUIClass", "Build new profile", nullptr));
-        buildButton->setText(QCoreApplication::translate("SubScraperGUIClass", "Build new profile", nullptr));
+        buildProfileRadio->setText(QCoreApplication::translate("SubScraperGUIClass", "Use existing profile", nullptr));
+        existingProfileRadio->setText(QCoreApplication::translate("SubScraperGUIClass", "Build new profile", nullptr));
         selectLabel->setText(QCoreApplication::translate("SubScraperGUIClass", "To begin getting subtitles, choose to use an existing profile or build a new one.", nullptr));
-        selectButton->setText(QCoreApplication::translate("SubScraperGUIClass", "Continue", nullptr));
+        continueButton->setText(QCoreApplication::translate("SubScraperGUIClass", "Continue", nullptr));
     } // retranslateUi
 
 };

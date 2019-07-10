@@ -14,7 +14,7 @@
    <string>Main</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QRadioButton" name="radioButton">
+   <widget class="QRadioButton" name="buildProfileRadio">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -27,7 +27,7 @@
      <string>Use existing profile</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="radioButton_2">
+   <widget class="QRadioButton" name="existingProfileRadio">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -39,18 +39,8 @@
     <property name="text">
      <string>Build new profile</string>
     </property>
-   </widget>
-   <widget class="QPushButton" name="buildButton">
-    <property name="geometry">
-     <rect>
-      <x>500</x>
-      <y>30</y>
-      <width>86</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Build new profile</string>
+    <property name="checked">
+     <bool>true</bool>
     </property>
    </widget>
    <widget class="QLabel" name="selectLabel">
@@ -66,7 +56,7 @@
      <string>To begin getting subtitles, choose to use an existing profile or build a new one.</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="selectButton">
+   <widget class="QPushButton" name="continueButton">
     <property name="geometry">
      <rect>
       <x>490</x>

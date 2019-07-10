@@ -26,35 +26,22 @@ SubScraperGUI::SubScraperGUI(QWidget *parent)
 	connect(about, &QAction::triggered, this, &SubScraperGUI::on_about_clicked);
 }
 
-QPushButton* SubScraperGUI::getBuildButton()
+void SubScraperGUI::on_continueButton_clicked()
 {
-	return ui.buildButton;
-}
-
-QPushButton* SubScraperGUI::getSelectButton()
-{
-	return ui.selectButton;
-}
-
-QLabel* SubScraperGUI::getSelectLabel()
-{
-	return ui.selectLabel;
-}
-
-void SubScraperGUI::on_buildButton_clicked()
-{
-	BuildProfile* buildProfile = new BuildProfile();
-	buildProfile->setAttribute(Qt::WA_DeleteOnClose);
-	buildProfile->show();
-	this->close();
-}
-
-void SubScraperGUI::on_selectButton_clicked()
-{
-	ExistingProfiles* existingProfiles = new ExistingProfiles();
-	existingProfiles->setAttribute(Qt::WA_DeleteOnClose);
-	existingProfiles->show();
-	this->close();
+	//move to new window depending on radio button selection
+	if (selection) {
+		ExistingProfiles* existingProfiles = new ExistingProfiles();
+		existingProfiles->setAttribute(Qt::WA_DeleteOnClose);
+		existingProfiles->show();
+		this->close();
+		
+	}
+	else {
+		BuildProfile* buildProfile = new BuildProfile();
+		buildProfile->setAttribute(Qt::WA_DeleteOnClose);
+		buildProfile->show();
+		this->close();
+	}
 }
 
 void SubScraperGUI::on_help_clicked()
@@ -69,4 +56,15 @@ void SubScraperGUI::on_about_clicked()
 	About* about = new About();
 	about->setAttribute(Qt::WA_DeleteOnClose);
 	about->show();
+}
+
+void SubScraperGUI::on_buildProfileRadio_toggled()
+//if radio button is toggled, set selection depending on which button is checked
+{
+	if (ui.buildProfileRadio->isChecked()) {
+		selection = 1;
+	}
+	else {
+		selection = 0;
+	}
 }
