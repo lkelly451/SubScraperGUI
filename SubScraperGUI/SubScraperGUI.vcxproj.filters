@@ -69,6 +69,12 @@
     <ClCompile Include="Diagnostics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Help.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="About.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="SubScraperGUI.h">
@@ -95,6 +101,12 @@
     <QtMoc Include="Video.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="Help.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="About.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="SubScraperGUI.ui">
@@ -113,6 +125,12 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="Diagnostics.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="Help.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="About.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

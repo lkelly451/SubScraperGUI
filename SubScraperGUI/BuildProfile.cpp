@@ -3,6 +3,8 @@
 #include "HeightSelect.h"
 #include "qfiledialog.h"
 #include "qvalidator.h"
+#include <About.h>
+#include <Help.h>
 #include <opencv2/videoio.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
@@ -10,6 +12,7 @@
 #include <opencv2/imgcodecs.hpp>
 #include <iostream>
 #include <fstream>
+#include <qmenubar.h>
 
 
 using namespace cv;
@@ -32,7 +35,19 @@ BuildProfile::BuildProfile(QWidget *parent)
 	ui.heightBegin->setValidator(intValidatorHeight);
 	ui.heightEnd->setValidator(intValidatorHeight);
 
+	//Menu bar for QWidget based windows
+	QMenuBar* menuBar = new QMenuBar();
+	QMenu* helpMenu = new QMenu("Help");
+	QAction* help = new QAction("Help", this);
+	QAction* about = new QAction("About", this);
+	menuBar->addMenu(helpMenu);
+	helpMenu->addAction(help);
+	helpMenu->addAction(about);
 
+	this->layout()->setMenuBar(menuBar);
+
+	connect(help, &QAction::triggered, this, &BuildProfile::on_help_clicked);
+	connect(about, &QAction::triggered, this, &BuildProfile::on_about_clicked);
 }
 //called when back button takes user back to here from HeightSelect
 BuildProfile::BuildProfile(QString videoDirectory, QWidget* parent)
@@ -233,3 +248,16 @@ void BuildProfile::on_frameBack_clicked()
 	}
 }
 
+void BuildProfile::on_help_clicked()
+{
+	Help* help = new Help();
+	help->setAttribute(Qt::WA_DeleteOnClose);
+	help->show();
+}
+
+void BuildProfile::on_about_clicked()
+{
+	About* about = new About();
+	about->setAttribute(Qt::WA_DeleteOnClose);
+	about->show();
+}

@@ -4,6 +4,9 @@
 #include <fstream>
 #include <iostream>
 #include <Diagnostics.h>
+#include <qmenubar.h>
+#include <Help.h>
+#include <About.h>
 
 using namespace std;
 
@@ -32,6 +35,20 @@ ExistingProfiles::ExistingProfiles(QWidget *parent)
 
 	}
 	connect(ui.profileList, SIGNAL(itemClicked(QListWidgetItem*)), this, SLOT(on_item_clicked(QListWidgetItem*)));
+
+	//Menu bar for QWidget based windows
+	QMenuBar* menuBar = new QMenuBar();
+	QMenu* helpMenu = new QMenu("Help");
+	QAction* help = new QAction("Help", this);
+	QAction* about = new QAction("About", this);
+	menuBar->addMenu(helpMenu);
+	helpMenu->addAction(help);
+	helpMenu->addAction(about);
+
+	this->layout()->setMenuBar(menuBar);
+
+	connect(help, &QAction::triggered, this, &ExistingProfiles::on_help_clicked);
+	connect(about, &QAction::triggered, this, &ExistingProfiles::on_about_clicked);
 }
 
 ExistingProfiles::~ExistingProfiles()
@@ -218,4 +235,18 @@ void ExistingProfiles::on_deleteProfileButton_clicked()
 		on_item_clicked(ui.profileList->currentItem());
 	}
 
+}
+
+void ExistingProfiles::on_help_clicked()
+{
+	Help* help = new Help();
+	help->setAttribute(Qt::WA_DeleteOnClose);
+	help->show();
+}
+
+void ExistingProfiles::on_about_clicked()
+{
+	About* about = new About();
+	about->setAttribute(Qt::WA_DeleteOnClose);
+	about->show();
 }

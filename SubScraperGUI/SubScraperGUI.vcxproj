@@ -115,11 +115,13 @@
     </QtRcc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="About.cpp" />
     <ClCompile Include="BuildProfile.cpp" />
     <ClCompile Include="Diagnostics.cpp" />
     <ClCompile Include="ExistingProfiles.cpp" />
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="HeightSelect.cpp" />
+    <ClCompile Include="Help.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MyGraphicsView.cpp" />
     <ClCompile Include="Output.cpp" />
@@ -133,10 +135,12 @@
     <QtMoc Include="SubScraperGUI.h" />
   </ItemGroup>
   <ItemGroup>
+    <QtUic Include="About.ui" />
     <QtUic Include="BuildProfile.ui" />
     <QtUic Include="Diagnostics.ui" />
     <QtUic Include="ExistingProfiles.ui" />
     <QtUic Include="HeightSelect.ui" />
+    <QtUic Include="Help.ui" />
     <QtUic Include="OutputSelect.ui" />
     <QtUic Include="SubScraperGUI.ui" />
   </ItemGroup>
@@ -178,7 +182,15 @@
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Luke\vcpkg\packages\tesseract_x64-windows\include\tesseract;C:\Users\Luke\vcpkg\packages\leptonica_x64-windows\include\leptonica;C:\opencv\build\include;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;C:\opencv\build\include;C:\Users\Luke\vcpkg\packages\leptonica_x64-windows\include\leptonica;C:\Users\Luke\vcpkg\packages\tesseract_x64-windows\include\tesseract</IncludePath>
     </QtMoc>
+    <QtMoc Include="About.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Luke\vcpkg\packages\tesseract_x64-windows\include\tesseract;C:\Users\Luke\vcpkg\packages\leptonica_x64-windows\include\leptonica;C:\opencv\build\include;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;C:\opencv\build\include;C:\Users\Luke\vcpkg\packages\leptonica_x64-windows\include\leptonica;C:\Users\Luke\vcpkg\packages\tesseract_x64-windows\include\tesseract</IncludePath>
+    </QtMoc>
     <ClInclude Include="Frame.h" />
+    <QtMoc Include="Help.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Luke\vcpkg\packages\tesseract_x64-windows\include\tesseract;C:\Users\Luke\vcpkg\packages\leptonica_x64-windows\include\leptonica;C:\opencv\build\include;.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets;C:\opencv\build\include;C:\Users\Luke\vcpkg\packages\leptonica_x64-windows\include\leptonica;C:\Users\Luke\vcpkg\packages\tesseract_x64-windows\include\tesseract</IncludePath>
+    </QtMoc>
     <ClInclude Include="Output.h" />
     <ClInclude Include="StringComparer.h" />
     <ClInclude Include="SubtitleBox.h" />

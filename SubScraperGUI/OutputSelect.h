@@ -30,6 +30,8 @@ private slots:
 	void on_lineConfidenceLineEdit_editingFinished();
 	void on_compareThresholdLineEdit_editingFinished();
 	void on_dupeThresholdLineEdit_editingFinished();
+	void on_help_clicked();
+	void on_about_clicked();
 
 private:
 	Ui::OutputSelect ui;

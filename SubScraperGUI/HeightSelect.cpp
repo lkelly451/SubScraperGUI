@@ -6,6 +6,9 @@
 #include "QGraphicsPixmapItem"
 #include <iostream>
 #include <Frame.h>
+#include <qmenubar.h>
+#include <Help.h>
+#include <About.h>
 
 using namespace std;
 using namespace cv;
@@ -49,6 +52,20 @@ HeightSelect::HeightSelect(QString widthBegin, QString widthEnd, QString heightB
 	QValidator* intValidatorBoxHeights = new QIntValidator(0, maxBoxHeight, this);
 	ui.singleLineEdit->setValidator(intValidatorBoxHeights);
 	ui.doubleLineEdit->setValidator(intValidatorBoxHeights);
+
+	//Menu bar for QWidget based windows
+	QMenuBar* menuBar = new QMenuBar();
+	QMenu* helpMenu = new QMenu("Help");
+	QAction* help = new QAction("Help", this);
+	QAction* about = new QAction("About", this);
+	menuBar->addMenu(helpMenu);
+	helpMenu->addAction(help);
+	helpMenu->addAction(about);
+
+	this->layout()->setMenuBar(menuBar);
+
+	connect(help, &QAction::triggered, this, &HeightSelect::on_help_clicked);
+	connect(about, &QAction::triggered, this, &HeightSelect::on_about_clicked);
 }
 
 HeightSelect::~HeightSelect()
@@ -252,3 +269,14 @@ void HeightSelect::on_doubleGetHeight_clicked()
 	}
 }
 
+void HeightSelect::on_help_clicked()
+{
+	Help* help = new Help();
+	help->show();
+}
+
+void HeightSelect::on_about_clicked()
+{
+	About* about = new About();
+	about->show();
+}

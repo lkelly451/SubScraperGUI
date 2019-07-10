@@ -5,6 +5,9 @@
 #include "qfiledialog.h"
 #include <iostream>
 #include <fstream>
+#include <qmenubar.h>
+#include <Help.h>
+#include <About.h>
 
 using namespace std;
 
@@ -62,6 +65,20 @@ OutputSelect::OutputSelect(QString widthBegin, QString widthEnd, QString heightB
 	ui.toolTipLineConfidence->setToolTip("Sets the minimum percentage confidence the OCR engine must have in a line to output it (average across all words).");
 	ui.toolTipMarkDuplicates->setToolTip("Sets the minimum length that a series of repeated characters across two subtitle boxes must be to be marked as a potential duplicate in the output text file.");
 	ui.toolTipComparisonThreshold->setToolTip("Sets the percentage difference two consecutive reads must have for the system to output them (from 0.10 to 1.00)." );
+
+	//Menu bar for QWidget based windows
+	QMenuBar* menuBar = new QMenuBar();
+	QMenu* helpMenu = new QMenu("Help");
+	QAction* help = new QAction("Help", this);
+	QAction* about = new QAction("About", this);
+	menuBar->addMenu(helpMenu);
+	helpMenu->addAction(help);
+	helpMenu->addAction(about);
+
+	this->layout()->setMenuBar(menuBar);
+
+	connect(help, &QAction::triggered, this, &OutputSelect::on_help_clicked);
+	connect(about, &QAction::triggered, this, &OutputSelect::on_about_clicked);
 }
 OutputSelect::~OutputSelect()
 {
@@ -240,4 +257,18 @@ void OutputSelect::on_compareThresholdLineEdit_editingFinished()
 void OutputSelect::on_dupeThresholdLineEdit_editingFinished()
 {
 	this->dupeThreshold = ui.dupeThresholdLineEdit->text();
+}
+
+void OutputSelect::on_help_clicked()
+{
+	Help* help = new Help();
+	help->setAttribute(Qt::WA_DeleteOnClose);
+	help->show();
+}
+
+void OutputSelect::on_about_clicked()
+{
+	About* about = new About();
+	about->setAttribute(Qt::WA_DeleteOnClose);
+	about->show();
 }

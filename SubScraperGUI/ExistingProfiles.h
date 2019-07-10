@@ -28,6 +28,8 @@ private slots:
 	void on_item_clicked(QListWidgetItem* item);
 	void on_goButton_clicked();
 	void on_deleteProfileButton_clicked();
+	void on_help_clicked();
+	void on_about_clicked();
 private:
 	Ui::ExistingProfiles ui;
 	QString name;

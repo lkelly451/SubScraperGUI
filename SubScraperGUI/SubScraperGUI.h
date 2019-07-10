@@ -16,6 +16,8 @@ public:
 private slots:
 	void on_buildButton_clicked();
 	void on_selectButton_clicked();
+	void on_help_clicked();
+	void on_about_clicked();
 private:
 	Ui::SubScraperGUIClass ui;
 };

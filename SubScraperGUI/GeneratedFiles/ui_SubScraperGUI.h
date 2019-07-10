@@ -14,8 +14,6 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenu>
-#include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QStatusBar>
@@ -35,8 +33,6 @@ public:
     QLabel *selectLabel;
     QPushButton *selectButton;
     QStatusBar *statusBar;
-    QMenuBar *menuBar;
-    QMenu *menuHelp;
 
     void setupUi(QMainWindow *SubScraperGUIClass)
     {
@@ -69,16 +65,6 @@ public:
         statusBar = new QStatusBar(SubScraperGUIClass);
         statusBar->setObjectName(QString::fromUtf8("statusBar"));
         SubScraperGUIClass->setStatusBar(statusBar);
-        menuBar = new QMenuBar(SubScraperGUIClass);
-        menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 600, 21));
-        menuHelp = new QMenu(menuBar);
-        menuHelp->setObjectName(QString::fromUtf8("menuHelp"));
-        SubScraperGUIClass->setMenuBar(menuBar);
-
-        menuBar->addAction(menuHelp->menuAction());
-        menuHelp->addAction(actionHelp);
-        menuHelp->addAction(actionAbout);
 
         retranslateUi(SubScraperGUIClass);
 
@@ -95,7 +81,6 @@ public:
         buildButton->setText(QCoreApplication::translate("SubScraperGUIClass", "Build new profile", nullptr));
         selectLabel->setText(QCoreApplication::translate("SubScraperGUIClass", "To begin getting subtitles, choose to use an existing profile or build a new one.", nullptr));
         selectButton->setText(QCoreApplication::translate("SubScraperGUIClass", "Continue", nullptr));
-        menuHelp->setTitle(QCoreApplication::translate("SubScraperGUIClass", "Help", nullptr));
     } // retranslateUi
 
 };

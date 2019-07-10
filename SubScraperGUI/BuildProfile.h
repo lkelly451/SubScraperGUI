@@ -30,6 +30,8 @@ private slots:
 	void on_previewButton_clicked();
 	void on_frameForward_clicked();
 	void on_frameBack_clicked();
+	void on_help_clicked();
+	void on_about_clicked();
 
 private:
 	Ui::BuildProfile ui;
