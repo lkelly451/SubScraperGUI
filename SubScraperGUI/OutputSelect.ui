@@ -92,7 +92,7 @@
      <item>
       <widget class="QLabel" name="advancedLabel">
        <property name="text">
-        <string>Advanced options (mouse over '?' next to each option for more information): </string>
+        <string>Advanced options (mouse over 'i' next to each option for more information): </string>
        </property>
       </widget>
      </item>
@@ -119,18 +119,52 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="toolTipBoxLength">
+        <widget class="QPushButton" name="toolTipBoxLength">
+         <property name="minimumSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
          <property name="maximumSize">
           <size>
            <width>20</width>
            <height>20</height>
           </size>
          </property>
-         <property name="text">
-          <string> ?</string>
+         <property name="font">
+          <font>
+           <pointsize>6</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
          </property>
-         <property name="readOnly">
-          <bool>true</bool>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    color: #333;
+    border: 2px solid #555;
+    border-radius: 10px;
+    border-style: outset;
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #888
+        );
+    padding: 5px;
+    }
+
+QPushButton:hover {
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #bbb
+        );
+    }
+
+QPushButton:pressed {
+
+    }</string>
+         </property>
+         <property name="text">
+          <string>i</string>
          </property>
         </widget>
        </item>
@@ -172,18 +206,52 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="toolTipLeftSlidingWindow">
+        <widget class="QPushButton" name="toolTipLeftSlidingWindow">
+         <property name="minimumSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
          <property name="maximumSize">
           <size>
            <width>20</width>
            <height>20</height>
           </size>
          </property>
-         <property name="text">
-          <string> ?</string>
+         <property name="font">
+          <font>
+           <pointsize>6</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
          </property>
-         <property name="readOnly">
-          <bool>true</bool>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    color: #333;
+    border: 2px solid #555;
+    border-radius: 10px;
+    border-style: outset;
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #888
+        );
+    padding: 5px;
+    }
+
+QPushButton:hover {
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #bbb
+        );
+    }
+
+QPushButton:pressed {
+
+    }</string>
+         </property>
+         <property name="text">
+          <string>i</string>
          </property>
         </widget>
        </item>
@@ -225,18 +293,52 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="toolTipRightSlidingWindow">
+        <widget class="QPushButton" name="toolTipRightSlidingWindow">
+         <property name="minimumSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
          <property name="maximumSize">
           <size>
            <width>20</width>
            <height>20</height>
           </size>
          </property>
-         <property name="text">
-          <string> ?</string>
+         <property name="font">
+          <font>
+           <pointsize>6</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
          </property>
-         <property name="readOnly">
-          <bool>true</bool>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    color: #333;
+    border: 2px solid #555;
+    border-radius: 10px;
+    border-style: outset;
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #888
+        );
+    padding: 5px;
+    }
+
+QPushButton:hover {
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #bbb
+        );
+    }
+
+QPushButton:pressed {
+ 
+    }</string>
+         </property>
+         <property name="text">
+          <string>i</string>
          </property>
         </widget>
        </item>
@@ -278,18 +380,52 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="toolTipWordConfidence">
+        <widget class="QPushButton" name="toolTipWordConfidence">
+         <property name="minimumSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
          <property name="maximumSize">
           <size>
            <width>20</width>
            <height>20</height>
           </size>
          </property>
-         <property name="text">
-          <string> ?</string>
+         <property name="font">
+          <font>
+           <pointsize>6</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
          </property>
-         <property name="readOnly">
-          <bool>true</bool>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    color: #333;
+    border: 2px solid #555;
+    border-radius: 10px;
+    border-style: outset;
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #888
+        );
+    padding: 5px;
+    }
+
+QPushButton:hover {
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #bbb
+        );
+    }
+
+QPushButton:pressed {
+
+    }</string>
+         </property>
+         <property name="text">
+          <string>i</string>
          </property>
         </widget>
        </item>
@@ -331,18 +467,52 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="toolTipLineConfidence">
+        <widget class="QPushButton" name="toolTipLineConfidence">
+         <property name="minimumSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
          <property name="maximumSize">
           <size>
            <width>20</width>
            <height>20</height>
           </size>
          </property>
-         <property name="text">
-          <string> ?</string>
+         <property name="font">
+          <font>
+           <pointsize>6</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
          </property>
-         <property name="readOnly">
-          <bool>true</bool>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    color: #333;
+    border: 2px solid #555;
+    border-radius: 10px;
+    border-style: outset;
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #888
+        );
+    padding: 5px;
+    }
+
+QPushButton:hover {
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #bbb
+        );
+    }
+
+QPushButton:pressed {
+
+    }</string>
+         </property>
+         <property name="text">
+          <string>i</string>
          </property>
         </widget>
        </item>
@@ -384,18 +554,52 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="toolTipMarkDuplicates">
+        <widget class="QPushButton" name="toolTipMarkDuplicates">
+         <property name="minimumSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
          <property name="maximumSize">
           <size>
            <width>20</width>
            <height>20</height>
           </size>
          </property>
-         <property name="text">
-          <string> ?</string>
+         <property name="font">
+          <font>
+           <pointsize>6</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
          </property>
-         <property name="readOnly">
-          <bool>true</bool>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    color: #333;
+    border: 2px solid #555;
+    border-radius: 10px;
+    border-style: outset;
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #888
+        );
+    padding: 5px;
+    }
+
+QPushButton:hover {
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #bbb
+        );
+    }
+
+QPushButton:pressed {
+  
+    }</string>
+         </property>
+         <property name="text">
+          <string>i</string>
          </property>
         </widget>
        </item>
@@ -437,18 +641,52 @@
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="toolTipComparisonThreshold">
+        <widget class="QPushButton" name="toolTipComparisonThreshold">
+         <property name="minimumSize">
+          <size>
+           <width>20</width>
+           <height>20</height>
+          </size>
+         </property>
          <property name="maximumSize">
           <size>
            <width>20</width>
            <height>20</height>
           </size>
          </property>
-         <property name="text">
-          <string> ?</string>
+         <property name="font">
+          <font>
+           <pointsize>6</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
          </property>
-         <property name="readOnly">
-          <bool>true</bool>
+         <property name="styleSheet">
+          <string notr="true">QPushButton {
+    color: #333;
+    border: 2px solid #555;
+    border-radius: 10px;
+    border-style: outset;
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #888
+        );
+    padding: 5px;
+    }
+
+QPushButton:hover {
+    background: qradialgradient(
+        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,
+        radius: 1.35, stop: 0 #fff, stop: 1 #bbb
+        );
+    }
+
+QPushButton:pressed {
+
+    }</string>
+         </property>
+         <property name="text">
+          <string>i</string>
          </property>
         </widget>
        </item>
@@ -470,66 +708,45 @@
     </layout>
    </item>
    <item row="2" column="0" colspan="2">
-    <layout class="QHBoxLayout" name="horizontalLayout_12">
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_4">
-       <item>
-        <widget class="QPushButton" name="backButton">
-         <property name="maximumSize">
-          <size>
-           <width>80</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Back</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer_9">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
+      <widget class="QPushButton" name="backButton">
+       <property name="maximumSize">
+        <size>
+         <width>80</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Back</string>
+       </property>
+      </widget>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout_11">
-       <item>
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QPushButton" name="goButton">
-         <property name="maximumSize">
-          <size>
-           <width>80</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>Go</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>398</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="goButton">
+       <property name="maximumSize">
+        <size>
+         <width>80</width>
+         <height>16777215</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Go</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

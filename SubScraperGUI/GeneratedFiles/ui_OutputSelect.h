@@ -43,43 +43,40 @@ public:
     QHBoxLayout *horizontalLayout_5;
     QLabel *lengthFilterLabel;
     QLineEdit *lengthFilterLineEdit;
-    QLineEdit *toolTipBoxLength;
+    QPushButton *toolTipBoxLength;
     QSpacerItem *horizontalSpacer_2;
     QHBoxLayout *horizontalLayout_6;
     QLabel *leftWindowLabel;
     QLineEdit *leftWindowLineEdit;
-    QLineEdit *toolTipLeftSlidingWindow;
+    QPushButton *toolTipLeftSlidingWindow;
     QSpacerItem *horizontalSpacer_3;
     QHBoxLayout *horizontalLayout_7;
     QLabel *rightWindowLabel;
     QLineEdit *rightWindowLineEdit;
-    QLineEdit *toolTipRightSlidingWindow;
+    QPushButton *toolTipRightSlidingWindow;
     QSpacerItem *horizontalSpacer_4;
     QHBoxLayout *horizontalLayout_8;
     QLabel *wordConfidenceLabel;
     QLineEdit *wordConfidenceLineEdit;
-    QLineEdit *toolTipWordConfidence;
+    QPushButton *toolTipWordConfidence;
     QSpacerItem *horizontalSpacer_5;
     QHBoxLayout *horizontalLayout_9;
     QLabel *lineConfidenceLabel;
     QLineEdit *lineConfidenceLineEdit;
-    QLineEdit *toolTipLineConfidence;
+    QPushButton *toolTipLineConfidence;
     QSpacerItem *horizontalSpacer_6;
     QHBoxLayout *horizontalLayout_3;
     QLabel *dupeThresholdLabel;
     QLineEdit *dupeThresholdLineEdit;
-    QLineEdit *toolTipMarkDuplicates;
+    QPushButton *toolTipMarkDuplicates;
     QSpacerItem *horizontalSpacer_7;
     QHBoxLayout *horizontalLayout_10;
     QLabel *compareThresholdLabel;
     QLineEdit *compareThresholdLineEdit;
-    QLineEdit *toolTipComparisonThreshold;
+    QPushButton *toolTipComparisonThreshold;
     QSpacerItem *horizontalSpacer_8;
-    QHBoxLayout *horizontalLayout_12;
     QHBoxLayout *horizontalLayout_4;
     QPushButton *backButton;
-    QSpacerItem *horizontalSpacer_9;
-    QHBoxLayout *horizontalLayout_11;
     QSpacerItem *horizontalSpacer;
     QPushButton *goButton;
 
@@ -181,10 +178,37 @@ public:
 
         horizontalLayout_5->addWidget(lengthFilterLineEdit);
 
-        toolTipBoxLength = new QLineEdit(OutputSelect);
+        toolTipBoxLength = new QPushButton(OutputSelect);
         toolTipBoxLength->setObjectName(QString::fromUtf8("toolTipBoxLength"));
+        toolTipBoxLength->setMinimumSize(QSize(20, 20));
         toolTipBoxLength->setMaximumSize(QSize(20, 20));
-        toolTipBoxLength->setReadOnly(true);
+        QFont font;
+        font.setPointSize(6);
+        font.setBold(true);
+        font.setWeight(75);
+        toolTipBoxLength->setFont(font);
+        toolTipBoxLength->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+"    color: #333;\n"
+"    border: 2px solid #555;\n"
+"    border-radius: 10px;\n"
+"    border-style: outset;\n"
+"    background: qradialgradient(\n"
+"        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
+"        radius: 1.35, stop: 0 #fff, stop: 1 #888\n"
+"        );\n"
+"    padding: 5px;\n"
+"    }\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: qradialgradient(\n"
+"        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
+"        radius: 1.35, stop: 0 #fff, stop: 1 #bbb\n"
+"        );\n"
+"    }\n"
+"\n"
+"QPushButton:pressed {\n"
+"\n"
+"    }"));
 
         horizontalLayout_5->addWidget(toolTipBoxLength);
 
@@ -209,10 +233,33 @@ public:
 
         horizontalLayout_6->addWidget(leftWindowLineEdit);
 
-        toolTipLeftSlidingWindow = new QLineEdit(OutputSelect);
+        toolTipLeftSlidingWindow = new QPushButton(OutputSelect);
         toolTipLeftSlidingWindow->setObjectName(QString::fromUtf8("toolTipLeftSlidingWindow"));
+        toolTipLeftSlidingWindow->setMinimumSize(QSize(20, 20));
         toolTipLeftSlidingWindow->setMaximumSize(QSize(20, 20));
-        toolTipLeftSlidingWindow->setReadOnly(true);
+        toolTipLeftSlidingWindow->setFont(font);
+        toolTipLeftSlidingWindow->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+"    color: #333;\n"
+"    border: 2px solid #555;\n"
+"    border-radius: 10px;\n"
+"    border-style: outset;\n"
+"    background: qradialgradient(\n"
+"        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
+"        radius: 1.35, stop: 0 #fff, stop: 1 #888\n"
+"        );\n"
+"    padding: 5px;\n"
+"    }\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: qradialgradient(\n"
+"        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
+"        radius: 1.35, stop: 0 #fff, stop: 1 #bbb\n"
+"        );\n"
+"    }\n"
+"\n"
+"QPushButton:pressed {\n"
+"\n"
+"    }"));
 
         horizontalLayout_6->addWidget(toolTipLeftSlidingWindow);
 
@@ -237,10 +284,33 @@ public:
 
         horizontalLayout_7->addWidget(rightWindowLineEdit);
 
-        toolTipRightSlidingWindow = new QLineEdit(OutputSelect);
+        toolTipRightSlidingWindow = new QPushButton(OutputSelect);
         toolTipRightSlidingWindow->setObjectName(QString::fromUtf8("toolTipRightSlidingWindow"));
+        toolTipRightSlidingWindow->setMinimumSize(QSize(20, 20));
         toolTipRightSlidingWindow->setMaximumSize(QSize(20, 20));
-        toolTipRightSlidingWindow->setReadOnly(true);
+        toolTipRightSlidingWindow->setFont(font);
+        toolTipRightSlidingWindow->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+"    color: #333;\n"
+"    border: 2px solid #555;\n"
+"    border-radius: 10px;\n"
+"    border-style: outset;\n"
+"    background: qradialgradient(\n"
+"        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
+"        radius: 1.35, stop: 0 #fff, stop: 1 #888\n"
+"        );\n"
+"    padding: 5px;\n"
+"    }\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: qradialgradient(\n"
+"        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
+"        radius: 1.35, stop: 0 #fff, stop: 1 #bbb\n"
+"        );\n"
+"    }\n"
+"\n"
+"QPushButton:pressed {\n"
+" \n"
+"    }"));
 
         horizontalLayout_7->addWidget(toolTipRightSlidingWindow);
 
@@ -265,10 +335,33 @@ public:
 
         horizontalLayout_8->addWidget(wordConfidenceLineEdit);
 
-        toolTipWordConfidence = new QLineEdit(OutputSelect);
+        toolTipWordConfidence = new QPushButton(OutputSelect);
         toolTipWordConfidence->setObjectName(QString::fromUtf8("toolTipWordConfidence"));
+        toolTipWordConfidence->setMinimumSize(QSize(20, 20));
         toolTipWordConfidence->setMaximumSize(QSize(20, 20));
-        toolTipWordConfidence->setReadOnly(true);
+        toolTipWordConfidence->setFont(font);
+        toolTipWordConfidence->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+"    color: #333;\n"
+"    border: 2px solid #555;\n"
+"    border-radius: 10px;\n"
+"    border-style: outset;\n"
+"    background: qradialgradient(\n"
+"        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
+"        radius: 1.35, stop: 0 #fff, stop: 1 #888\n"
+"        );\n"
+"    padding: 5px;\n"
+"    }\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: qradialgradient(\n"
+"        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
+"        radius: 1.35, stop: 0 #fff, stop: 1 #bbb\n"
+"        );\n"
+"    }\n"
+"\n"
+"QPushButton:pressed {\n"
+"\n"
+"    }"));
 
         horizontalLayout_8->addWidget(toolTipWordConfidence);
 
@@ -293,10 +386,33 @@ public:
 
         horizontalLayout_9->addWidget(lineConfidenceLineEdit);
 
-        toolTipLineConfidence = new QLineEdit(OutputSelect);
+        toolTipLineConfidence = new QPushButton(OutputSelect);
         toolTipLineConfidence->setObjectName(QString::fromUtf8("toolTipLineConfidence"));
+        toolTipLineConfidence->setMinimumSize(QSize(20, 20));
         toolTipLineConfidence->setMaximumSize(QSize(20, 20));
-        toolTipLineConfidence->setReadOnly(true);
+        toolTipLineConfidence->setFont(font);
+        toolTipLineConfidence->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+"    color: #333;\n"
+"    border: 2px solid #555;\n"
+"    border-radius: 10px;\n"
+"    border-style: outset;\n"
+"    background: qradialgradient(\n"
+"        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
+"        radius: 1.35, stop: 0 #fff, stop: 1 #888\n"
+"        );\n"
+"    padding: 5px;\n"
+"    }\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: qradialgradient(\n"
+"        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
+"        radius: 1.35, stop: 0 #fff, stop: 1 #bbb\n"
+"        );\n"
+"    }\n"
+"\n"
+"QPushButton:pressed {\n"
+"\n"
+"    }"));
 
         horizontalLayout_9->addWidget(toolTipLineConfidence);
 
@@ -321,10 +437,33 @@ public:
 
         horizontalLayout_3->addWidget(dupeThresholdLineEdit);
 
-        toolTipMarkDuplicates = new QLineEdit(OutputSelect);
+        toolTipMarkDuplicates = new QPushButton(OutputSelect);
         toolTipMarkDuplicates->setObjectName(QString::fromUtf8("toolTipMarkDuplicates"));
+        toolTipMarkDuplicates->setMinimumSize(QSize(20, 20));
         toolTipMarkDuplicates->setMaximumSize(QSize(20, 20));
-        toolTipMarkDuplicates->setReadOnly(true);
+        toolTipMarkDuplicates->setFont(font);
+        toolTipMarkDuplicates->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+"    color: #333;\n"
+"    border: 2px solid #555;\n"
+"    border-radius: 10px;\n"
+"    border-style: outset;\n"
+"    background: qradialgradient(\n"
+"        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
+"        radius: 1.35, stop: 0 #fff, stop: 1 #888\n"
+"        );\n"
+"    padding: 5px;\n"
+"    }\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: qradialgradient(\n"
+"        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
+"        radius: 1.35, stop: 0 #fff, stop: 1 #bbb\n"
+"        );\n"
+"    }\n"
+"\n"
+"QPushButton:pressed {\n"
+"  \n"
+"    }"));
 
         horizontalLayout_3->addWidget(toolTipMarkDuplicates);
 
@@ -349,10 +488,33 @@ public:
 
         horizontalLayout_10->addWidget(compareThresholdLineEdit);
 
-        toolTipComparisonThreshold = new QLineEdit(OutputSelect);
+        toolTipComparisonThreshold = new QPushButton(OutputSelect);
         toolTipComparisonThreshold->setObjectName(QString::fromUtf8("toolTipComparisonThreshold"));
+        toolTipComparisonThreshold->setMinimumSize(QSize(20, 20));
         toolTipComparisonThreshold->setMaximumSize(QSize(20, 20));
-        toolTipComparisonThreshold->setReadOnly(true);
+        toolTipComparisonThreshold->setFont(font);
+        toolTipComparisonThreshold->setStyleSheet(QString::fromUtf8("QPushButton {\n"
+"    color: #333;\n"
+"    border: 2px solid #555;\n"
+"    border-radius: 10px;\n"
+"    border-style: outset;\n"
+"    background: qradialgradient(\n"
+"        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
+"        radius: 1.35, stop: 0 #fff, stop: 1 #888\n"
+"        );\n"
+"    padding: 5px;\n"
+"    }\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: qradialgradient(\n"
+"        cx: 0.3, cy: -0.4, fx: 0.3, fy: -0.4,\n"
+"        radius: 1.35, stop: 0 #fff, stop: 1 #bbb\n"
+"        );\n"
+"    }\n"
+"\n"
+"QPushButton:pressed {\n"
+"\n"
+"    }"));
 
         horizontalLayout_10->addWidget(toolTipComparisonThreshold);
 
@@ -366,9 +528,6 @@ public:
 
         gridLayout->addLayout(verticalLayout_5, 1, 0, 1, 2);
 
-        horizontalLayout_12 = new QHBoxLayout();
-        horizontalLayout_12->setSpacing(6);
-        horizontalLayout_12->setObjectName(QString::fromUtf8("horizontalLayout_12"));
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setSpacing(6);
         horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
@@ -378,31 +537,18 @@ public:
 
         horizontalLayout_4->addWidget(backButton);
 
-        horizontalSpacer_9 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        horizontalSpacer = new QSpacerItem(398, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        horizontalLayout_4->addItem(horizontalSpacer_9);
-
-
-        horizontalLayout_12->addLayout(horizontalLayout_4);
-
-        horizontalLayout_11 = new QHBoxLayout();
-        horizontalLayout_11->setSpacing(6);
-        horizontalLayout_11->setObjectName(QString::fromUtf8("horizontalLayout_11"));
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-
-        horizontalLayout_11->addItem(horizontalSpacer);
+        horizontalLayout_4->addItem(horizontalSpacer);
 
         goButton = new QPushButton(OutputSelect);
         goButton->setObjectName(QString::fromUtf8("goButton"));
         goButton->setMaximumSize(QSize(80, 16777215));
 
-        horizontalLayout_11->addWidget(goButton);
+        horizontalLayout_4->addWidget(goButton);
 
 
-        horizontalLayout_12->addLayout(horizontalLayout_11);
-
-
-        gridLayout->addLayout(horizontalLayout_12, 2, 0, 1, 2);
+        gridLayout->addLayout(horizontalLayout_4, 2, 0, 1, 2);
 
 
         retranslateUi(OutputSelect);
@@ -418,28 +564,28 @@ public:
         profileLabel->setText(QCoreApplication::translate("OutputSelect", "Profile name:", nullptr));
         saveProfileButton->setText(QCoreApplication::translate("OutputSelect", "Save Profile", nullptr));
         continueWarning->setText(QString());
-        advancedLabel->setText(QCoreApplication::translate("OutputSelect", "Advanced options (mouse over '?' next to each option for more information): ", nullptr));
+        advancedLabel->setText(QCoreApplication::translate("OutputSelect", "Advanced options (mouse over 'i' next to each option for more information): ", nullptr));
         lengthFilterLabel->setText(QCoreApplication::translate("OutputSelect", "Box length filter(px):                          ", nullptr));
         lengthFilterLineEdit->setText(QCoreApplication::translate("OutputSelect", "0", nullptr));
-        toolTipBoxLength->setText(QCoreApplication::translate("OutputSelect", " ?", nullptr));
+        toolTipBoxLength->setText(QCoreApplication::translate("OutputSelect", "i", nullptr));
         leftWindowLabel->setText(QCoreApplication::translate("OutputSelect", "Left sliding window size(px):              ", nullptr));
         leftWindowLineEdit->setText(QCoreApplication::translate("OutputSelect", "0", nullptr));
-        toolTipLeftSlidingWindow->setText(QCoreApplication::translate("OutputSelect", " ?", nullptr));
+        toolTipLeftSlidingWindow->setText(QCoreApplication::translate("OutputSelect", "i", nullptr));
         rightWindowLabel->setText(QCoreApplication::translate("OutputSelect", "Right sliding window size(px):            ", nullptr));
         rightWindowLineEdit->setText(QCoreApplication::translate("OutputSelect", "9", nullptr));
-        toolTipRightSlidingWindow->setText(QCoreApplication::translate("OutputSelect", " ?", nullptr));
+        toolTipRightSlidingWindow->setText(QCoreApplication::translate("OutputSelect", "i", nullptr));
         wordConfidenceLabel->setText(QCoreApplication::translate("OutputSelect", "Word confidence threshold (0xx):     ", nullptr));
         wordConfidenceLineEdit->setText(QCoreApplication::translate("OutputSelect", "70", nullptr));
-        toolTipWordConfidence->setText(QCoreApplication::translate("OutputSelect", " ?", nullptr));
+        toolTipWordConfidence->setText(QCoreApplication::translate("OutputSelect", "i", nullptr));
         lineConfidenceLabel->setText(QCoreApplication::translate("OutputSelect", "Line confidence threshold (0xx):       ", nullptr));
         lineConfidenceLineEdit->setText(QCoreApplication::translate("OutputSelect", "70", nullptr));
-        toolTipLineConfidence->setText(QCoreApplication::translate("OutputSelect", " ?", nullptr));
+        toolTipLineConfidence->setText(QCoreApplication::translate("OutputSelect", "i", nullptr));
         dupeThresholdLabel->setText(QCoreApplication::translate("OutputSelect", "Mark duplicates (min length):             ", nullptr));
         dupeThresholdLineEdit->setText(QCoreApplication::translate("OutputSelect", "3", nullptr));
-        toolTipMarkDuplicates->setText(QCoreApplication::translate("OutputSelect", " ?", nullptr));
+        toolTipMarkDuplicates->setText(QCoreApplication::translate("OutputSelect", "i", nullptr));
         compareThresholdLabel->setText(QCoreApplication::translate("OutputSelect", "Output comparison threshold (0.xx):", nullptr));
         compareThresholdLineEdit->setText(QCoreApplication::translate("OutputSelect", "0.75", nullptr));
-        toolTipComparisonThreshold->setText(QCoreApplication::translate("OutputSelect", " ?", nullptr));
+        toolTipComparisonThreshold->setText(QCoreApplication::translate("OutputSelect", "i", nullptr));
         backButton->setText(QCoreApplication::translate("OutputSelect", "Back", nullptr));
         goButton->setText(QCoreApplication::translate("OutputSelect", "Go", nullptr));
     } // retranslateUi
