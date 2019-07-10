@@ -6,7 +6,7 @@ using namespace std;
 using namespace cv;
 
 Video::Video(std::string inputFileName, std::string outputFileName, int singleHeight, int doubleHeight, int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd,  int dropLength, int windowSizeLeft,
-	int windowSizeRight, bool autoDetectHeights, int wordConfidence, int lineConfidence, double compareThreshold, int dupeThreshold, QPushButton* cancelButton) {
+	int windowSizeRight, bool autoDetectHeights, int wordConfidence, int lineConfidence, double compareThreshold, int dupeThreshold) {
 	this->inputFileName = inputFileName;
 	this->outputFileName = outputFileName;
 	this->cropHeightStart = cropHeightStart;
@@ -23,8 +23,6 @@ Video::Video(std::string inputFileName, std::string outputFileName, int singleHe
 	this->lineConfidence = lineConfidence;
 	this->compareThreshold = compareThreshold;
 	this->dupeThreshold = dupeThreshold;
-	this->progressBar = progressBar;
-	this->cancelButton = cancelButton;
 }
 
 Video::~Video() {
@@ -54,7 +52,7 @@ void Video::run(){
 	if (autoDetectHeights) {
 		while (1) {
 			//cancel the function if cancel button is checked
-			if (cancelButton->isFlat()) {
+			if (cancelled) {
 				break;
 			}
 
@@ -80,7 +78,7 @@ void Video::run(){
 			emit progressUpdate(frameProgress);
 
 		}
-		if (!cancelButton->isFlat()) {
+		if (!cancelled) {
 			getBoxHeights(frequency, singleHeight, doubleHeight);
 			//print out the height frequencies
 			printFrequencyMap(frequency);
@@ -96,7 +94,7 @@ void Video::run(){
 	//cout << cap.get(CAP_PROP_POS_MSEC);
 	while (1) {
 		//interrupt if cancel clicked
-		if (cancelButton->isFlat()) {
+		if (cancelled) {
 			break;
 		}
 
@@ -135,7 +133,7 @@ void Video::run(){
 
 	}
 	cout << "Done" << endl;
-	if (!cancelButton->isFlat()) {
+	if (!cancelled) {
 		//get most frequent ROI coordinates from heightBoundaries
 		getBoxCoordinates(heightBoundaries, ROICoordinates, singleHeight, doubleHeight);
 
@@ -146,7 +144,7 @@ void Video::run(){
 	while (1) {
 		try {
 			//interrupt if cancel clicked
-			if (cancelButton->isFlat()) {
+			if (cancelled) {
 				break;
 			}
 
@@ -202,7 +200,7 @@ void Video::run(){
 		frameProgress = ((cap.get(CAP_PROP_POS_FRAMES) / cap.get(CAP_PROP_FRAME_COUNT)) * 50) + 50;
 		emit progressUpdate(frameProgress);
 	}
-	if (!cancelButton->isFlat()) {
+	if (!cancelled) {
 		//add in any outputs from the last set of frames
 		Output o(outputFileName);
 		o.outputFinalLines(textLineOne, textLineTwo);
@@ -610,7 +608,7 @@ void Video::markPotentialDuplicates(string outputFileName, int dupeThreshold)
 
 void Video::on_cancelButton_clicked()
 {
-	this->exit();
+	cancelled = true;
 }
 
 

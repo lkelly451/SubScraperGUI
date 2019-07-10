@@ -31,8 +31,7 @@ private:
 	int lineConfidence; 
 	double compareThreshold;
 	int dupeThreshold; 
-	QProgressBar* progressBar;
-	QPushButton* cancelButton;
+	bool cancelled = false;
 
 signals:
 	void progressUpdate(int progress);
@@ -43,7 +42,7 @@ private slots:
 public:
 	Video(cv::VideoCapture cap, int singleHeight, int doubleHeight);
 	Video(std::string inputFileName, std::string outputFileName, int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd,  int dropLength, int singleHeight, int doubleHeight, int windowSizeLeft, int windowSizeRight,
-		bool autoDetectHeights, int wordConfidence, int lineConfidence, double compareThreshold, int dupeThreshold, QPushButton* cancelButton);
+		bool autoDetectHeights, int wordConfidence, int lineConfidence, double compareThreshold, int dupeThreshold);
 	~Video();
 	void run();
 	void sortYCoords(std::map<std::pair<int, int>, int>& frequency, std::vector<std::pair<int, int>>& ROICoordinates);

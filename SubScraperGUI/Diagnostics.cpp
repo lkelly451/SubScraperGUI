@@ -37,7 +37,7 @@ Diagnostics::Diagnostics(int singleHeight, int doubleHeight, int cropHeightStart
 
 	//begin subtitle analysis thread when Diagnostics screen loads
 	video = new Video(inputFileName, outputFileName, singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength, windowSizeLeft,
-		windowSizeRight, autoDetectHeights, wordConfidence, lineConfidence, compareThreshold, dupeThreshold, ui.cancelButton);
+		windowSizeRight, autoDetectHeights, wordConfidence, lineConfidence, compareThreshold, dupeThreshold);
 	video->start();
 	
 	//connection between cancel button clicked signal and its function
@@ -46,6 +46,7 @@ Diagnostics::Diagnostics(int singleHeight, int doubleHeight, int cropHeightStart
 	//connection between video thread signals and their functions
 	connect(video, SIGNAL(finished()), this, SLOT(onVideoFinished()));
 	connect(video, SIGNAL(progressUpdate(int)), this, SLOT(onProgressUpdated(int)));
+	connect(ui.cancelButton, SIGNAL(clicked()), video, SLOT(on_cancelButton_clicked()));
 }
 
 Diagnostics::Diagnostics(QString inputFileName, QWidget* parent)
