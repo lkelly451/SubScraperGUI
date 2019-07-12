@@ -21,6 +21,7 @@ private slots:
 	void onVideoFinished();
 	void onProgressUpdated(int progress);
 	void onErrorEncountered(QString errorMessage);
+	void getCurrentStep(QString currentStep);
 
 private:
 	Ui::Diagnostics ui;

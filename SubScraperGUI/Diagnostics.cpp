@@ -5,8 +5,8 @@
 #include <Video.h>
 using namespace cv;
 using namespace std;
-Diagnostics::Diagnostics(int singleHeight, int doubleHeight, int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd, int dropLength, int windowSizeLeft, 
-	int windowSizeRight, int wordConfidence, int lineConfidence, int dupeThreshold, double compareThreshold, string inputFileName, string outputFileName, bool autoDetectHeights, QWidget *parent)
+Diagnostics::Diagnostics(int singleHeight, int doubleHeight, int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd, int dropLength, int windowSizeLeft,
+	int windowSizeRight, int wordConfidence, int lineConfidence, int dupeThreshold, double compareThreshold, string inputFileName, string outputFileName, bool autoDetectHeights, QWidget* parent)
 	: QWidget(parent)
 {
 	ui.setupUi(this);
@@ -39,7 +39,7 @@ Diagnostics::Diagnostics(int singleHeight, int doubleHeight, int cropHeightStart
 	video = new Video(inputFileName, outputFileName, singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength, windowSizeLeft,
 		windowSizeRight, autoDetectHeights, wordConfidence, lineConfidence, compareThreshold, dupeThreshold);
 	video->start();
-	
+
 	//connection between cancel button clicked signal and its function
 	connect(ui.cancelButton, SIGNAL(clicked()), this, SLOT(on_cancelButton_clicked()));
 
@@ -48,6 +48,7 @@ Diagnostics::Diagnostics(int singleHeight, int doubleHeight, int cropHeightStart
 	connect(video, SIGNAL(progressUpdate(int)), this, SLOT(onProgressUpdated(int)));
 	connect(ui.cancelButton, SIGNAL(clicked()), video, SLOT(on_cancelButton_clicked()));
 	connect(video, SIGNAL(error(QString)), this, SLOT(onErrorEncountered(QString)));
+	connect(video, SIGNAL(currentStep(QString)), this, SLOT(getCurrentStep(QString)));
 }
 
 Diagnostics::Diagnostics(QString inputFileName, QWidget* parent)
@@ -98,6 +99,8 @@ void Diagnostics::onVideoFinished()
 	if (ui.progressBar->value() == 100) {
 		//change the progress bar label to notify the user that analysis is complete
 		ui.progressBarLabel->setText("Complete");
+		//clear current step label
+		ui.stepLabel->setText(" ");
 		//hide the cancel button
 		ui.cancelButton->hide();
 		//show the exit and main menu buttons, and output link
@@ -120,4 +123,9 @@ void Diagnostics::onErrorEncountered(QString errorMessage)
 	ui.cancelButton->hide();
 	ui.mainButton->show();
 	ui.exitButton->show();
+}
+
+void Diagnostics::getCurrentStep(QString currentStep)
+{
+	ui.stepLabel->setText(currentStep);
 }

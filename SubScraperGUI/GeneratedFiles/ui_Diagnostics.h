@@ -17,6 +17,7 @@
 #include <QtWidgets/QProgressBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -25,20 +26,29 @@ class Ui_Diagnostics
 {
 public:
     QGridLayout *gridLayout;
+    QHBoxLayout *horizontalLayout_4;
+    QSpacerItem *horizontalSpacer_6;
+    QVBoxLayout *verticalLayout_3;
+    QSpacerItem *verticalSpacer_2;
+    QVBoxLayout *verticalLayout_2;
+    QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
     QLabel *progressBarLabel;
     QProgressBar *progressBar;
     QPushButton *cancelButton;
+    QLabel *stepLabel;
     QHBoxLayout *horizontalLayout_3;
     QSpacerItem *horizontalSpacer_4;
     QLabel *outputLabel;
     QSpacerItem *horizontalSpacer_5;
+    QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout_2;
     QSpacerItem *horizontalSpacer_2;
     QPushButton *mainButton;
     QSpacerItem *horizontalSpacer;
     QPushButton *exitButton;
     QSpacerItem *horizontalSpacer_3;
+    QSpacerItem *horizontalSpacer_7;
 
     void setupUi(QWidget *Diagnostics)
     {
@@ -49,6 +59,26 @@ public:
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setSpacing(6);
+        horizontalLayout_4->setObjectName(QString::fromUtf8("horizontalLayout_4"));
+        horizontalSpacer_6 = new QSpacerItem(28, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_4->addItem(horizontalSpacer_6);
+
+        verticalLayout_3 = new QVBoxLayout();
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        verticalSpacer_2 = new QSpacerItem(20, 58, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_3->addItem(verticalSpacer_2);
+
+        verticalLayout_2 = new QVBoxLayout();
+        verticalLayout_2->setSpacing(6);
+        verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setSpacing(6);
+        verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
@@ -69,7 +99,15 @@ public:
         horizontalLayout->addWidget(cancelButton);
 
 
-        gridLayout->addLayout(horizontalLayout, 0, 0, 1, 1);
+        verticalLayout->addLayout(horizontalLayout);
+
+        stepLabel = new QLabel(Diagnostics);
+        stepLabel->setObjectName(QString::fromUtf8("stepLabel"));
+
+        verticalLayout->addWidget(stepLabel);
+
+
+        verticalLayout_2->addLayout(verticalLayout);
 
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setSpacing(6);
@@ -89,7 +127,14 @@ public:
         horizontalLayout_3->addItem(horizontalSpacer_5);
 
 
-        gridLayout->addLayout(horizontalLayout_3, 1, 0, 1, 1);
+        verticalLayout_2->addLayout(horizontalLayout_3);
+
+
+        verticalLayout_3->addLayout(verticalLayout_2);
+
+        verticalSpacer = new QSpacerItem(20, 58, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_3->addItem(verticalSpacer);
 
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
@@ -117,7 +162,17 @@ public:
         horizontalLayout_2->addItem(horizontalSpacer_3);
 
 
-        gridLayout->addLayout(horizontalLayout_2, 2, 0, 1, 1);
+        verticalLayout_3->addLayout(horizontalLayout_2);
+
+
+        horizontalLayout_4->addLayout(verticalLayout_3);
+
+        horizontalSpacer_7 = new QSpacerItem(38, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_4->addItem(horizontalSpacer_7);
+
+
+        gridLayout->addLayout(horizontalLayout_4, 0, 0, 1, 1);
 
 
         retranslateUi(Diagnostics);
@@ -130,6 +185,7 @@ public:
         Diagnostics->setWindowTitle(QCoreApplication::translate("Diagnostics", "Diagnostics", nullptr));
         progressBarLabel->setText(QCoreApplication::translate("Diagnostics", "Analysing:", nullptr));
         cancelButton->setText(QCoreApplication::translate("Diagnostics", "Cancel", nullptr));
+        stepLabel->setText(QString());
         outputLabel->setText(QString());
         mainButton->setText(QCoreApplication::translate("Diagnostics", "Main menu", nullptr));
         exitButton->setText(QCoreApplication::translate("Diagnostics", "Exit", nullptr));

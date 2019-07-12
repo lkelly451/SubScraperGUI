@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Main</string>
+   <string>SubScraper</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QRadioButton" name="buildProfileRadio">

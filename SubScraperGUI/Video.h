@@ -36,6 +36,7 @@ private:
 signals:
 	void progressUpdate(int progress);
 	void error(QString errorMessage);
+	void currentStep(QString currentStep);
 
 private slots:
 	void on_cancelButton_clicked();

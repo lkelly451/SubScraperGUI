@@ -83,6 +83,7 @@ void Video::run(){
 
 			//update progress bar
 			emit progressUpdate(frameProgress);
+			emit currentStep(QString::fromStdString("Detecting heights..."));
 
 		}
 		if (!cancelled) {
@@ -125,12 +126,14 @@ void Video::run(){
 			frameProgress = ((cap.get(CAP_PROP_POS_FRAMES) / cap.get(CAP_PROP_FRAME_COUNT)) * 25 + 25);
 
 			emit progressUpdate(frameProgress);
+			emit currentStep(QString::fromStdString("Detecting subtitle boxes..."));
 		}
 		else {
 			//mark progress in loading bar up to 50%
 			frameProgress = (cap.get(CAP_PROP_POS_FRAMES) / cap.get(CAP_PROP_FRAME_COUNT)) * 50;
 
 			emit progressUpdate(frameProgress);
+			emit currentStep(QString::fromStdString("Detecting subtitle boxes..."));
 		}
 
 	}
@@ -195,6 +198,7 @@ void Video::run(){
 		//mark progress in progress bar up to 50% (total 100%)
 		frameProgress = ((cap.get(CAP_PROP_POS_FRAMES) / cap.get(CAP_PROP_FRAME_COUNT)) * 50) + 50;
 		emit progressUpdate(frameProgress);
+		emit currentStep(QString::fromStdString("Reading text..."));
 	}
 	if (!cancelled) {
 		//add in any outputs from the last set of frames
