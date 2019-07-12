@@ -13,7 +13,6 @@ private:
 public:
 	Output(std::string outputFileName);
 	~Output();
-	double wordAccuracyRating(std::string transcriptFileDirectory);
 	void letterConverter();
 	void multiOutputResults(std::vector<std::string>& frameTexts, std::string outTexts[2]);
 	void multiOutputResults(std::vector<std::string>& frameTexts, std::string outTexts[2], std::string outputFileName);

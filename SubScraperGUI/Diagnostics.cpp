@@ -47,6 +47,7 @@ Diagnostics::Diagnostics(int singleHeight, int doubleHeight, int cropHeightStart
 	connect(video, SIGNAL(finished()), this, SLOT(onVideoFinished()));
 	connect(video, SIGNAL(progressUpdate(int)), this, SLOT(onProgressUpdated(int)));
 	connect(ui.cancelButton, SIGNAL(clicked()), video, SLOT(on_cancelButton_clicked()));
+	connect(video, SIGNAL(error(QString)), this, SLOT(onErrorEncountered(QString)));
 }
 
 Diagnostics::Diagnostics(QString inputFileName, QWidget* parent)
@@ -111,4 +112,12 @@ void Diagnostics::onProgressUpdated(int progress)
 	ui.progressBar->setValue(progress);
 }
 
-
+void Diagnostics::onErrorEncountered(QString errorMessage)
+{
+	ui.outputLabel->setText(errorMessage);
+	ui.outputLabel->show();
+	ui.progressBarLabel->setText("Cancelled");
+	ui.cancelButton->hide();
+	ui.mainButton->show();
+	ui.exitButton->show();
+}

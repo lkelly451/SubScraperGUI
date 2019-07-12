@@ -101,9 +101,8 @@ void Frame::drawHough(cv::Mat& dst, vector<cv::Vec4i> filteredLines)
 //filter out hough lines that are too long or too spaced apart to be subtitle box boundaries
 void Frame::dropByLength(vector<cv::Vec4i>& filteredLines, int dropLength)
 {
-	//filter lines again to remove lines that are too long
-	//and remove lines that are too spaced apart on the x axis
-	//droplength zero bypasses this filter
+	//filter lines again to remove lines that are too long and remove lines that are too spaced apart on the x axis, \
+	droplength zero bypasses this filter
 	if (dropLength != 0) {
 		if (!filteredLines.empty()) {
 			for (size_t i = 0; i < filteredLines.size(); i += 2) {
@@ -115,38 +114,10 @@ void Frame::dropByLength(vector<cv::Vec4i>& filteredLines, int dropLength)
 	}
 }
 
-//detect vertical hough lines that may be the width boundaries of a subtitle box
-void Frame::detectVerticalHough(cv::Mat frame, vector<cv::Vec4i> & lines, vector<cv::Vec4i> & filteredLines, int rangeStart, int rangeEnd)
-{
-	//detect lines
-	HoughLinesP(frame, lines, 1, 3.1416, 30, 0, 30);
-	//filter lines to those within the given range
-	for (size_t i = 0; i < lines.size(); i++) {
-		if (lines[i][0] >= rangeStart && lines[i][0] <= rangeEnd) {
-			filteredLines.insert(filteredLines.begin(), lines[i]);
-		}
-	}
-	//sort lines
-	std::sort(filteredLines.begin(), filteredLines.end(), [](const cv::Vec4i & a, const cv::Vec4i & b) {
-		return (a[0] > b[0]);
-		});
-
-
-}
-
-//print detected hough line coordinates to console, used for testing efficacy of hough line detection
-void Frame::printHoughlines(vector<cv::Vec4i> filteredLines)
-{
-	for (size_t i = 0; i < filteredLines.size(); i++) {
-		cout << filteredLines[i];
-	}
-}
-
 //create a version of the frame made of contour data, to facilitate Hough line detection
 void Frame::findDrawContours(cv::Mat frame, cv::Mat & dst, std::vector<std::vector<cv::Point>> contours, std::vector<cv::Vec4i> hierarchy)
 {
 	findContours(frame, contours, hierarchy, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
-	//draw contours
 	//ensure Mat is correct size to draw onto
 	dst = cv::Mat::zeros(frame.size(), CV_8UC1);
 	//iterate through the contour data, drawing each contour on
@@ -182,14 +153,8 @@ void Frame::detectBoxes(int singleHeight, int doubleHeight, vector<cv::Vec2i> & 
 	//image preprocessing
 	framePreprocessing(frame);
 
-	//imshow("image", frame);
-	//cv::waitKey(0);
-
 	//find and draw contours
 	findDrawContours(frame, draw, contours, hierarchy);
-
-	//imshow("image", draw);
-	//cv::waitKey(0);
 
 	//hough line detection
 	detectHorizontalHough(draw, lines, filteredLines, singleHeight, doubleHeight);
@@ -197,34 +162,11 @@ void Frame::detectBoxes(int singleHeight, int doubleHeight, vector<cv::Vec2i> & 
 	//filter lines again by length to exclude lines that exceed the length of the subtitle box/are too far apart on the x axis to be part of the same box
 	dropByLength(filteredLines, dropLength);
 
-	drawHough(draw, lines);
-
-	//imshow("image", draw);
-	//cv::waitKey(0);
-
 	//record the y coordinates of the identified lines
 	heightBoundaryRecorder(filteredLines, heightBoundaries);
 }
 
-void Frame::detectBoxes(int& height) {
-	std::vector<std::vector<cv::Point>> contours;
-	std::vector<cv::Vec4i> hierarchy;
-	vector <cv::Vec4i> lines;
-	vector<cv::Vec4i> filteredLines;
-	cv::Mat draw;
-
-	//image preprocessing
-	framePreprocessing(frame);
-
-	//find and draw contours
-	findDrawContours(frame, draw, contours, hierarchy);
-
-	//detect box and get height 
-	detectHorizontalHough(draw, lines, height);
-
-
-}
-
+//Detects double-line boxes in HeightSelect
 void Frame::detectDoubleBoxes(int& height, vector <cv::Vec4i> & lines) {
 	std::vector<std::vector<cv::Point>> contours;
 	std::vector<cv::Vec4i> hierarchy;
@@ -240,7 +182,7 @@ void Frame::detectDoubleBoxes(int& height, vector <cv::Vec4i> & lines) {
 	//detect box and get height 
 	detectHorizontalHough(draw, lines, height);
 }
-
+//Detects single-line boxes in HeightSelect
 void Frame::detectSingleBoxes(int& height, vector <cv::Vec4i> & lines) {
 	std::vector<std::vector<cv::Point>> contours;
 	std::vector<cv::Vec4i> hierarchy;
@@ -259,7 +201,7 @@ void Frame::detectSingleBoxes(int& height, vector <cv::Vec4i> & lines) {
 	//detect box and get height 
 	detectHorizontalHough(draw, lines, height);
 }
-
+//record heights of subtitle boxes to get most common heights across video
 void Frame::differenceRecorder(cv::Mat draw, map<int, int> & frequency) {
 	vector<cv::Vec4i> lines;
 	//detect lines
@@ -286,9 +228,11 @@ void Frame::detectHeights(map<int, int> & frequency) {
 	std::vector<std::vector<cv::Point>> contours;
 	std::vector<cv::Vec4i> hierarchy;
 	cv::Mat draw;
+
 	//image preprocessing for hough line detection
 	framePreprocessing(frame);
 	findDrawContours(frame, draw, contours, hierarchy);
+
 	//detect and record box heights on frame
 	differenceRecorder(draw, frequency);
 }

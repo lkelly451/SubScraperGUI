@@ -28,6 +28,7 @@ Video::Video(std::string inputFileName, std::string outputFileName, int singleHe
 Video::~Video() {
 }
 
+//gets subtitles from video and outputs to text file
 void Video::run(){
 	VideoCapture cap(inputFileName);
 	string textLineOne;
@@ -44,11 +45,12 @@ void Video::run(){
 	map<int, int> frequency;
 	double frameProgress;
 
+	//if video file failed to open, stop the process and send an error message to the GUI
 	if (!cap.isOpened()) {
-		//pass this to GUI
-		cout << "Error opening video file" << endl;
-		//interrupt
+		cancelled = true;
+		emit error(QString::fromStdString("Could not open video file, please check that file path and file type are correct. For accepted file types, see the 'Help' menu."));
 	}
+	//Auto detect subtitle heights
 	if (autoDetectHeights) {
 		while (1) {
 			//cancel the function if cancel button is checked
@@ -58,6 +60,7 @@ void Video::run(){
 
 			cap >> frame;
 
+			//skip 15 frames
 			for (int i = 0; i < 15; i++) {
 				cap.grab();
 			}
@@ -65,33 +68,32 @@ void Video::run(){
 			if (frame.empty()) {
 				break;
 			}
+
 			//crop frame image
 			crop(frame, frame, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd);
+
 			//construct frame
 			Frame f(frame);
+
 			//detect and record box heights
 			f.detectHeights(frequency);
-			//allocate box heights
 
 			//mark progress in loading bar up to 25% 
 			frameProgress = (cap.get(CAP_PROP_POS_FRAMES) / cap.get(CAP_PROP_FRAME_COUNT)) * 25;
+
+			//update progress bar
 			emit progressUpdate(frameProgress);
 
 		}
 		if (!cancelled) {
+			//get most frequent box heights and use to set singleHeight and doubleHeight
 			getBoxHeights(frequency, singleHeight, doubleHeight);
-			//print out the height frequencies
-			printFrequencyMap(frequency);
-
+			
 			//reset video
 			cap.set(cv::CAP_PROP_POS_FRAMES, 0);
 		}
 	}
-	//challenging contrast at 153k
-	//single at 32k
-	//double at 12k
-	//cap.set(CAP_PROP_POS_MSEC, 180000);
-	//cout << cap.get(CAP_PROP_POS_MSEC);
+	//pass through video and get y coordinates of areas that fit the subtitle heights, then rank by frequency
 	while (1) {
 		//interrupt if cancel clicked
 		if (cancelled) {
@@ -111,8 +113,7 @@ void Video::run(){
 		}
 		//crop frame image
 		crop(frame, frame, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd);
-		//imshow("image", frame);
-		//waitKey(0);
+
 		//construct frame object
 		Frame f(frame);
 
@@ -122,17 +123,17 @@ void Video::run(){
 		if (autoDetectHeights == true) {
 			//mark progress in loading bar up to 25% (50% total)
 			frameProgress = ((cap.get(CAP_PROP_POS_FRAMES) / cap.get(CAP_PROP_FRAME_COUNT)) * 25 + 25);
+
 			emit progressUpdate(frameProgress);
 		}
 		else {
 			//mark progress in loading bar up to 50%
 			frameProgress = (cap.get(CAP_PROP_POS_FRAMES) / cap.get(CAP_PROP_FRAME_COUNT)) * 50;
-			cout << "FrameProgress: " << frameProgress;
+
 			emit progressUpdate(frameProgress);
 		}
 
 	}
-	cout << "Done" << endl;
 	if (!cancelled) {
 		//get most frequent ROI coordinates from heightBoundaries
 		getBoxCoordinates(heightBoundaries, ROICoordinates, singleHeight, doubleHeight);
@@ -140,7 +141,7 @@ void Video::run(){
 		//reset video
 		cap.set(cv::CAP_PROP_POS_FRAMES, 0);
 	}
-
+	//Check each frame at identified coordinates and OCR if whitespace check suggests there may be a subtitle box there
 	while (1) {
 		try {
 			//interrupt if cancel clicked
@@ -150,45 +151,40 @@ void Video::run(){
 
 			cap >> frame;
 
-
-			//skip 15 frames, as seeing more frames increases accuracy of OCR
-
+			//skip 15 frames
 			for (int i = 0; i < 15; i++) {
 				cap.grab();
 			}
-
 
 			if (frame.empty()) {
 				break;
 			}
 			//crop frame image
 			crop(frame, frame, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd);
-			//imshow("image", frame);
-			//waitKey(0);
+
 			//construct frame object
 			Frame f(frame);
+
 			//set morphFrame, which will be used for whitespace check
 			cv::cvtColor(frame, morphFrame, cv::COLOR_BGR2GRAY);
+
 			//preprocess for whitespace checking
 			f.framePreprocessing(morphFrame);
-			//how to negotiate multiOCR between different objects? textLineOne etc may need to be part of Video. Or alternatively just part of this method? 
+ 
 			for (size_t i = 0; i < ROICoordinates.size(); i++) {
 				//crop frame height to subtitleBox boundaries for whitespace check
 				whiteSpaceCheck = morphFrame.rowRange(ROICoordinates[i].first, ROICoordinates[i].second);
-				//imshow("image", whiteSpaceCheck);
-				//waitKey(0);
+
 				//if whitespace check passed on area, create a subtitle box and OCR it for text
 				if (whitespaceAverageCheck(whiteSpaceCheck, singleHeight, doubleHeight)) {
 					//construct subtitleBox
-					//need to crop frame before passing it into sub!
 					SubtitleBox s(frame, ROICoordinates[i].first, ROICoordinates[i].second);
+
 					//detect text in box
 					s.getText(textLineOne, textLineTwo, prevLineOneConfidence, prevLineTwoConfidence, frameTexts, doubleHeight, outputFileName, outTexts, windowSizeLeft, windowSizeRight, wordConfidence, lineConfidence, compareThreshold);
+
 					//break and don't check other location if whitespace average check has been met
 					break;
-				}
-				else {
-					//cout << "Whitespace check failed: " << ROICoordinates[i].first << ", " << ROICoordinates[i].second << endl;
 				}
 			}
 		}
@@ -211,7 +207,6 @@ void Video::run(){
 		//Mark doubles
 		markPotentialDuplicates(outputFileName, dupeThreshold);
 	}
-	cout << "ended" << endl;
 }
 
 
@@ -238,7 +233,7 @@ void Video::sortYCoords(map<pair<int, int>, int>& frequency, vector<pair<int, in
 		}
 	}
 }
-
+//sorts the Y coordinates in a map of coordinates and returns a vector of ints (used for automatic height detection functionality)
 void Video::sortYCoords(map<int, int>& frequency, vector<int>& heights)
 {
 	if (frequency.size() != 0) {
@@ -263,7 +258,7 @@ void Video::sortYCoords(map<int, int>& frequency, vector<int>& heights)
 }
 
 
-//get the Y coordinates of potential single and double subtitle boxes
+//gets the Y coordinates of potential single and double subtitle boxes
 void Video::getBoxCoordinates(vector<cv::Vec2i> heightBoundaries, vector<pair<int, int>>& ROICoordinates, int singleHeight, int doubleHeight)
 {
 
@@ -289,14 +284,6 @@ void Video::getBoxCoordinates(vector<cv::Vec2i> heightBoundaries, vector<pair<in
 	frequencySingles = boxCoordinateFrequency(frequencySingles, heightBoundariesSingles);
 	frequencyDoubles = boxCoordinateFrequency(frequencyDoubles, heightBoundariesDoubles);
 
-
-
-	//print frequency maps
-	//cout << "Frequency singles: " << endl;
-	printFrequencyMap(frequencySingles);
-	//cout << "Frequency doubles: " << endl;
-	printFrequencyMap(frequencyDoubles);
-
 	//get most frequent double sub and single sub coords and add to ROICoordinates
 	sortYCoords(frequencyDoubles, ROICoordinates);
 	sortYCoords(frequencySingles, ROICoordinates);
@@ -308,8 +295,8 @@ void Video::getBoxCoordinates(vector<cv::Vec2i> heightBoundaries, vector<pair<in
 
 }
 
-//builds a frequency map of the potential subtitle box height coordinates identified when scanning frames
-//this can be used to identify the most frequently occurring coordinates to scan using OCR
+//builds a frequency map of the potential subtitle box height coordinates identified when scanning frames \
+  this can be used to identify the most frequently occurring coordinates to scan using OCR
 map<pair<int, int>, int> Video::boxCoordinateFrequency(map<pair<int, int>, int> frequency, vector<cv::Vec2i> horizontalBoundaries)
 {
 	vector<pair<int, int>> boxCoordinates;
@@ -333,31 +320,7 @@ map<pair<int, int>, int> Video::boxCoordinateFrequency(map<pair<int, int>, int> 
 
 	return frequency;
 }
-
-
-
-//print subtitle box frequency map to console, used for testing
-void Video::printFrequencyMap(map<pair<int, int>, int>& frequency)
-{
-	map<pair<int, int>, int>::iterator freqIterator = frequency.begin();
-	while (freqIterator != frequency.end()) {
-		cout << freqIterator->first.first << "," << freqIterator->first.second << " : " << freqIterator->second << endl;
-		freqIterator++;
-	}
-
-}
-
-void Video::printFrequencyMap(map<int, int>& frequency)
-{
-	cout << "Height Frequencies begin: " << endl;
-	map<int, int>::iterator freqIterator = frequency.begin();
-	while (freqIterator != frequency.end()) {
-		cout << freqIterator->first << " : " << freqIterator->second << endl;
-		freqIterator++;
-	}
-	cout << "Height Frequencies end: " << endl;
-}
-
+//checks if a frame has a subtitle box on it
 bool Video::whitespaceAverageCheck(cv::Mat image, int singleHeight, int doubleHeight)
 {
 
@@ -369,21 +332,17 @@ bool Video::whitespaceAverageCheck(cv::Mat image, int singleHeight, int doubleHe
 	if (image.rows == doubleHeight) {
 		//make image into a subtitle box
 		SubtitleBox s(image, 0, image.rows);
+
 		//split the box
 		s.splitBox(image, ROIhalves, doubleHeight);
+
 		//analyse the whitespace in the box halves
 		int whiteSpaceTop = countNonZero(ROIhalves[0]);
 		int totalPixelsTop = ROIhalves[0].cols * ROIhalves[0].rows;
 		float averageWhiteSpaceTop = (float)whiteSpaceTop / (float)totalPixelsTop;
 
-
-
-		//cout << "checking as double" << endl;
-		//cout << "whitespace top: " << averageWhiteSpaceTop << endl;
-		//cout << "average whitespace bottom: " << whiteSpaceBottomLineCheck(ROIhalves[1], 50) << endl;
-
-		//as the bottom subtitle line is often in different positions, run a 30px sliding window over the area and check for whitespace concentration of 60%
-		//if an area is returned by widthCutterLeft, then an area has been detected
+		//as the bottom subtitle line is often in different positions, run a 30px sliding window over the area and check for whitespace concentration of 60% \
+		  if an area is returned by widthCutterLeft, then an area has been detected
 		if (averageWhiteSpaceTop > 0.4 && whiteSpaceBottomLineCheck(ROIhalves[1], 50)) {
 			return true;
 		}
@@ -399,9 +358,6 @@ bool Video::whitespaceAverageCheck(cv::Mat image, int singleHeight, int doubleHe
 		totalPixels = image.cols * image.rows;
 		averageWhitespace = (float)whitespace / (float)totalPixels;
 
-		//cout << "checking as single" << endl;
-		//cout << "whitespace: " << averageWhitespace << endl;
-
 		if (averageWhitespace > 0.4) {
 			return true;
 		}
@@ -413,7 +369,7 @@ bool Video::whitespaceAverageCheck(cv::Mat image, int singleHeight, int doubleHe
 		return false;
 	}
 }
-
+//Supporting method for whitespaceAverageCheck. Compensates for varying alignments of bottom lines in double-line subtitles
 bool Video::whiteSpaceBottomLineCheck(cv::Mat image, int windowSize)
 {
 	int start = 0;
@@ -439,6 +395,7 @@ bool Video::whiteSpaceBottomLineCheck(cv::Mat image, int windowSize)
 	return false;
 }
 
+//crops frames to subtitle area
 void Video::crop(cv::Mat image, cv::Mat& dst, int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd)
 {
 	cv::Mat interimFrame = image.rowRange(cropHeightStart, cropHeightEnd);
@@ -475,14 +432,10 @@ void Video::getBoxHeights(map<int, int> frequency, int& singleHeight, int& doubl
 
 	//set secondHeight to the most frequent of the values in the second map
 	sortYCoords(frequencySecondHeightPossibles, heights);
-	cout << "secondHeights: " << endl;
 	for (size_t i = 0; i < heights.size(); i++) {
 		cout << heights[i] << endl;
 	}
 	secondHeight = heights[0];
-
-	cout << "firstHeight: " << firstHeight << endl;
-	cout << "secondHeight: " << secondHeight << endl;
 
 	//set singleHeight to the lower value and doubleHeight to the higher value
 	if (secondHeight > firstHeight) {
@@ -495,7 +448,7 @@ void Video::getBoxHeights(map<int, int> frequency, int& singleHeight, int& doubl
 	}
 
 }
-
+//marks potential duplicate text in output in style "[instance1, instance2]"
 void Video::markPotentialDuplicates(string outputFileName, int dupeThreshold)
 {
 	ifstream outputFile(outputFileName);
@@ -535,11 +488,17 @@ void Video::markPotentialDuplicates(string outputFileName, int dupeThreshold)
 				string substring = line.substr(0, 1);
 				while (prevLine.find(substring) != string::npos) {
 					matches++;
+					if (matches > (line.length()) || matches > (prevLine.length())) {
+						break;
+					}
+					cout << "Matches: " << matches << endl;
+					cout << "Line length: " << line.size() << endl;
+					cout << "prevLine length: " << prevLine.size() << endl;
 					substring = line.substr(0, matches);
 				}
 			}
-			//remove one from matches, as the while loop will increment it once more than the number
-			//of matching characters before breaking
+			//remove one from matches, as the while loop will increment it once more than the number \
+			  of matching characters before breaking
 			if (matches != 0) {
 				matches--;
 			}
@@ -610,6 +569,5 @@ void Video::on_cancelButton_clicked()
 {
 	cancelled = true;
 }
-
 
 

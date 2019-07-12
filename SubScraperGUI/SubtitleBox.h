@@ -18,14 +18,9 @@ public:
 
 	void getText(std::string& textLineOne, std::string& textLineTwo, int& prevLineOneConfidence, int& prevLineTwoConfidence, std::vector<std::string> frameTexts, int doubleHeight, std::string outputFileName, std::string outTexts[2], int windowSizeLeft, int windowSizeRight, int wordConfidence, int lineConfidence, double compareThreshold);
 	void splitBox(cv::Mat img, std::vector<cv::Mat>& dst, int doubleHeight);
-	void ocrPreprocessing(cv::Mat image, cv::Mat& dst);
-	void sharpen(cv::Mat& image, cv::Mat& result);
-	void boostWhite(cv::Mat& image, cv::Mat& dst);
-	void exportOCRImages(cv::Mat image, tesseract::TessBaseAPI* ocr);
 	static void ocr(cv::Mat image, std::string& frameText, int& confidence, int wordConfidence, int lineConfidence);
 	void addBorders(std::vector<cv::Mat>& ROIhalves);
 	void multiOCR(std::vector<cv::Mat>& ROIhalves, std::string& textLineOne, std::string& textLineTwo, std::vector<std::string>& frameTexts, int& prevLineOneConfidence, int& prevLineTwoConfidence, int wordConfidence, int lineConfidence, double compareThreshold);
-	void imageSlicer(cv::Mat image, int sliceWidth);
 	int widthCutterRight(cv::Mat image, int sliceWidth);
 	int widthCutterLeft(cv::Mat image, int sliceWidth);
 	void boxPreprocessing(cv::Mat image, cv::Mat& dst);

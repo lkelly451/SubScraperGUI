@@ -15,19 +15,7 @@ Output::~Output()
 {
 
 }
-
-double Output::wordAccuracyRating(string transcriptFileDirectory)
-{
-	ifstream transcriptFile(transcriptFileDirectory);
-	ifstream outputFile(outputFileName);
-	string transcript((istreambuf_iterator<char>(transcriptFile)), (istreambuf_iterator<char>()));
-	string output((istreambuf_iterator<char>(outputFile)), (istreambuf_iterator<char>()));
-	StringComparer stringComparer;
-
-	double WAR = stringComparer.jaroWinklerDistance(transcript, output) * 100;
-	return WAR;
-}
-
+//Deletes and replaces some common OCR mistakes
 void Output::letterConverter()
 {
 	string provisionalFileName = outputFileName + "prov";
@@ -120,7 +108,7 @@ void Output::multiOutputResults(vector<string>& frameTexts, string outTexts[2], 
 		frameTexts.clear();
 	}
 }
-
+//outputs final lines, which will be left in textLineOne and textLineTwo just before the program OCR loop terminates
 void Output::outputFinalLines(string textLineOne, string textLineTwo)
 {
 	ofstream outputFile;

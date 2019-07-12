@@ -20,6 +20,7 @@ private slots:
 	void on_exitButton_clicked();
 	void onVideoFinished();
 	void onProgressUpdated(int progress);
+	void onErrorEncountered(QString errorMessage);
 
 private:
 	Ui::Diagnostics ui;

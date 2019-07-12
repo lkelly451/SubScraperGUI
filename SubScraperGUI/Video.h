@@ -35,12 +35,12 @@ private:
 
 signals:
 	void progressUpdate(int progress);
+	void error(QString errorMessage);
 
-private slots: 
+private slots:
 	void on_cancelButton_clicked();
 
 public:
-	Video(cv::VideoCapture cap, int singleHeight, int doubleHeight);
 	Video(std::string inputFileName, std::string outputFileName, int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd,  int dropLength, int singleHeight, int doubleHeight, int windowSizeLeft, int windowSizeRight,
 		bool autoDetectHeights, int wordConfidence, int lineConfidence, double compareThreshold, int dupeThreshold);
 	~Video();
@@ -49,8 +49,6 @@ public:
 	void sortYCoords(std::map<int, int>& frequency, std::vector<int>& heights);
 	void getBoxCoordinates(std::vector<cv::Vec2i> heightBoundaries, std::vector<std::pair<int, int>>& ROICoordinates, int singleHeight, int doubleHeight);
 	std::map<std::pair<int, int>, int> boxCoordinateFrequency(std::map<std::pair<int, int>, int> frequency, std::vector<cv::Vec2i> horizontalBoundaries);
-	void printFrequencyMap(std::map<std::pair<int, int>, int>& frequency);
-	void printFrequencyMap(std::map<int, int>& frequency);
 	bool whitespaceAverageCheck(cv::Mat image, int singleHeight, int doubleHeight);
 	bool whiteSpaceBottomLineCheck(cv::Mat image, int windowSize);
 	void crop(cv::Mat image, cv::Mat& dst, int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd);

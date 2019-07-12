@@ -25,11 +25,6 @@ SubtitleBox::~SubtitleBox()
 
 void SubtitleBox::getText(string& textLineOne, string& textLineTwo, int& prevLineOneConfidence, int& prevLineTwoConfidence, vector<string> frameTexts, int doubleHeight, string outputFileName, string outTexts[2], int windowSizeLeft, int windowSizeRight, int wordConfidence, int lineConfidence, double compareThreshold)
 {
-	//preprocessing for OCR 
-	ocrPreprocessing(ROI, ROI);
-
-	//imshow("image", ROI);
-	//waitKey(0);
 
 	//split ROI 
 	splitBox(ROI, ROIhalves, doubleHeight);
@@ -46,7 +41,6 @@ void SubtitleBox::getText(string& textLineOne, string& textLineTwo, int& prevLin
 	//filter out duplicate text outputs from previous frames and output result
 	Output o(outputFileName);
 	o.multiOutputResults(frameTexts, outTexts, outputFileName);
-	//multiOutputResults(frameTexts, outTexts);
 
 }
 
@@ -72,85 +66,6 @@ void SubtitleBox::splitBox(cv::Mat box, vector<cv::Mat>& dst, int doubleHeight)
 	}
 }
 
-void SubtitleBox::ocrPreprocessing(cv::Mat image, cv::Mat & dst)
-{
-	//boost the white value of white-ish pixels to make letters more distinctive
-	//boostWhite(ROI, ROI);
-	//thresholding for ROI
-	//adaptiveThreshold(dst, dst, 255, ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY, 49, -10);
-	//morphologically close image to remove noise from letters
-	//Mat openCloseKernel = Mat::ones(1, 1, CV_8UC1);
-	//morphologyEx(dst, dst, MORPH_CLOSE, openCloseKernel);
-	//then open the image to remove noise from the background
-	//morphologyEx(dst, dst, MORPH_OPEN, openCloseKernel);
-	//resize(image, dst, Size(), 2.0, 2.0, INTER_CUBIC);
-}
-
-void SubtitleBox::sharpen(cv::Mat & box, cv::Mat & result)
-{
-	for (int j = 1; j < box.rows - 1; j++) {
-		//number of channels in the image
-		int nchannels = box.channels();
-
-		//access the previous, current and next lines to get their pixel values and apply Laplacian operation
-		const uchar* previous = box.ptr<const uchar>(j - 1);
-		const uchar * current = box.ptr<const uchar>(j);
-		const uchar * next = box.ptr<const uchar>(j + 1);
-		uchar * output = result.ptr<uchar>(j);
-		for (int i = nchannels; i < (box.cols - 1) * nchannels; i++)
-		{
-			// apply sharpening operator (5* current - surrounding pixels)
-			*output++ = cv::saturate_cast<uchar>(
-				5 * current[i] - current[i - nchannels] -
-				current[i + nchannels] - previous[i] - next[i]);
-		}
-	}
-	// Set the unprocessed (padding) pixels to 0
-	result.row(0).setTo(cv::Scalar(0));
-	result.row(result.rows - 1).setTo(cv::Scalar(0));
-	result.col(0).setTo(cv::Scalar(0));
-	result.col(result.cols - 1).setTo(cv::Scalar(0));
-}
-
-void SubtitleBox::boostWhite(cv::Mat & image, cv::Mat & dst)
-{
-	int numberLines = image.rows;
-	int numberCols = image.cols * image.channels();
-	//iterate through lines of data in memory
-	for (int lineStart = 0; lineStart < numberLines; lineStart++) {
-		//get a pointer to the start of the line
-		uchar* data = image.ptr<uchar>(lineStart);
-		//go through the line getting the pixel data
-		for (int pix = 0; pix < numberCols; pix++) {
-			//if the pixel is approaching white, boost it
-
-			if (data[pix] > 25) {
-				data[pix] = 255;
-			}
-			else if (data[pix] < 20) {
-				data[pix] = 0;
-			}
-
-		}
-	}
-}
-
-void SubtitleBox::exportOCRImages(cv::Mat box, tesseract::TessBaseAPI * ocr)
-{
-	Pix* page_pix = ocr->GetThresholdedImage();
-	char fileName[L_tmpnam_s];
-	errno_t err;
-	err = tmpnam_s(fileName, L_tmpnam_s);
-	if (!err) {
-		strcat_s(fileName, sizeof fileName, ".tif");
-		cout << "file written:" << fileName << endl;
-		pixWrite(fileName, page_pix, IFF_TIFF_G4);
-	}
-	else {
-		cout << "Filename unsafe." << endl;
-	}
-}
-
 void SubtitleBox::ocr(cv::Mat image, std::string & frameText, int& confidence, int wordConfidence, int lineConfidence)
 {
 	//create tesseract object
@@ -161,8 +76,6 @@ void SubtitleBox::ocr(cv::Mat image, std::string & frameText, int& confidence, i
 	ocr->SetPageSegMode(tesseract::PSM_SINGLE_LINE);
 	//set image data
 	ocr->SetImage(image.data, image.cols, image.rows, 1, (int)image.step);
-
-	//exportOCRImages(image, ocr);
 
 	ocr->Recognize(0);
 	//create iterator to iterate through word confidence scores
@@ -195,15 +108,9 @@ void SubtitleBox::addBorders(vector<cv::Mat> & ROIhalves)
 	//loop through the ROI areas
 	for (size_t i = 0; i < ROIhalves.size(); i++) {
 
-		//imshow("image", ROIhalves[i]);
-		//waitKey(0);
-
 		//add a border to the ROI to further facilitate OCR
 		copyMakeBorder(ROIhalves[i], ROIhalves[i], 5, 5, 5, 5, cv::BORDER_CONSTANT, 0);
 		copyMakeBorder(ROIhalves[i], ROIhalves[i], 15, 15, 15, 15, cv::BORDER_CONSTANT, 255);
-
-		//imshow("image", ROIhalves[i]);
-		//waitKey(0);
 
 	}
 }
@@ -257,33 +164,7 @@ void SubtitleBox::multiOCR(vector<cv::Mat> & ROIhalves, string & textLineOne, st
 	//clear the ROI halves for the next frame
 	ROIhalves.clear();
 }
-
-void SubtitleBox::imageSlicer(cv::Mat image, int sliceWidth)
-{
-	int start = image.cols;
-	int pixelCount;
-	int whiteCount;
-	int blackCount;
-
-	for (int slices = 0; slices <= image.cols / sliceWidth; slices++) {
-		cv::Mat slice = image.colRange((start - sliceWidth), start);
-		start -= sliceWidth;
-
-		pixelCount = slice.cols * slice.rows;
-		whiteCount = countNonZero(slice);
-		blackCount = pixelCount - whiteCount;
-
-		//cout << "slice number: " << slices << endl;
-		//cout << "white count: " << whiteCount << endl;
-		//cout << "black count: " << blackCount << endl;
-		//cout << "average white: " << (float)whiteCount / pixelCount << endl;
-		//cout << "average black: " << (float)blackCount / pixelCount << endl;
-		//cout << "slice width: " << slice.cols << endl;
-
-	}
-
-}
-
+//trim right side of image to improve OCR accuracy
 int SubtitleBox::widthCutterRight(cv::Mat image, int sliceWidth)
 {
 	int start = 0;
@@ -324,7 +205,7 @@ int SubtitleBox::widthCutterRight(cv::Mat image, int sliceWidth)
 		return image.cols;
 	}
 }
-
+//trim left side of image to improve OCR accuracy
 int SubtitleBox::widthCutterLeft(cv::Mat image, int sliceWidth)
 {
 	int start = 0;
@@ -379,7 +260,6 @@ void SubtitleBox::reduceWidth(vector<cv::Mat> & ROIhalves, int windowSizeLeft, i
 		//process image to break into whitespace and blackspace
 		boxPreprocessing(ROIhalves[i], morph);
 		//reduce ROIhalves width based on where whitespace is cut off in preprocessed image
-		//0 for BBC, widthCutterLeft(morph, 4) for YT
 		ROIhalves[i] = ROIhalves[i].colRange(widthCutterLeft(morph, windowSizeLeft), widthCutterRight(morph, windowSizeRight));
 		ROIhalves[i] = ROIhalves[i].clone();
 	}
@@ -392,18 +272,11 @@ void SubtitleBox::doubleFirstPassOCR(vector<cv::Mat> & ROIhalves, string & textL
 
 	t1.join();
 	t2.join();
-
-	//cout << "First pass double" << endl;
-	//cout << "textLineOne (read and stored): " << textLineOne << endl;
-	//cout << "textLineTwo (read and stored): " << textLineTwo << endl;
 }
 
 void SubtitleBox::singleToDoubleOCR(vector<cv::Mat> & ROIhalves, string & textLineOne, string & textLineTwo, string & readTextLineOne, string & readTextLineTwo, int& lineOneConfidence, int& lineTwoConfidence, int& prevLineOneConfidence, int& prevLineTwoConfidence, vector<string> & frameTexts, int wordConfidence, int lineConfidence)
 {
 	frameTexts.push_back(textLineOne);
-	//cout << "Single to double: " << endl;
-	//cout << "Carried and output: " << textLineOne << endl;
-
 
 	thread t1(ocr, ROIhalves[0], ref(readTextLineOne), ref(lineOneConfidence), ref(wordConfidence), ref(lineConfidence));
 	thread t2(ocr, ROIhalves[1], ref(readTextLineTwo), ref(lineTwoConfidence), ref(wordConfidence), ref(lineConfidence));
@@ -416,8 +289,6 @@ void SubtitleBox::singleToDoubleOCR(vector<cv::Mat> & ROIhalves, string & textLi
 
 	textLineTwo = readTextLineTwo;
 	prevLineTwoConfidence = lineTwoConfidence;
-	//cout << "textLineOne (read and stored): " << textLineOne << endl;
-	//cout << "textLineTwo (read and stored): " << textLineTwo << endl;
 }
 
 void SubtitleBox::doubleToDoubleOCR(vector<cv::Mat> & ROIhalves, string & textLineOne, string & textLineTwo, string & readTextLineOne, string & readTextLineTwo, int& lineOneConfidence, int& lineTwoConfidence, int& prevLineOneConfidence, int& prevLineTwoConfidence, vector<string> & frameTexts, int wordConfidence, int lineConfidence, double compareThreshold)
@@ -434,14 +305,6 @@ void SubtitleBox::doubleToDoubleOCR(vector<cv::Mat> & ROIhalves, string & textLi
 
 	JWdistance = stringComparer.jaroWinklerDistance(readTextLineOne, textLineOne);
 	JWdistance2 = stringComparer.jaroWinklerDistance(readTextLineTwo, textLineTwo);
-
-	//cout << "double comparing" << endl;
-	//cout << "stored line one: " << textLineOne << endl;
-	//cout << "read line one: " << readTextLineOne << endl;
-	//cout << "JWD: " << JWdistance << endl;
-	//cout << "stored line two: " << textLineTwo << endl;
-	//cout << "read line two: " << readTextLineTwo << endl;
-	//cout << "JWD: " << JWdistance2 << endl;
 
 	if (readTextLineOne.empty() && readTextLineTwo.empty()) {
 		//if both lines read in are empty, keep previous stored text so that the system does not treat the next read as a first-time input
@@ -470,15 +333,8 @@ void SubtitleBox::doubleToDoubleOCR(vector<cv::Mat> & ROIhalves, string & textLi
 			frameTexts.push_back(textLineOne);
 			frameTexts.push_back(textLineTwo);
 
-			//cout << "double output" << endl;
-			//cout << "textLineOne: " << textLineOne << endl;
-			//cout << "textLineTwo: " << textLineTwo << endl;
-
 			textLineOne = readTextLineOne;
 			textLineTwo = readTextLineTwo;
-
-			//cout << "read line one: " << textLineOne << endl;
-			//cout << "read line two: " << textLineTwo << endl;
 
 			prevLineOneConfidence = lineOneConfidence;
 			prevLineTwoConfidence = lineTwoConfidence;
@@ -491,18 +347,12 @@ void SubtitleBox::singleFirstPassOCR(vector<cv::Mat> & ROIhalves, string & textL
 	thread t1(ocr, ROIhalves[0], ref(textLineOne), ref(lineOneConfidence), ref(wordConfidence), ref(lineConfidence));
 	t1.join();
 	prevLineOneConfidence = lineOneConfidence;
-
-	//cout << "Single first pass: " << endl;
-	//cout << "textLineOne (read and stored): " << textLineOne << endl;
 }
 
 void SubtitleBox::doubleToSingleOCR(vector<cv::Mat> & ROIhalves, string & textLineOne, string & textLineTwo, int& lineOneConfidence, int& prevLineOneConfidence, int& prevLineTwoConfidence, vector<string> & frameTexts, int wordConfidence, int lineConfidence)
 {
 	frameTexts.push_back(textLineOne);
 	frameTexts.push_back(textLineTwo);
-	//cout << "Double to single" << endl;
-	//cout << "Output line one: " << textLineOne << endl;
-	//cout << "Output line two: " << textLineTwo << endl;
 
 	textLineOne.clear();
 	textLineTwo.clear();
@@ -511,9 +361,6 @@ void SubtitleBox::doubleToSingleOCR(vector<cv::Mat> & ROIhalves, string & textLi
 	t1.join();
 	prevLineOneConfidence = lineOneConfidence;
 	prevLineTwoConfidence = 0;
-
-	//cout << "read line one: " << textLineOne << endl;
-	//cout << "read line two: " << textLineTwo << endl;
 }
 
 void SubtitleBox::singleToSingleOCR(vector<cv::Mat> & ROIhalves, string & readTextLineOne, string & textLineOne, int& lineOneConfidence, int& prevLineOneConfidence, vector<string> & frameTexts, int wordConfidence, int lineConfidence, double compareThreshold)
@@ -524,10 +371,6 @@ void SubtitleBox::singleToSingleOCR(vector<cv::Mat> & ROIhalves, string & readTe
 	t1.join();
 
 	int JWdistance = stringComparer.jaroWinklerDistance(readTextLineOne, textLineOne);
-
-	//cout << "Single compare" << endl;
-	//cout << "Stored line one: " << textLineOne << endl;
-	//cout << "Read line one: " << readTextLineOne << endl;
 
 	if (!readTextLineOne.empty()) {
 		//if the text read in is empty, retain the previously stored text to prevent the next read input from being treated as a first-ever read
@@ -545,9 +388,6 @@ void SubtitleBox::singleToSingleOCR(vector<cv::Mat> & ROIhalves, string & readTe
 		//in the textline strings for future comparisons
 		else {
 			frameTexts.push_back(textLineOne);
-			//cout << "Single output: " << endl;
-			//cout << "Output line: " << textLineOne << endl;
-			//cout << "Read in line one : " << readTextLineOne << endl;
 			textLineOne = readTextLineOne;
 		}
 	}
