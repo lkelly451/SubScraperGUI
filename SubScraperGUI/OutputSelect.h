@@ -11,12 +11,6 @@ public:
 	OutputSelect(QWidget *parent = Q_NULLPTR);
 	OutputSelect(QString widthBegin, QString widthEnd, QString heightBegin, QString heightEnd, QString singleHeight, QString doubleHeight, QString inputFileName, bool autoBoxDetect, int width, double position, QWidget* parent = Q_NULLPTR);
 	~OutputSelect();
-	QPushButton* getBackButton();
-	QPushButton* getGoButton();
-	QPushButton* getOutputFileSelect();
-	QLabel* getOutputLabel();
-	QLineEdit* getOutputLineEdit();
-
 
 private slots:
 	void on_backButton_clicked();

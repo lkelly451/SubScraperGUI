@@ -55,52 +55,6 @@ ExistingProfiles::~ExistingProfiles()
 {
 }
 
-QPushButton* ExistingProfiles::getBackButton()
-{
-	return ui.backButton;
-}
-
-QLabel* ExistingProfiles::getExistingLabel()
-{
-	return ui.existingLabel;
-}
-
-
-QPushButton* ExistingProfiles::getFileSelect()
-{
-	return ui.fileSelect;
-}
-
-QPushButton* ExistingProfiles::getGoButton()
-{
-	return ui.goButton;
-}
-
-QLabel* ExistingProfiles::getInputLabel()
-{
-	return ui.inputLabel;
-}
-
-QLineEdit* ExistingProfiles::getInputLineEdit()
-{
-	return ui.inputLineEdit;
-}
-
-QPushButton* ExistingProfiles::getOutputFileSelect()
-{
-	return ui.outputFileSelect;
-}
-
-QLabel* ExistingProfiles::getOutputLabel()
-{
-	return ui.outputLabel;
-}
-
-QLineEdit* ExistingProfiles::getOutputLineEdit()
-{
-	return ui.outputLineEdit;
-}
-
 void ExistingProfiles::on_backButton_clicked()
 {
 	SubScraperGUI* subScraperGUI = new SubScraperGUI();

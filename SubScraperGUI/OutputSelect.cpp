@@ -84,31 +84,6 @@ OutputSelect::~OutputSelect()
 {
 }
 
-QPushButton* OutputSelect::getBackButton()
-{
-	return ui.backButton;
-}
-
-QPushButton* OutputSelect::getGoButton()
-{
-	return ui.goButton;
-}
-
-QPushButton* OutputSelect::getOutputFileSelect()
-{
-	return ui.outputFileSelect;
-}
-
-QLabel* OutputSelect::getOutputLabel()
-{
-	return ui.outputLabel;
-}
-
-QLineEdit* OutputSelect::getOutputLineEdit()
-{
-	return ui.outputLineEdit;
-}
-
 void OutputSelect::on_backButton_clicked()
 {
 	HeightSelect* heightSelect = new HeightSelect(widthBegin, widthEnd, heightBegin, heightEnd, inputFileName, position);

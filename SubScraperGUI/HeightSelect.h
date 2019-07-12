@@ -12,17 +12,6 @@ public:
 	HeightSelect(QWidget* parent = Q_NULLPTR);
 	HeightSelect(QString widthBegin, QString widthEnd, QString heightBegin, QString heightEnd, QString videoDirectory, double position, QWidget* parent = Q_NULLPTR);
 	~HeightSelect();
-	QCheckBox* getAutoCheckBox();
-	QLabel* getAutoLabel();
-	QPushButton* getBackButton();
-	QPushButton* getContinueButton();
-	QLabel* getDoubleLabel();
-	QLineEdit* getDoubleLineEdit();
-	QPushButton* getFrameBack();
-	QPushButton* getFrameForward();
-	QGraphicsView* getFramePreview();
-	QLabel* getSingleLabel();
-	QLineEdit* getSingleLineEdit();
 private slots:
 	void on_backButton_clicked();
 	void on_continueButton_clicked();

@@ -72,61 +72,6 @@ HeightSelect::~HeightSelect()
 {
 }
 
-QCheckBox* HeightSelect::getAutoCheckBox()
-{
-	return ui.autoCheckBox;
-}
-
-QLabel* HeightSelect::getAutoLabel()
-{
-	return ui.autoLabel;
-}
-
-QPushButton* HeightSelect::getBackButton()
-{
-	return ui.backButton;
-}
-
-QPushButton* HeightSelect::getContinueButton()
-{
-	return ui.continueButton;
-}
-
-QLabel* HeightSelect::getDoubleLabel()
-{
-	return ui.doubleLabel;
-}
-
-QLineEdit* HeightSelect::getDoubleLineEdit()
-{
-	return ui.doubleLineEdit;
-}
-
-QPushButton* HeightSelect::getFrameBack()
-{
-	return ui.frameBack;
-}
-
-QPushButton* HeightSelect::getFrameForward()
-{
-	return ui.frameForward;
-}
-
-QGraphicsView* HeightSelect::getFramePreview()
-{
-	return ui.framePreview;
-}
-
-QLabel* HeightSelect::getSingleLabel()
-{
-	return ui.singleLabel;
-}
-
-QLineEdit* HeightSelect::getSingleLineEdit()
-{
-	return ui.singleLineEdit;
-}
-
 void HeightSelect::on_backButton_clicked()
 {
 	BuildProfile* buildProfile = new BuildProfile(videoDirectory);

@@ -14,14 +14,7 @@ public:
 	BuildProfile(QWidget *parent = Q_NULLPTR);
 	BuildProfile(QString videoDirectory, QWidget* parent = Q_NULLPTR);
 	~BuildProfile();
-	QPushButton* getBackButton();
-	QPushButton* getContinueButton();
-	QPushButton* getFileSelect();
-	QPushButton* getFrameBack();
-	QPushButton* getFrameForward();
-	QGraphicsView* getFramePreview();
-	QLabel* getInputLabel();
-	QLineEdit* getInputLineEdit();
+
 
 private slots:
 	void on_backButton_clicked();

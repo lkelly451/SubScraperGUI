@@ -79,46 +79,6 @@ BuildProfile::~BuildProfile()
 {
 }
 
-QPushButton* BuildProfile::getBackButton()
-{
-	return ui.backButton;
-}
-
-QPushButton* BuildProfile::getContinueButton()
-{
-	return ui.continueButton;
-}
-
-QPushButton* BuildProfile::getFileSelect()
-{
-	return ui.fileSelect;
-}
-
-QPushButton* BuildProfile::getFrameBack()
-{
-	return ui.frameBack;
-}
-
-QPushButton* BuildProfile::getFrameForward()
-{
-	return ui.frameForward;
-}
-
-QGraphicsView* BuildProfile::getFramePreview()
-{
-	return ui.framePreview;
-}
-
-QLabel* BuildProfile::getInputLabel()
-{
-	return ui.inputLabel;
-}
-
-QLineEdit* BuildProfile::getInputLineEdit()
-{
-	return ui.inputLineEdit;
-}
-
 void BuildProfile::on_backButton_clicked()
 {
 	SubScraperGUI* subScraperGUI = new SubScraperGUI();

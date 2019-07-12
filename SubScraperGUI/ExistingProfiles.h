@@ -10,16 +10,6 @@ class ExistingProfiles : public QWidget
 public:
 	ExistingProfiles(QWidget *parent = Q_NULLPTR);
 	~ExistingProfiles();
-	QPushButton* getBackButton();
-	QLabel* getExistingLabel();
-	QListView* getExistingList();
-	QPushButton* getFileSelect();
-	QPushButton* getGoButton();
-	QLabel* getInputLabel();
-	QLineEdit* getInputLineEdit();
-	QPushButton* getOutputFileSelect();
-	QLabel* getOutputLabel();
-	QLineEdit* getOutputLineEdit();
 
 private slots:
 	void on_backButton_clicked();
