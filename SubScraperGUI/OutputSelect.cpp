@@ -128,7 +128,7 @@ void OutputSelect::on_goButton_clicked()
 
 
 				Diagnostics* diagnostics = new Diagnostics(singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength, windowSizeLeft, windowSizeRight, wordConfidence, lineConfidence,
-					dupeThreshold, compareThreshold, inputFileName, outputFileName, autoDetectHeights);
+					dupeThreshold, compareThreshold, inputFileName, outputFileName, autoDetectHeights, false);
 				diagnostics->setAttribute(Qt::WA_DeleteOnClose);
 				diagnostics->show();
 				this->close();

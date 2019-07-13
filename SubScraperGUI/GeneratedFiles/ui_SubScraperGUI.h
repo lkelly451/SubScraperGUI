@@ -70,7 +70,7 @@ public:
 
     void retranslateUi(QMainWindow *SubScraperGUIClass)
     {
-        SubScraperGUIClass->setWindowTitle(QCoreApplication::translate("SubScraperGUIClass", "Main", nullptr));
+        SubScraperGUIClass->setWindowTitle(QCoreApplication::translate("SubScraperGUIClass", "SubScraper", nullptr));
         actionHelp->setText(QCoreApplication::translate("SubScraperGUIClass", "Help", nullptr));
         actionAbout->setText(QCoreApplication::translate("SubScraperGUIClass", "About", nullptr));
         buildProfileRadio->setText(QCoreApplication::translate("SubScraperGUIClass", "Use existing profile", nullptr));

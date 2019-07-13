@@ -293,7 +293,7 @@ public:
 
     void retranslateUi(QWidget *BuildProfile)
     {
-        BuildProfile->setWindowTitle(QCoreApplication::translate("BuildProfile", "Build Profile", nullptr));
+        BuildProfile->setWindowTitle(QCoreApplication::translate("BuildProfile", "SubScraper", nullptr));
         label->setText(QCoreApplication::translate("BuildProfile", " Select a video to scan for subtitles and click 'preview' to begin cropping.", nullptr));
         inputLabel->setText(QCoreApplication::translate("BuildProfile", "Video file to scan:", nullptr));
         fileSelect->setText(QCoreApplication::translate("BuildProfile", "...", nullptr));

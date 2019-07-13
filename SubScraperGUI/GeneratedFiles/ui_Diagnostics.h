@@ -30,6 +30,7 @@ public:
     QSpacerItem *horizontalSpacer_6;
     QVBoxLayout *verticalLayout_3;
     QSpacerItem *verticalSpacer_2;
+    QLabel *vidLabel;
     QVBoxLayout *verticalLayout_2;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
@@ -72,6 +73,11 @@ public:
         verticalSpacer_2 = new QSpacerItem(20, 58, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
         verticalLayout_3->addItem(verticalSpacer_2);
+
+        vidLabel = new QLabel(Diagnostics);
+        vidLabel->setObjectName(QString::fromUtf8("vidLabel"));
+
+        verticalLayout_3->addWidget(vidLabel);
 
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setSpacing(6);
@@ -182,7 +188,8 @@ public:
 
     void retranslateUi(QWidget *Diagnostics)
     {
-        Diagnostics->setWindowTitle(QCoreApplication::translate("Diagnostics", "Diagnostics", nullptr));
+        Diagnostics->setWindowTitle(QCoreApplication::translate("Diagnostics", "SubScraper", nullptr));
+        vidLabel->setText(QString());
         progressBarLabel->setText(QCoreApplication::translate("Diagnostics", "Analysing:", nullptr));
         cancelButton->setText(QCoreApplication::translate("Diagnostics", "Cancel", nullptr));
         stepLabel->setText(QString());

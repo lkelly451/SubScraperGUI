@@ -6,138 +6,354 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>646</width>
-    <height>400</height>
+    <width>698</width>
+    <height>442</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>SubScraper</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
-   <item row="0" column="0">
+   <item row="0" column="0" rowspan="4" colspan="2">
     <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="3">
-      <widget class="QPushButton" name="deleteProfileButton">
-       <property name="text">
-        <string>Delete Profile</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="3">
-      <widget class="QPushButton" name="fileSelect">
-       <property name="maximumSize">
-        <size>
-         <width>25</width>
-         <height>23</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>...</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="2">
-      <widget class="QLabel" name="outputLabel">
-       <property name="maximumSize">
-        <size>
-         <width>143</width>
-         <height>20</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Output file for subtitles (.txt):</string>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="0">
-      <widget class="QLabel" name="existingLabel">
-       <property name="text">
-        <string>Existing profiles:</string>
-       </property>
-      </widget>
+      <layout class="QHBoxLayout" name="horizontalLayout_6">
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QLabel" name="existingLabel">
+           <property name="text">
+            <string>Existing profiles:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="profileList"/>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <spacer name="verticalSpacer_4">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>18</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QLabel" name="instructionLabel">
+           <property name="text">
+            <string>1. Select a profile from the list on the left;
+2. Select a video file or directory of videos to scan; 
+3. Select a file or folder to output subtitles to.</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>18</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="QLabel" name="singleHeading">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Scan single video:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="inputLabel">
+             <property name="maximumSize">
+              <size>
+               <width>88</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Video file to scan:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <item>
+              <widget class="QLineEdit" name="inputLineEdit"/>
+             </item>
+             <item>
+              <widget class="QPushButton" name="fileSelect">
+               <property name="maximumSize">
+                <size>
+                 <width>25</width>
+                 <height>23</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>...</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QLabel" name="outputLabel">
+             <property name="maximumSize">
+              <size>
+               <width>143</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Output file for subtitles (.txt):</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
+             <item>
+              <widget class="QLineEdit" name="outputLineEdit"/>
+             </item>
+             <item>
+              <widget class="QPushButton" name="outputFileSelect">
+               <property name="maximumSize">
+                <size>
+                 <width>25</width>
+                 <height>23</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>...</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="verticalSpacer">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>28</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QLabel" name="multiHeading">
+             <property name="font">
+              <font>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Scan multiple videos:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="multiOutputLabel">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Directory to store subtitles: </string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <widget class="QLineEdit" name="multiOutputLineEdit"/>
+             </item>
+             <item>
+              <widget class="QPushButton" name="multiOutputFileSelect">
+               <property name="maximumSize">
+                <size>
+                 <width>25</width>
+                 <height>23</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>...</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QLabel" name="multiLabel">
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>20</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Path to directory of multiple videos:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <item>
+              <widget class="QLineEdit" name="multiLineEdit"/>
+             </item>
+             <item>
+              <widget class="QPushButton" name="multiFileSelect">
+               <property name="maximumSize">
+                <size>
+                 <width>25</width>
+                 <height>23</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>...</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Vertical</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>20</width>
+             <height>28</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </item>
-     <item row="9" column="2">
-      <widget class="QPushButton" name="backButton">
-       <property name="minimumSize">
-        <size>
-         <width>75</width>
-         <height>23</height>
-        </size>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>75</width>
-         <height>23</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Back</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
-      <widget class="QLabel" name="goWarningLabel">
-       <property name="text">
-        <string/>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="3">
-      <widget class="QPushButton" name="goButton">
-       <property name="minimumSize">
-        <size>
-         <width>75</width>
-         <height>23</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Go</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0" rowspan="9">
-      <widget class="QListWidget" name="profileList"/>
-     </item>
-     <item row="6" column="2">
-      <widget class="QLineEdit" name="outputLineEdit"/>
-     </item>
-     <item row="3" column="2">
-      <widget class="QLabel" name="inputLabel">
-       <property name="maximumSize">
-        <size>
-         <width>88</width>
-         <height>20</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Video file to scan:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="3">
-      <widget class="QPushButton" name="outputFileSelect">
-       <property name="maximumSize">
-        <size>
-         <width>25</width>
-         <height>23</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>...</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="2">
-      <widget class="QLineEdit" name="inputLineEdit"/>
-     </item>
-     <item row="1" column="2">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>1. Select a profile from the list on the left;
-2. Select a video file to scan; 
-3. Select a file to output subtitles to.</string>
-       </property>
-      </widget>
+     <item row="0" column="1">
+      <layout class="QVBoxLayout" name="verticalLayout_5">
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>68</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="deleteProfileButton">
+           <property name="text">
+            <string>Delete Profile</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <spacer name="verticalSpacer_5">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>358</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QLabel" name="goWarningLabel">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QPushButton" name="backButton">
+           <property name="minimumSize">
+            <size>
+             <width>75</width>
+             <height>23</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>75</width>
+             <height>23</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Back</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="goButton">
+           <property name="minimumSize">
+            <size>
+             <width>75</width>
+             <height>23</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>75</width>
+             <height>23</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>Go</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </item>
     </layout>
    </item>

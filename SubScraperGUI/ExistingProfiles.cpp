@@ -8,6 +8,7 @@
 #include <Help.h>
 #include <About.h>
 
+
 using namespace std;
 
 ExistingProfiles::ExistingProfiles(QWidget *parent)
@@ -44,7 +45,6 @@ ExistingProfiles::ExistingProfiles(QWidget *parent)
 	menuBar->addMenu(helpMenu);
 	helpMenu->addAction(help);
 	helpMenu->addAction(about);
-
 	this->layout()->setMenuBar(menuBar);
 
 	connect(help, &QAction::triggered, this, &ExistingProfiles::on_help_clicked);
@@ -130,14 +130,22 @@ void ExistingProfiles::on_goButton_clicked()
 	if (!inputFileName.isEmpty() && !outputFileName.isEmpty() && cropWidthStart >= 0 && cropWidthEnd >= 0 && cropHeightStart >= 0 && cropHeightEnd >= 0 && singleHeight >= 0 && doubleHeight >= 0 && dropLength >=0
 		&& windowSizeLeft >= 0 && windowSizeRight >= 0 && wordConfidence >= 0 && lineConfidence >= 0 && compareThreshold >= 0) {
 		Diagnostics* diagnostics = new Diagnostics(singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength, windowSizeLeft, windowSizeRight, wordConfidence, lineConfidence,
-			dupeThreshold, compareThreshold, inputFileName.toStdString(), outputFileName.toStdString(), autoDetectHeights);
+			dupeThreshold, compareThreshold, inputFileName.toStdString(), outputFileName.toStdString(), autoDetectHeights, false);
 		diagnostics->setAttribute(Qt::WA_DeleteOnClose);
 		diagnostics->show();
 		this->close();
 	}
-	//else print a warning
-	else {
-		ui.goWarningLabel->setText("Please select a saved profile, a video to analyse and a destination for the subtitle output before continuing.");
+	//alternative branch for scanning multiple files
+	else if (!ui.multiLineEdit->text().isEmpty() && !ui.multiOutputLineEdit->text().isEmpty() && cropWidthStart >= 0 && cropWidthEnd >= 0 && cropHeightStart >= 0 && cropHeightEnd >= 0 && singleHeight >= 0 && doubleHeight >= 0 && dropLength >= 0
+		&& windowSizeLeft >= 0 && windowSizeRight >= 0 && wordConfidence >= 0 && lineConfidence >= 0 && compareThreshold >= 0) {
+			Diagnostics* diagnostics = new Diagnostics(singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength, windowSizeLeft, windowSizeRight, wordConfidence, lineConfidence,
+				dupeThreshold, compareThreshold, ui.multiLineEdit->text().toStdString(), ui.multiOutputLineEdit->text().toStdString(), autoDetectHeights, true);
+			diagnostics->setAttribute(Qt::WA_DeleteOnClose);
+			diagnostics->show();
+			this->close();
+	} else 
+		{
+		ui.goWarningLabel->setText("Please select a saved profile, a video to analyse (or a directory to multiple videos) and a destination for the subtitle output before continuing.");
 	}
 }
 
@@ -203,4 +211,18 @@ void ExistingProfiles::on_about_clicked()
 	About* about = new About();
 	about->setAttribute(Qt::WA_DeleteOnClose);
 	about->show();
+}
+
+void ExistingProfiles::on_multiFileSelect_clicked()
+{
+	QString dirName = QFileDialog::getExistingDirectory(
+		this, tr("Open Directory"), "C://", QFileDialog::ShowDirsOnly);
+	ui.multiLineEdit->setText(dirName);
+}
+
+void ExistingProfiles::on_multiOutputFileSelect_clicked()
+{
+	QString dirName = QFileDialog::getExistingDirectory(
+		this, tr("Open Directory"), "C://", QFileDialog::ShowDirsOnly);
+	ui.multiOutputLineEdit->setText(dirName);
 }

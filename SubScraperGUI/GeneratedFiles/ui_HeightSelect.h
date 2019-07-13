@@ -222,7 +222,7 @@ public:
 
     void retranslateUi(QWidget *HeightSelect)
     {
-        HeightSelect->setWindowTitle(QCoreApplication::translate("HeightSelect", "Height Select", nullptr));
+        HeightSelect->setWindowTitle(QCoreApplication::translate("HeightSelect", "SubScraper", nullptr));
         singleLabel->setText(QCoreApplication::translate("HeightSelect", "Single box height (px)  ", nullptr));
         singleLineEdit->setText(QCoreApplication::translate("HeightSelect", "0", nullptr));
         singleGetHeight->setText(QCoreApplication::translate("HeightSelect", "Get height", nullptr));

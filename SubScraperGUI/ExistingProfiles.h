@@ -20,6 +20,8 @@ private slots:
 	void on_deleteProfileButton_clicked();
 	void on_help_clicked();
 	void on_about_clicked();
+	void on_multiFileSelect_clicked();
+	void on_multiOutputFileSelect_clicked();
 private:
 	Ui::ExistingProfiles ui;
 	QString name;

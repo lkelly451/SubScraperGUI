@@ -211,6 +211,8 @@ void Video::run(){
 		//Mark doubles
 		markPotentialDuplicates(outputFileName, dupeThreshold);
 	}
+	//release the VideoCapture object
+	cap.release();
 }
 
 
@@ -402,9 +404,15 @@ bool Video::whiteSpaceBottomLineCheck(cv::Mat image, int windowSize)
 //crops frames to subtitle area
 void Video::crop(cv::Mat image, cv::Mat& dst, int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd)
 {
-	cv::Mat interimFrame = image.rowRange(cropHeightStart, cropHeightEnd);
-	interimFrame = interimFrame.colRange(cropWidthStart, cropWidthEnd);
-	dst = interimFrame.clone();
+	if (cropHeightStart <= image.rows && cropHeightEnd <= image.rows && cropWidthStart <= image.cols & cropWidthEnd <= image.cols) {
+		cv::Mat interimFrame = image.rowRange(cropHeightStart, cropHeightEnd);
+		interimFrame = interimFrame.colRange(cropWidthStart, cropWidthEnd);
+		dst = interimFrame.clone();
+	}
+	else {
+		cancelled = true;
+		emit error(QString("The profile crop parameters are outside the range of this video. Please try a different profile, or use build profile to build a new one."));
+	}
 }
 
 void Video::getBoxHeights(map<int, int> frequency, int& singleHeight, int& doubleHeight)

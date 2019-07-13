@@ -558,7 +558,7 @@ public:
 
     void retranslateUi(QWidget *OutputSelect)
     {
-        OutputSelect->setWindowTitle(QCoreApplication::translate("OutputSelect", "Output Select", nullptr));
+        OutputSelect->setWindowTitle(QCoreApplication::translate("OutputSelect", "SubScraper", nullptr));
         outputLabel->setText(QCoreApplication::translate("OutputSelect", "Output file for subtitles (.txt):", nullptr));
         outputFileSelect->setText(QCoreApplication::translate("OutputSelect", "...", nullptr));
         profileLabel->setText(QCoreApplication::translate("OutputSelect", "Profile name:", nullptr));

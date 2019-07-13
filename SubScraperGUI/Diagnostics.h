@@ -10,7 +10,7 @@ class Diagnostics : public QWidget
 
 public:
 	Diagnostics(int singleHeight, int doubleHeight, int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd, int dropLength, int windowSizeLeft, 
-		int windowSizeRight, int wordConfidence, int lineConfidence, int dupeThreshold, double compareThreshold, std::string inputFileName, std::string outputFileName, bool autoDetectHeights, QWidget *parent = Q_NULLPTR);
+		int windowSizeRight, int wordConfidence, int lineConfidence, int dupeThreshold, double compareThreshold, std::string inputFileName, std::string outputFileName, bool autoDetectHeights, bool multiAnalysis, QWidget *parent = Q_NULLPTR);
 	Diagnostics(QString inputFileName, QWidget* parent = Q_NULLPTR);
 	~Diagnostics();
 
@@ -41,6 +41,12 @@ private:
 	std::string inputFileName;
 	std::string outputFileName;
 	bool autoDetectHeights;
+	bool multiAnalysis;
+	bool multiCancel = false;
 	Video* video;
+	std::vector<std::string> fileNames;
+	std::vector<std::string> outputFileNames;
+	int currentFile = 0;
+	int numberOfFiles = 0;
 	
 };
