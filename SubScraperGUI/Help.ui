@@ -23,7 +23,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>5</number>
      </property>
      <widget class="QWidget" name="mainTab">
       <attribute name="title">
@@ -906,120 +906,203 @@ The value is 0.00 to 1.00, with 1.00 being identical and 0.00 being totally diss
       <attribute name="title">
        <string>Existing Profiles</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout_14">
+      <layout class="QGridLayout" name="gridLayout_8">
        <item row="0" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout_23">
+        <layout class="QVBoxLayout" name="verticalLayout_18">
          <item>
-          <widget class="QLabel" name="label_24">
-           <property name="text">
-            <string>On this page, you can select an existing profile to apply to a video.</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_45">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>198</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-        </layout>
-       </item>
-       <item row="1" column="0">
-        <layout class="QHBoxLayout" name="horizontalLayout_24">
-         <item>
-          <spacer name="horizontalSpacer_43">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>48</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
-         </item>
-         <item>
-          <layout class="QVBoxLayout" name="verticalLayout_33">
+          <layout class="QHBoxLayout" name="horizontalLayout_23">
            <item>
-            <widget class="QLabel" name="label_25">
-             <property name="font">
-              <font>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
-             </property>
+            <widget class="QLabel" name="label_24">
              <property name="text">
-              <string>Selecting a profile</string>
+              <string>On this page, you can select an existing profile to apply to a video.</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="label_26">
-             <property name="text">
-              <string>Saved profiles appear in the pane on the left of the screen. Clicking on a profile will select
-it. Once this is done, you can click 'Go' at the bottom right of the screen to begin scanning 
-for subtitles.</string>
+            <spacer name="horizontalSpacer_45">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
              </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_27">
-             <property name="font">
-              <font>
-               <weight>75</weight>
-               <bold>true</bold>
-              </font>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>198</width>
+               <height>20</height>
+              </size>
              </property>
-             <property name="text">
-              <string>Deleting a profile</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLabel" name="label_28">
-             <property name="text">
-              <string>Click on a profile in the profile pane to select it, then click on the 'Delete Profile' button at 
-the top right of the screen.</string>
-             </property>
-            </widget>
+            </spacer>
            </item>
           </layout>
          </item>
          <item>
-          <spacer name="horizontalSpacer_44">
+          <layout class="QHBoxLayout" name="horizontalLayout_24">
+           <item>
+            <spacer name="horizontalSpacer_43">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>48</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_33">
+             <item>
+              <widget class="QLabel" name="label_25">
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Selecting a profile</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_26">
+               <property name="text">
+                <string>Saved profiles appear in the pane on the left of the screen. Clicking on a profile will select
+it. Once this is done, you can click 'Go' at the bottom right of the screen to begin scanning 
+for subtitles.</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_27">
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Deleting a profile</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_28">
+               <property name="text">
+                <string>Click on a profile in the profile pane to select it, then click on the 'Delete Profile' button at 
+the top right of the screen.</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_44">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_12">
+           <item>
+            <spacer name="horizontalSpacer_46">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>48</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_17">
+             <item>
+              <widget class="QLabel" name="label_29">
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Scanning a single video</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_30">
+               <property name="text">
+                <string>To scan a single video, click on the '...' button next to &quot;Video file to scan&quot; and select a 
+video file to scan. Then repeat this process for an output .txt file to contain the scanned 
+subtitles and click 'Go'.</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_32">
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>Scanning multiple videos</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="label_31">
+               <property name="text">
+                <string>To scan multiple videos, click on the '...' button next to 'Path to directory of multiple 
+videos&quot; and select a directory containing multiple videos to scan. Ensure the
+directory contains only video files. Then select a directory to store the subtitle text files
+under 'Directory to store subtitles' and click 'Go'.</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_47">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="verticalSpacer_19">
            <property name="orientation">
-            <enum>Qt::Horizontal</enum>
+            <enum>Qt::Vertical</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>40</width>
-             <height>20</height>
+             <width>17</width>
+             <height>108</height>
             </size>
            </property>
           </spacer>
          </item>
         </layout>
-       </item>
-       <item row="2" column="0">
-        <spacer name="verticalSpacer_19">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>269</height>
-          </size>
-         </property>
-        </spacer>
        </item>
       </layout>
      </widget>
