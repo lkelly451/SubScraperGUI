@@ -5,9 +5,6 @@
 #include <iostream>
 #include <Diagnostics.h>
 #include <qmenubar.h>
-#include <Help.h>
-#include <About.h>
-
 
 using namespace std;
 
@@ -201,16 +198,20 @@ void ExistingProfiles::on_deleteProfileButton_clicked()
 
 void ExistingProfiles::on_help_clicked()
 {
-	Help* help = new Help();
-	help->setAttribute(Qt::WA_DeleteOnClose);
-	help->show();
+	if (!help) {
+		help = new Help();
+		help->setAttribute(Qt::WA_DeleteOnClose);
+		help->show();
+	}
 }
 
 void ExistingProfiles::on_about_clicked()
 {
-	About* about = new About();
-	about->setAttribute(Qt::WA_DeleteOnClose);
-	about->show();
+	if (!about) {
+		about = new About();
+		about->setAttribute(Qt::WA_DeleteOnClose);
+		about->show();
+	}
 }
 
 void ExistingProfiles::on_multiFileSelect_clicked()

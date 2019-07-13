@@ -5,6 +5,8 @@
 #include <opencv2/videoio.hpp>
 #include "QMouseEvent"
 #include <QtWidgets/QMainWindow>
+#include <Help.h>
+#include <About.h>
 
 class BuildProfile : public QWidget
 {
@@ -32,4 +34,6 @@ private:
 	cv::Mat frame;
 	QGraphicsScene* scene;
 	QGraphicsPixmapItem* item;
+	Help* help = NULL;
+	About* about = NULL;
 };

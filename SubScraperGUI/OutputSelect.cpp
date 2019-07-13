@@ -6,8 +6,6 @@
 #include <iostream>
 #include <fstream>
 #include <qmenubar.h>
-#include <Help.h>
-#include <About.h>
 
 using namespace std;
 
@@ -236,14 +234,18 @@ void OutputSelect::on_dupeThresholdLineEdit_editingFinished()
 
 void OutputSelect::on_help_clicked()
 {
-	Help* help = new Help();
-	help->setAttribute(Qt::WA_DeleteOnClose);
-	help->show();
+	if (!help) {
+		help = new Help();
+		help->setAttribute(Qt::WA_DeleteOnClose);
+		help->show();
+	}
 }
 
 void OutputSelect::on_about_clicked()
 {
-	About* about = new About();
-	about->setAttribute(Qt::WA_DeleteOnClose);
-	about->show();
+	if (!about) {
+		about = new About();
+		about->setAttribute(Qt::WA_DeleteOnClose);
+		about->show();
+	}
 }

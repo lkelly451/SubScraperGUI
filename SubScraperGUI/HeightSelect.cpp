@@ -7,8 +7,7 @@
 #include <iostream>
 #include <Frame.h>
 #include <qmenubar.h>
-#include <Help.h>
-#include <About.h>
+
 
 using namespace std;
 using namespace cv;
@@ -216,12 +215,18 @@ void HeightSelect::on_doubleGetHeight_clicked()
 
 void HeightSelect::on_help_clicked()
 {
-	Help* help = new Help();
-	help->show();
+	if (!help) {
+		help = new Help();
+		help->setAttribute(Qt::WA_DeleteOnClose);
+		help->show();
+	}
 }
 
 void HeightSelect::on_about_clicked()
 {
-	About* about = new About();
-	about->show();
+	if (!about) {
+		about = new About();
+		about->setAttribute(Qt::WA_DeleteOnClose);
+		about->show();
+	}
 }

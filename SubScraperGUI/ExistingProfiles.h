@@ -2,6 +2,8 @@
 
 #include <QWidget>
 #include "ui_ExistingProfiles.h"
+#include <Help.h>
+#include <About.h>
 
 class ExistingProfiles : public QWidget
 {
@@ -41,4 +43,6 @@ private:
 	int dupeThreshold;
 	double compareThreshold;
 	bool autoDetectHeights;
+	Help* help = NULL;
+	About* about = NULL;
 };

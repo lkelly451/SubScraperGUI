@@ -2,6 +2,8 @@
 
 #include <QWidget>
 #include "ui_OutputSelect.h"
+#include <Help.h>
+#include <About.h>
 
 class OutputSelect : public QWidget
 {
@@ -46,4 +48,6 @@ private:
 	bool autoDetectHeights;
 	int width;
 	double position;
+	Help* help = NULL;
+	About* about = NULL;
 };

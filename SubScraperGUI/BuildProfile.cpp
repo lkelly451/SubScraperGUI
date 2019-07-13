@@ -3,8 +3,6 @@
 #include "HeightSelect.h"
 #include "qfiledialog.h"
 #include "qvalidator.h"
-#include <About.h>
-#include <Help.h>
 #include <opencv2/videoio.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/highgui.hpp>
@@ -210,14 +208,18 @@ void BuildProfile::on_frameBack_clicked()
 
 void BuildProfile::on_help_clicked()
 {
-	Help* help = new Help();
-	help->setAttribute(Qt::WA_DeleteOnClose);
-	help->show();
+	if (!help) {
+		help = new Help();
+		help->setAttribute(Qt::WA_DeleteOnClose);
+		help->show();
+	}
 }
 
 void BuildProfile::on_about_clicked()
 {
-	About* about = new About();
-	about->setAttribute(Qt::WA_DeleteOnClose);
-	about->show();
+	if (!about) {
+		about = new About();
+		about->setAttribute(Qt::WA_DeleteOnClose);
+		about->show();
+	}
 }

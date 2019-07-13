@@ -3,6 +3,8 @@
 #include <QWidget>
 #include "ui_HeightSelect.h"
 #include <opencv2/videoio.hpp>
+#include <Help.h>
+#include <About.h>
 
 class HeightSelect : public QWidget
 {
@@ -33,5 +35,7 @@ private:
 	QGraphicsPixmapItem* item;
 	cv::Mat frame;
 	double position;
+	Help* help = NULL;
+	About* about = NULL;
 
 };

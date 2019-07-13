@@ -2,8 +2,6 @@
 #include "BuildProfile.h"
 #include "ExistingProfiles.h"
 #include <iostream>
-#include <Help.h>
-#include <About.h>
 #include <qmenubar.h>
 
 SubScraperGUI::SubScraperGUI(QWidget *parent)
@@ -46,16 +44,20 @@ void SubScraperGUI::on_continueButton_clicked()
 
 void SubScraperGUI::on_help_clicked()
 {
-	Help* help = new Help();
-	help->setAttribute(Qt::WA_DeleteOnClose);
-	help->show();
+	if(!help) {
+		help = new Help();
+		help->setAttribute(Qt::WA_DeleteOnClose);
+		help->show();
+	}
 }
 
 void SubScraperGUI::on_about_clicked()
 {
-	About* about = new About();
-	about->setAttribute(Qt::WA_DeleteOnClose);
-	about->show();
+	if(!about) {
+		about = new About();
+		about->setAttribute(Qt::WA_DeleteOnClose);
+		about->show();
+	}
 }
 
 void SubScraperGUI::on_buildProfileRadio_toggled()

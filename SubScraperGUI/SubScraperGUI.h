@@ -2,6 +2,8 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_SubScraperGUI.h"
+#include <Help.h>
+#include <About.h>
 
 class SubScraperGUI : public QMainWindow
 {
@@ -18,4 +20,6 @@ private slots:
 private:
 	Ui::SubScraperGUIClass ui;
 	bool selection = 0;
+	Help* help = NULL;
+	About* about = NULL;
 };
