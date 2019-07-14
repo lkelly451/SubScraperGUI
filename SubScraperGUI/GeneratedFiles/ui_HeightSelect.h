@@ -232,7 +232,7 @@ public:
         frameBack->setText(QCoreApplication::translate("HeightSelect", "<<", nullptr));
         frameForward->setText(QCoreApplication::translate("HeightSelect", ">>", nullptr));
         backButton->setText(QCoreApplication::translate("HeightSelect", "Back", nullptr));
-        autoLabel->setText(QCoreApplication::translate("HeightSelect", "auto detect box heights", nullptr));
+        autoLabel->setText(QCoreApplication::translate("HeightSelect", "auto-detect box heights", nullptr));
         autoCheckBox->setText(QString());
         continueWarning->setText(QString());
         continueButton->setText(QCoreApplication::translate("HeightSelect", "Continue", nullptr));

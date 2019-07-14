@@ -127,7 +127,8 @@ public:
     QSpacerItem *verticalSpacer_11;
     QSpacerItem *horizontalSpacer_20;
     QWidget *tab_5;
-    QGridLayout *gridLayout_14;
+    QGridLayout *gridLayout_8;
+    QVBoxLayout *verticalLayout_18;
     QHBoxLayout *horizontalLayout_23;
     QLabel *label_24;
     QSpacerItem *horizontalSpacer_45;
@@ -139,6 +140,14 @@ public:
     QLabel *label_27;
     QLabel *label_28;
     QSpacerItem *horizontalSpacer_44;
+    QHBoxLayout *horizontalLayout_12;
+    QSpacerItem *horizontalSpacer_46;
+    QVBoxLayout *verticalLayout_17;
+    QLabel *label_29;
+    QLabel *label_30;
+    QLabel *label_32;
+    QLabel *label_31;
+    QSpacerItem *horizontalSpacer_47;
     QSpacerItem *verticalSpacer_19;
 
     void setupUi(QWidget *Help)
@@ -653,10 +662,13 @@ public:
         helpMenu->addTab(tab_4, QString());
         tab_5 = new QWidget();
         tab_5->setObjectName(QString::fromUtf8("tab_5"));
-        gridLayout_14 = new QGridLayout(tab_5);
-        gridLayout_14->setSpacing(6);
-        gridLayout_14->setContentsMargins(11, 11, 11, 11);
-        gridLayout_14->setObjectName(QString::fromUtf8("gridLayout_14"));
+        gridLayout_8 = new QGridLayout(tab_5);
+        gridLayout_8->setSpacing(6);
+        gridLayout_8->setContentsMargins(11, 11, 11, 11);
+        gridLayout_8->setObjectName(QString::fromUtf8("gridLayout_8"));
+        verticalLayout_18 = new QVBoxLayout();
+        verticalLayout_18->setSpacing(6);
+        verticalLayout_18->setObjectName(QString::fromUtf8("verticalLayout_18"));
         horizontalLayout_23 = new QHBoxLayout();
         horizontalLayout_23->setSpacing(6);
         horizontalLayout_23->setObjectName(QString::fromUtf8("horizontalLayout_23"));
@@ -670,7 +682,7 @@ public:
         horizontalLayout_23->addItem(horizontalSpacer_45);
 
 
-        gridLayout_14->addLayout(horizontalLayout_23, 0, 0, 1, 1);
+        verticalLayout_18->addLayout(horizontalLayout_23);
 
         horizontalLayout_24 = new QHBoxLayout();
         horizontalLayout_24->setSpacing(6);
@@ -712,11 +724,56 @@ public:
         horizontalLayout_24->addItem(horizontalSpacer_44);
 
 
-        gridLayout_14->addLayout(horizontalLayout_24, 1, 0, 1, 1);
+        verticalLayout_18->addLayout(horizontalLayout_24);
 
-        verticalSpacer_19 = new QSpacerItem(20, 269, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        horizontalLayout_12 = new QHBoxLayout();
+        horizontalLayout_12->setSpacing(6);
+        horizontalLayout_12->setObjectName(QString::fromUtf8("horizontalLayout_12"));
+        horizontalSpacer_46 = new QSpacerItem(48, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout_14->addItem(verticalSpacer_19, 2, 0, 1, 1);
+        horizontalLayout_12->addItem(horizontalSpacer_46);
+
+        verticalLayout_17 = new QVBoxLayout();
+        verticalLayout_17->setSpacing(6);
+        verticalLayout_17->setObjectName(QString::fromUtf8("verticalLayout_17"));
+        label_29 = new QLabel(tab_5);
+        label_29->setObjectName(QString::fromUtf8("label_29"));
+        label_29->setFont(font);
+
+        verticalLayout_17->addWidget(label_29);
+
+        label_30 = new QLabel(tab_5);
+        label_30->setObjectName(QString::fromUtf8("label_30"));
+
+        verticalLayout_17->addWidget(label_30);
+
+        label_32 = new QLabel(tab_5);
+        label_32->setObjectName(QString::fromUtf8("label_32"));
+        label_32->setFont(font);
+
+        verticalLayout_17->addWidget(label_32);
+
+        label_31 = new QLabel(tab_5);
+        label_31->setObjectName(QString::fromUtf8("label_31"));
+
+        verticalLayout_17->addWidget(label_31);
+
+
+        horizontalLayout_12->addLayout(verticalLayout_17);
+
+        horizontalSpacer_47 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_12->addItem(horizontalSpacer_47);
+
+
+        verticalLayout_18->addLayout(horizontalLayout_12);
+
+        verticalSpacer_19 = new QSpacerItem(17, 108, QSizePolicy::Minimum, QSizePolicy::Expanding);
+
+        verticalLayout_18->addItem(verticalSpacer_19);
+
+
+        gridLayout_8->addLayout(verticalLayout_18, 0, 0, 1, 1);
 
         helpMenu->addTab(tab_5, QString());
 
@@ -725,7 +782,7 @@ public:
 
         retranslateUi(Help);
 
-        helpMenu->setCurrentIndex(0);
+        helpMenu->setCurrentIndex(5);
 
 
         QMetaObject::connectSlotsByName(Help);
@@ -826,6 +883,15 @@ public:
         label_27->setText(QCoreApplication::translate("Help", "Deleting a profile", nullptr));
         label_28->setText(QCoreApplication::translate("Help", "Click on a profile in the profile pane to select it, then click on the 'Delete Profile' button at \n"
 "the top right of the screen.", nullptr));
+        label_29->setText(QCoreApplication::translate("Help", "Scanning a single video", nullptr));
+        label_30->setText(QCoreApplication::translate("Help", "To scan a single video, click on the '...' button next to \"Video file to scan\" and select a \n"
+"video file to scan. Then repeat this process for an output .txt file to contain the scanned \n"
+"subtitles and click 'Go'.", nullptr));
+        label_32->setText(QCoreApplication::translate("Help", "Scanning multiple videos", nullptr));
+        label_31->setText(QCoreApplication::translate("Help", "To scan multiple videos, click on the '...' button next to 'Path to directory of multiple \n"
+"videos\" and select a directory containing multiple videos to scan. Ensure the\n"
+"directory contains only video files. Then select a directory to store the subtitle text files\n"
+"under 'Directory to store subtitles' and click 'Go'.", nullptr));
         helpMenu->setTabText(helpMenu->indexOf(tab_5), QCoreApplication::translate("Help", "Existing Profiles", nullptr));
     } // retranslateUi
 

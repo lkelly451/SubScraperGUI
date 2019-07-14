@@ -216,7 +216,7 @@
          <item>
           <widget class="QLabel" name="autoLabel">
            <property name="text">
-            <string>auto detect box heights</string>
+            <string>auto-detect box heights</string>
            </property>
           </widget>
          </item>

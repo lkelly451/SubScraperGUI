@@ -7,6 +7,7 @@
 #include <iostream>
 #include <Frame.h>
 #include <qmenubar.h>
+#include <QtWidgets\qmessagebox.h>
 
 
 using namespace std;
@@ -87,10 +88,14 @@ void HeightSelect::on_continueButton_clicked()
 	}
 	if (ui.autoCheckBox->isChecked() || !ui.doubleLineEdit->text().isEmpty() && !ui.doubleLineEdit->text().isEmpty()) {
 		if (ui.doubleLineEdit->text().toInt() > frame.cols || ui.singleLineEdit->text().toInt() > frame.cols) {
-			ui.continueWarning->setText("Box height cannot be larger than the image!");
+			QMessageBox messageBox;
+			messageBox.warning(0, "Box height cannot be larger than the image", "Please specify a box height that is within the image boundaries");
+			messageBox.setFixedSize(500, 200);
 		}
 		else if (ui.doubleLineEdit->text().toInt() == 0 || ui.singleLineEdit->text().toInt()==0) {
-			ui.continueWarning->setText("Box heights cannot be zero. Please input a height for single and double line boxes that is greater than zero.");
+			QMessageBox messageBox;
+			messageBox.warning(0, "Box heights cannot be zero", "Please input a height for single and double line boxes that is greater than zero");
+			messageBox.setFixedSize(500, 200);
 		}
 		else {
 			cout << "At height select: " << autoBoxDetect << endl;
@@ -101,7 +106,9 @@ void HeightSelect::on_continueButton_clicked()
 		}
 	}
 	else {
-		ui.continueWarning->setText("Please input heights for single and double subtitle boxes or check auto detect box heights before continuing.");
+		QMessageBox messageBox;
+		messageBox.warning(0, "Cannot continue without required information", "Please input heights for single and double subtitle boxes or check auto-detect box heights before continuing");
+		messageBox.setFixedSize(500, 200);
 	}
 }
 

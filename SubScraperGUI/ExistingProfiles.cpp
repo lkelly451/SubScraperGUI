@@ -5,6 +5,7 @@
 #include <iostream>
 #include <Diagnostics.h>
 #include <qmenubar.h>
+#include <QtWidgets\qmessagebox.h>
 
 using namespace std;
 
@@ -142,7 +143,9 @@ void ExistingProfiles::on_goButton_clicked()
 			this->close();
 	} else 
 		{
-		ui.goWarningLabel->setText("Please select a saved profile, a video to analyse (or a directory to multiple videos) and a destination for the subtitle output before continuing.");
+		QMessageBox messageBox;
+		messageBox.warning(0, "Cannot continue without required information", "Please select a saved profile, a video to analyse (or a directory to multiple videos) and a destination for the subtitle output before continuing");
+		messageBox.setFixedSize(500, 200);
 	}
 }
 
@@ -158,7 +161,9 @@ void ExistingProfiles::on_deleteProfileButton_clicked()
 			if (line == selectedProfile) {
 				for (size_t i = 0; i < 15; i++) {
 					loadProfile.ignore(256, '\n');
-					ui.goWarningLabel->setText("Profile deleted.");
+					QMessageBox messageBox;
+					messageBox.information(0, "Profile deleted", "Profile has been deleted");
+					messageBox.setFixedSize(500, 200);
 				}
 			}
 			else {

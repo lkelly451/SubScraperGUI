@@ -11,6 +11,7 @@
 #include <iostream>
 #include <fstream>
 #include <qmenubar.h>
+#include <QtWidgets\qmessagebox.h>
 
 
 using namespace cv;
@@ -88,11 +89,15 @@ void BuildProfile::on_backButton_clicked()
 void BuildProfile::on_continueButton_clicked()
 {
 	if (ui.widthBegin->text().isEmpty() || ui.widthEnd->text().isEmpty() || ui.heightBegin->text().isEmpty() || ui.heightEnd->text().isEmpty() || ui.inputLineEdit->text().isEmpty() || frame.empty()) {
-		ui.continueWarning->setText("Please select a video file, click preview to check it and ensure all crop height and width parameters are filled before continuing.");
+		QMessageBox messageBox;
+		messageBox.warning(0, "Cannot continue without required information", "Please select a video file, click preview to check it and ensure all crop height and width parameters are filled before continuing.");
+		messageBox.setFixedSize(500, 200);
 	}
 	else if ((ui.widthEnd->text().toInt() - ui.widthBegin->text().toInt()) > frame.cols || (ui.heightEnd->text().toInt() - ui.heightBegin->text().toInt()) > frame.rows 
 		|| (ui.widthEnd->text().toInt() - ui.widthBegin->text().toInt()) <= 0 || (ui.heightEnd->text().toInt() - ui.heightBegin->text().toInt()) <= 0){
-		ui.continueWarning->setText("Crop parameters outside image bounds. Please crop an area within the image.");
+		QMessageBox messageBox;
+		messageBox.warning(0, "Crop parameters outside image bounds", "Please crop an area within the image");
+		messageBox.setFixedSize(500, 200);
 	}
 	else {
 		HeightSelect* heightSelect = new HeightSelect(ui.widthBegin->text(), ui.widthEnd->text(), ui.heightBegin->text(), ui.heightEnd->text(), ui.inputLineEdit->text(), cap.get(CAP_PROP_POS_FRAMES));

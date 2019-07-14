@@ -44,12 +44,30 @@ void Video::run(){
 	cv::Mat morphFrame;
 	map<int, int> frequency;
 	double frameProgress;
+	
 
-	//if video file failed to open, stop the process and send an error message to the GUI
 	if (!cap.isOpened()) {
 		cancelled = true;
-		emit error(QString::fromStdString("Could not open video file, please check that file path and file type are correct. For accepted file types, see the 'Help' menu."));
+		emit error(QString::fromStdString("Could not open video file, please check that file path and file type are correct. For accepted file types, see the 'Help' menu. This video will be skipped."));
 	}
+
+	if (wordConfidence < 0 || wordConfidence > 100) {
+		cancelled = true;
+		emit error(QString("The word confidence value is not set between 0 and 100. Please try a different profile, or use build profile to build a new one with a valid word confidence value. This video will be skipped."));
+	}
+
+	if (lineConfidence < 0 || lineConfidence > 100) {
+		cancelled = true;
+		emit error(QString("The line confidence value is not set between 0 and 100. Please try a different profile, or use build profile to build a new one with a valid line confidence value. This video will be skipped."));
+	}
+
+	if (compareThreshold < 0.0 || compareThreshold > 1.0) {
+		cancelled = true;
+		emit error(QString("The output comparison threshold is not set between 0.0 and 1.0. Please try a different profile, or use build profile to build a new one with a valid output comparison threshold. This video will be skipped."));
+	}
+
+
+	
 	//Auto detect subtitle heights
 	if (autoDetectHeights) {
 		while (1) {
@@ -59,6 +77,27 @@ void Video::run(){
 			}
 
 			cap >> frame;
+
+			if (cropHeightStart <= frame.rows || cropHeightEnd <= frame.rows || cropWidthStart <= frame.cols || cropWidthEnd <= frame.cols) {
+				cancelled = true;
+				emit error(QString("The profile crop parameters are outside the range of this video. Please try a different profile, or use build profile to build a new one with a smaller cropped area. This video will be skipped."));
+			}
+			if (singleHeight > frame.rows || doubleHeight > frame.rows) {
+				cancelled = true;
+				emit error(QString("The subtitle height parameters are outside the range of this video. Please try a different profile, or use build profile to build a new one with smaller height parameters. This video will be skipped."));
+			}
+			if (dropLength > frame.cols) {
+				cancelled = true;
+				emit error(QString("The box length filter threshold is wider than the video frames. Please try a different profile, or use build profile to build a new one with a lower threshold. This video will be skipped."));
+			}
+			if (windowSizeLeft > frame.cols) {
+				cancelled = true;
+				emit error(QString("The left sliding window is wider than the video frames. Please try a different profile, or use build profile to build a new one with a smaller sliding window value. This video will be skipped."));
+			}
+			if (windowSizeRight > frame.cols) {
+				cancelled = true;
+				emit error(QString("The right sliding window is wider than the video frames. Please try a different profile, or use build profile to build a new one with a smaller sliding window value. This video will be skipped."));
+			}
 
 			//skip 15 frames
 			for (int i = 0; i < 15; i++) {
@@ -210,6 +249,11 @@ void Video::run(){
 
 		//Mark doubles
 		markPotentialDuplicates(outputFileName, dupeThreshold);
+	}
+	else {
+		//if cancel has left a temp file behind, delete it
+		string provisionalFileName = outputFileName + "prov";
+		remove(provisionalFileName.c_str());
 	}
 	//release the VideoCapture object
 	cap.release();
@@ -404,14 +448,14 @@ bool Video::whiteSpaceBottomLineCheck(cv::Mat image, int windowSize)
 //crops frames to subtitle area
 void Video::crop(cv::Mat image, cv::Mat& dst, int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd)
 {
-	if (cropHeightStart <= image.rows && cropHeightEnd <= image.rows && cropWidthStart <= image.cols & cropWidthEnd <= image.cols) {
+	if (cropHeightStart <= image.rows && cropHeightEnd <= image.rows && cropWidthStart <= image.cols && cropWidthEnd <= image.cols) {
 		cv::Mat interimFrame = image.rowRange(cropHeightStart, cropHeightEnd);
 		interimFrame = interimFrame.colRange(cropWidthStart, cropWidthEnd);
 		dst = interimFrame.clone();
 	}
 	else {
 		cancelled = true;
-		emit error(QString("The profile crop parameters are outside the range of this video. Please try a different profile, or use build profile to build a new one."));
+		emit error(QString("The profile crop parameters are outside the range of this video. Please try a different profile, or use build profile to build a new one. This video will be skipped."));
 	}
 }
 

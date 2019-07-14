@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include <qmenubar.h>
+#include <QtWidgets\qmessagebox.h>
 
 using namespace std;
 
@@ -100,7 +101,9 @@ void OutputSelect::on_outputFileSelect_clicked()
 void OutputSelect::on_goButton_clicked()
 {
 	if (ui.outputLineEdit->text().isEmpty()) {
-		ui.continueWarning->setText("Please select where to save the subtitle output before continuing.");
+		QMessageBox messageBox;
+		messageBox.warning(0, "Cannot continue without a location to save subtitle output", "Please select where to save the subtitle output before continuing");
+		messageBox.setFixedSize(500, 200);
 	}
 	else {
 		//Go!
@@ -134,11 +137,14 @@ void OutputSelect::on_goButton_clicked()
 			
 			}
 			else {
-				ui.continueWarning->setText("Sliding windows and box filter must be set to less than the width of the cropped image.");
+				QMessageBox messageBox;
+				messageBox.warning(0, "Sliding windows or box filter set outside the bounds of the image", "Please set right/left sliding windows and box filter to a value less than or equal to the width of the image");
 			}
 		}
 		else {
-			ui.continueWarning->setText("Please ensure all fields are filled before continuing.");
+			QMessageBox messageBox;
+			messageBox.warning(0, "Cannot continue without required information", "Please ensure all advanced options are filled and an output location set before continuing");
+			messageBox.setFixedSize(500, 200);
 		}
 	}
 }
@@ -146,7 +152,9 @@ void OutputSelect::on_goButton_clicked()
 void OutputSelect::on_saveProfileButton_clicked()
 {
 	if (ui.profileName->text().isEmpty()) {
-		ui.continueWarning->setText("Please enter a profile name to save a profile.");
+		QMessageBox messageBox;
+		messageBox.warning(0, "Cannot save profile without a profile name", "Please enter a profile name to save the profile");
+		messageBox.setFixedSize(500, 200);
 	}
 	else if (!widthBegin.isEmpty() && !widthEnd.isEmpty() && !heightBegin.isEmpty() && !heightEnd.isEmpty() && !singleHeight.isEmpty() && !doubleHeight.isEmpty() && !dropLength.isEmpty()
 		&& !windowSizeLeft.isEmpty() && !windowSizeRight.isEmpty() && !wordConfidence.isEmpty() && !lineConfidence.isEmpty() && !compareThreshold.isEmpty() && !ui.dupeThresholdLineEdit->text().isEmpty()){
@@ -187,13 +195,19 @@ void OutputSelect::on_saveProfileButton_clicked()
 			saveFile << autoDetectHeights << endl;
 			saveFile << endl;
 			saveFile.close();
-			ui.continueWarning->setText("Profile saved!");
+			QMessageBox messageBox;
+			messageBox.information(0, "Profile saved", "Profile has been saved successfully. It can now be accessed in future by selecting 'Use existing profile' from the main menu");
+			messageBox.setFixedSize(500, 200);
 		}
 		else {
-			ui.continueWarning->setText("This profile name is taken, please enter another.");
+			QMessageBox messageBox;
+			messageBox.warning(0, "This profile name already exists", "Please enter a unique profile name to save the profile");
+			messageBox.setFixedSize(500, 200);
 		}
 	} else {
-		ui.continueWarning->setText("Please ensure all fields are filled before saving a profile.");
+		QMessageBox messageBox;
+		messageBox.warning(0, "Cannot save profile without required information", "Please ensure all fields are filled before saving a profile");
+		messageBox.setFixedSize(500, 200);
 	}
 }
 

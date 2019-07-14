@@ -4,6 +4,7 @@
 #include <iostream>
 #include <Video.h>
 #include <filesystem>
+#include <QtWidgets\qmessagebox.h>
 
 using namespace cv;
 using namespace std;
@@ -91,7 +92,7 @@ Diagnostics::~Diagnostics()
 
 void Diagnostics::on_cancelButton_clicked() 
 {	
-
+	//if analysing multiple videos, cancel all of them
 	if (multiAnalysis) {
 		multiCancel = true;
 	}
@@ -184,12 +185,16 @@ void Diagnostics::onProgressUpdated(int progress)
 
 void Diagnostics::onErrorEncountered(QString errorMessage)
 {
-	ui.outputLabel->setText(errorMessage);
-	ui.outputLabel->show();
+	QMessageBox messageBox;
+	messageBox.critical(0, "Video Analysis Error", errorMessage);
+	messageBox.setFixedSize(500, 200);
 	ui.progressBarLabel->setText("Cancelled");
-	ui.cancelButton->hide();
-	ui.mainButton->show();
-	ui.exitButton->show();
+	//if there are no more videos remaining, change the UI accordingly
+	if (!multiAnalysis || currentFile == numberOfFiles) {
+		ui.cancelButton->hide();
+		ui.mainButton->show();
+		ui.exitButton->show();
+	}
 }
 
 void Diagnostics::getCurrentStep(QString currentStep)
