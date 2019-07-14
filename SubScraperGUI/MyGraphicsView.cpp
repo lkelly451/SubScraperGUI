@@ -1,7 +1,6 @@
 #include "MyGraphicsView.h"
-#include <iostream>
-#include <QtWidgets\qlineedit.h>
-#include <QtWidgets\qrubberband.h>
+
+
 
 using namespace std;
 

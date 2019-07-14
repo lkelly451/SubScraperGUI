@@ -1,11 +1,5 @@
 #include "ExistingProfiles.h"
-#include "SubScraperGUI.h"
-#include "qfiledialog.h"
-#include <fstream>
-#include <iostream>
-#include <Diagnostics.h>
-#include <qmenubar.h>
-#include <QtWidgets\qmessagebox.h>
+
 
 using namespace std;
 

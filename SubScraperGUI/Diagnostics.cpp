@@ -1,10 +1,5 @@
 #include "Diagnostics.h"
-#include <opencv2/videoio.hpp>
-#include <SubScraperGUI.h>
-#include <iostream>
-#include <Video.h>
-#include <filesystem>
-#include <QtWidgets\qmessagebox.h>
+
 
 using namespace cv;
 using namespace std;

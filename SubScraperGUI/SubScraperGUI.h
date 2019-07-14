@@ -4,6 +4,10 @@
 #include "ui_SubScraperGUI.h"
 #include <Help.h>
 #include <About.h>
+#include "BuildProfile.h"
+#include "ExistingProfiles.h"
+#include <iostream>
+#include <qmenubar.h>
 
 class SubScraperGUI : public QMainWindow
 {

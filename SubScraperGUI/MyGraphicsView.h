@@ -3,6 +3,8 @@
 #include <QGraphicsView>
 #include "QMouseEvent"
 #include <QtWidgets\qrubberband.h>
+#include <iostream>
+#include <QtWidgets\qlineedit.h>
 
 class MyGraphicsView : public QGraphicsView
 {

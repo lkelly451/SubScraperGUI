@@ -5,6 +5,15 @@
 #include <opencv2/videoio.hpp>
 #include <Help.h>
 #include <About.h>
+#include "BuildProfile.h"
+#include "OutputSelect.h"
+#include "qvalidator.h"
+#include <opencv2/imgcodecs.hpp>
+#include "QGraphicsPixmapItem"
+#include <iostream>
+#include <Frame.h>
+#include <qmenubar.h>
+#include <QtWidgets\qmessagebox.h>
 
 class HeightSelect : public QWidget
 {

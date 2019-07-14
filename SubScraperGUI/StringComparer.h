@@ -1,5 +1,6 @@
 #include <string>
 #include <opencv2/imgproc.hpp>
+#include <iostream>
 #pragma once
 
 class StringComparer

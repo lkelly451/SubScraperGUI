@@ -5,6 +5,8 @@
 #include <allheaders.h>
 #include "StringComparer.h"
 #include "Output.h"
+#include "../../../../../../opencv/build/include/opencv2/highgui.hpp"
+#include <stdio.h>
 
 class SubtitleBox
 {

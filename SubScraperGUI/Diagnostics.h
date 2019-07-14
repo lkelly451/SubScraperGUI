@@ -3,6 +3,11 @@
 #include <QWidget>
 #include "ui_Diagnostics.h"
 #include <Video.h>
+#include <opencv2/videoio.hpp>
+#include <SubScraperGUI.h>
+#include <iostream>
+#include <filesystem>
+#include <QtWidgets\qmessagebox.h>
 
 class Diagnostics : public QWidget
 {

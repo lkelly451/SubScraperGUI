@@ -1,13 +1,5 @@
 #include "HeightSelect.h"
-#include "BuildProfile.h"
-#include "OutputSelect.h"
-#include "qvalidator.h"
-#include <opencv2/imgcodecs.hpp>
-#include "QGraphicsPixmapItem"
-#include <iostream>
-#include <Frame.h>
-#include <qmenubar.h>
-#include <QtWidgets\qmessagebox.h>
+
 
 
 using namespace std;

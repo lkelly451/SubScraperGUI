@@ -1,8 +1,5 @@
 #include "SubScraperGUI.h"
-#include "BuildProfile.h"
-#include "ExistingProfiles.h"
-#include <iostream>
-#include <qmenubar.h>
+
 
 SubScraperGUI::SubScraperGUI(QWidget *parent)
 	: QMainWindow(parent)

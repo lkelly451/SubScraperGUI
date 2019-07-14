@@ -1,6 +1,6 @@
 #include "Video.h"
-#include <iostream>
-#include <QtWidgets\qprogressbar.h>
+
+
 
 using namespace std;
 using namespace cv;

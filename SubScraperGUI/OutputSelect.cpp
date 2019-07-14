@@ -1,12 +1,5 @@
 #include "OutputSelect.h"
-#include "HeightSelect.h"
-#include "qvalidator.h"
-#include <Diagnostics.h>
-#include "qfiledialog.h"
-#include <iostream>
-#include <fstream>
-#include <qmenubar.h>
-#include <QtWidgets\qmessagebox.h>
+
 
 using namespace std;
 

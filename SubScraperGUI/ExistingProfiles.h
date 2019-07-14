@@ -4,6 +4,13 @@
 #include "ui_ExistingProfiles.h"
 #include <Help.h>
 #include <About.h>
+#include "SubScraperGUI.h"
+#include "qfiledialog.h"
+#include <fstream>
+#include <iostream>
+#include <Diagnostics.h>
+#include <qmenubar.h>
+#include <QtWidgets\qmessagebox.h>
 
 class ExistingProfiles : public QWidget
 {

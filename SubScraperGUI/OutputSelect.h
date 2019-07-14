@@ -4,6 +4,14 @@
 #include "ui_OutputSelect.h"
 #include <Help.h>
 #include <About.h>
+#include "HeightSelect.h"
+#include "qvalidator.h"
+#include <Diagnostics.h>
+#include "qfiledialog.h"
+#include <iostream>
+#include <fstream>
+#include <qmenubar.h>
+#include <QtWidgets\qmessagebox.h>
 
 class OutputSelect : public QWidget
 {

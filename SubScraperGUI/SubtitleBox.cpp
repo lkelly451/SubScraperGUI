@@ -1,6 +1,5 @@
 #include "SubtitleBox.h"
-#include "../../../../../../opencv/build/include/opencv2/highgui.hpp"
-#include <stdio.h>
+
 
 using namespace std;
 using namespace cv;

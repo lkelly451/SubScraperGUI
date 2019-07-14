@@ -7,6 +7,18 @@
 #include <QtWidgets/QMainWindow>
 #include <Help.h>
 #include <About.h>
+#include "SubScraperGUI.h"
+#include "HeightSelect.h"
+#include "qfiledialog.h"
+#include "qvalidator.h"
+#include <opencv2/imgproc.hpp>
+#include <opencv2/highgui.hpp>
+#include <qgraphicspixmapitem>
+#include <opencv2/imgcodecs.hpp>
+#include <iostream>
+#include <fstream>
+#include <qmenubar.h>
+#include <QtWidgets\qmessagebox.h>
 
 class BuildProfile : public QWidget
 {
