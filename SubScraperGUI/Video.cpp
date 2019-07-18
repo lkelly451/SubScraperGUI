@@ -218,7 +218,7 @@ void Video::run(){
 				whiteSpaceCheck = morphFrame.rowRange(ROICoordinates[i].first, ROICoordinates[i].second);
 
 				//if whitespace check passed on area, create a subtitle box and OCR it for text
-				if (whitespaceAverageCheck(whiteSpaceCheck, singleHeight, doubleHeight)) {
+				if (subtitleBoxCheck(whiteSpaceCheck, singleHeight, doubleHeight)) {
 					//construct subtitleBox
 					SubtitleBox s(frame, ROICoordinates[i].first, ROICoordinates[i].second);
 
@@ -249,6 +249,7 @@ void Video::run(){
 
 		//Mark doubles
 		markPotentialDuplicates(outputFileName, dupeThreshold);
+
 	}
 	else {
 		//if cancel has left a temp file behind, delete it
@@ -371,7 +372,7 @@ map<pair<int, int>, int> Video::boxCoordinateFrequency(map<pair<int, int>, int> 
 	return frequency;
 }
 //checks if a frame has a subtitle box on it
-bool Video::whitespaceAverageCheck(cv::Mat image, int singleHeight, int doubleHeight)
+bool Video::subtitleBoxCheck(cv::Mat image, int singleHeight, int doubleHeight)
 {
 
 	int whitespace = countNonZero(image);
@@ -393,7 +394,7 @@ bool Video::whitespaceAverageCheck(cv::Mat image, int singleHeight, int doubleHe
 
 		//as the bottom subtitle line is often in different positions, run a 30px sliding window over the area and check for whitespace concentration of 60% \
 		  if an area is returned by widthCutterLeft, then an area has been detected
-		if (averageWhiteSpaceTop > 0.4 && whiteSpaceBottomLineCheck(ROIhalves[1], 50)) {
+		if (averageWhiteSpaceTop > 0.4 && subtitleBoxBottomLineCheck(ROIhalves[1], 50)) {
 			return true;
 		}
 		else {
@@ -420,7 +421,7 @@ bool Video::whitespaceAverageCheck(cv::Mat image, int singleHeight, int doubleHe
 	}
 }
 //Supporting method for whitespaceAverageCheck. Compensates for varying alignments of bottom lines in double-line subtitles
-bool Video::whiteSpaceBottomLineCheck(cv::Mat image, int windowSize)
+bool Video::subtitleBoxBottomLineCheck(cv::Mat image, int windowSize)
 {
 	int start = 0;
 	int pixelCount;

@@ -15,7 +15,7 @@ SubtitleBox::SubtitleBox(cv::Mat frame, int heightStart, int heightEnd)
 	//set height of subtitle box to boundaries identified during box scan
 	interimFrame = interimFrame.rowRange(heightStart, heightEnd);
 
-	this->ROI = interimFrame;
+	this->Box = interimFrame;
 }
 
 SubtitleBox::~SubtitleBox()
@@ -26,16 +26,16 @@ void SubtitleBox::getText(string& textLineOne, string& textLineTwo, int& prevLin
 {
 
 	//split ROI 
-	splitBox(ROI, ROIhalves, doubleHeight);
+	splitBox(Box, SubtitleBoxLines, doubleHeight);
 
 	//reduce width
-	reduceWidth(ROIhalves, windowSizeLeft, windowSizeRight);
+	reduceWidth(SubtitleBoxLines, windowSizeLeft, windowSizeRight);
 
 	//add borders to images to improve OCR
-	addBorders(ROIhalves);
+	addBorders(SubtitleBoxLines);
 
 	//multithread OCR
-	multiOCR(ROIhalves, textLineOne, textLineTwo, frameTexts, prevLineOneConfidence, prevLineTwoConfidence, wordConfidence, lineConfidence, compareThreshold);
+	multiOCR(SubtitleBoxLines, textLineOne, textLineTwo, frameTexts, prevLineOneConfidence, prevLineTwoConfidence, wordConfidence, lineConfidence, compareThreshold);
 
 	//filter out duplicate text outputs from previous frames and output result
 	Output o(outputFileName);
@@ -102,19 +102,19 @@ void SubtitleBox::ocr(cv::Mat image, std::string & frameText, int& confidence, i
 	ocr->End();
 }
 
-void SubtitleBox::addBorders(vector<cv::Mat> & ROIhalves)
+void SubtitleBox::addBorders(vector<cv::Mat> & SubtitleBoxLines)
 {
 	//loop through the ROI areas
-	for (size_t i = 0; i < ROIhalves.size(); i++) {
+	for (size_t i = 0; i < SubtitleBoxLines.size(); i++) {
 
 		//add a border to the ROI to further facilitate OCR
-		copyMakeBorder(ROIhalves[i], ROIhalves[i], 5, 5, 5, 5, cv::BORDER_CONSTANT, 0);
-		copyMakeBorder(ROIhalves[i], ROIhalves[i], 15, 15, 15, 15, cv::BORDER_CONSTANT, 255);
+		copyMakeBorder(SubtitleBoxLines[i], SubtitleBoxLines[i], 5, 5, 5, 5, cv::BORDER_CONSTANT, 0);
+		copyMakeBorder(SubtitleBoxLines[i], SubtitleBoxLines[i], 15, 15, 15, 15, cv::BORDER_CONSTANT, 255);
 
 	}
 }
 
-void SubtitleBox::multiOCR(vector<cv::Mat> & ROIhalves, string & textLineOne, string & textLineTwo, vector<string> & frameTexts, int& prevLineOneConfidence, int& prevLineTwoConfidence, int wordConfidence, int lineConfidence, double compareThreshold)
+void SubtitleBox::multiOCR(vector<cv::Mat> & SubtitleBoxLines, string & textLineOne, string & textLineTwo, vector<string> & frameTexts, int& prevLineOneConfidence, int& prevLineTwoConfidence, int wordConfidence, int lineConfidence, double compareThreshold)
 {
 	string readTextLineOne;
 	string readTextLineTwo;
@@ -125,43 +125,43 @@ void SubtitleBox::multiOCR(vector<cv::Mat> & ROIhalves, string & textLineOne, st
 
 	//OCR the subtitle line(s) and add them to a vector of strings
 	//Multithread and wait for completion before adding output to frameTexts
-	if (ROIhalves.size() > 1) {
+	if (SubtitleBoxLines.size() > 1) {
 		//if textLineOne and textLineTwo vars are empty (i.e. at first pass)
 		if (textLineOne.empty() && textLineTwo.empty()) {
-			doubleFirstPassOCR(ROIhalves, textLineOne, textLineTwo, prevLineOneConfidence, prevLineTwoConfidence, wordConfidence, lineConfidence);
+			doubleFirstPassOCR(SubtitleBoxLines, textLineOne, textLineTwo, prevLineOneConfidence, prevLineTwoConfidence, wordConfidence, lineConfidence);
 		}
 		//when moving from a single line read to a double line read, print out the single line read and then fill in the string
 		//vars with the new double line read to prevent the single line and the second double line getting mixed up
 		else if (!textLineOne.empty() && textLineTwo.empty()) {
-			singleToDoubleOCR(ROIhalves, textLineOne, textLineTwo, readTextLineOne, readTextLineTwo, lineOneConfidence, lineTwoConfidence, prevLineOneConfidence, prevLineTwoConfidence, frameTexts, wordConfidence, lineConfidence);
+			singleToDoubleOCR(SubtitleBoxLines, textLineOne, textLineTwo, readTextLineOne, readTextLineTwo, lineOneConfidence, lineTwoConfidence, prevLineOneConfidence, prevLineTwoConfidence, frameTexts, wordConfidence, lineConfidence);
 		}
 		//after first pass, compare with previous OCR
 		//if the two are similar, take the longer one
 		//if both are not, then put the existing string vars into frameText for output
 		//then overwrite the string vars with the new lines for upcoming comparison
 		else {
-			doubleToDoubleOCR(ROIhalves, textLineOne, textLineTwo, readTextLineOne, readTextLineTwo, lineOneConfidence, lineTwoConfidence, prevLineOneConfidence, prevLineTwoConfidence, frameTexts, wordConfidence, lineConfidence, compareThreshold);
+			doubleToDoubleOCR(SubtitleBoxLines, textLineOne, textLineTwo, readTextLineOne, readTextLineTwo, lineOneConfidence, lineTwoConfidence, prevLineOneConfidence, prevLineTwoConfidence, frameTexts, wordConfidence, lineConfidence, compareThreshold);
 		}
 	}
 	else {
 		//if switching from a two line read to a single line read, output strings, 
 		//clear them both, then read in the new single text line
 		if (!textLineOne.empty() && !textLineTwo.empty()) {
-			doubleToSingleOCR(ROIhalves, textLineOne, textLineTwo, lineOneConfidence, prevLineOneConfidence, prevLineTwoConfidence, frameTexts, wordConfidence, lineConfidence);
+			doubleToSingleOCR(SubtitleBoxLines, textLineOne, textLineTwo, lineOneConfidence, prevLineOneConfidence, prevLineTwoConfidence, frameTexts, wordConfidence, lineConfidence);
 		}
 		else {
 			//if only one ROI in ROIhalves and textLineOne var is empty (i.e. at first pass)
 			if (textLineOne.empty()) {
-				singleFirstPassOCR(ROIhalves, textLineOne, lineOneConfidence, prevLineOneConfidence, wordConfidence, lineConfidence);
+				singleFirstPassOCR(SubtitleBoxLines, textLineOne, lineOneConfidence, prevLineOneConfidence, wordConfidence, lineConfidence);
 			}
 			//if there is previous output stored for this line
 			else {
-				singleToSingleOCR(ROIhalves, readTextLineOne, textLineOne, lineOneConfidence, prevLineOneConfidence, frameTexts, wordConfidence, lineConfidence, compareThreshold);
+				singleToSingleOCR(SubtitleBoxLines, readTextLineOne, textLineOne, lineOneConfidence, prevLineOneConfidence, frameTexts, wordConfidence, lineConfidence, compareThreshold);
 			}
 		}
 	}
 	//clear the ROI halves for the next frame
-	ROIhalves.clear();
+	SubtitleBoxLines.clear();
 }
 //trim right side of image to improve OCR accuracy
 int SubtitleBox::widthCutterRight(cv::Mat image, int sliceWidth)
@@ -252,33 +252,33 @@ void SubtitleBox::boxPreprocessing(cv::Mat image, cv::Mat & dst)
 	morphologyEx(dst, dst, cv::MORPH_CLOSE, kernel);
 }
 
-void SubtitleBox::reduceWidth(vector<cv::Mat> & ROIhalves, int windowSizeLeft, int windowSizeRight)
+void SubtitleBox::reduceWidth(vector<cv::Mat> & SubtitleBoxLines, int windowSizeLeft, int windowSizeRight)
 {
 	cv::Mat morph;
-	for (size_t i = 0; i < ROIhalves.size(); i++) {
+	for (size_t i = 0; i < SubtitleBoxLines.size(); i++) {
 		//process image to break into whitespace and blackspace
-		boxPreprocessing(ROIhalves[i], morph);
+		boxPreprocessing(SubtitleBoxLines[i], morph);
 		//reduce ROIhalves width based on where whitespace is cut off in preprocessed image
-		ROIhalves[i] = ROIhalves[i].colRange(widthCutterLeft(morph, windowSizeLeft), widthCutterRight(morph, windowSizeRight));
-		ROIhalves[i] = ROIhalves[i].clone();
+		SubtitleBoxLines[i] = SubtitleBoxLines[i].colRange(widthCutterLeft(morph, windowSizeLeft), widthCutterRight(morph, windowSizeRight));
+		SubtitleBoxLines[i] = SubtitleBoxLines[i].clone();
 	}
 }
 
-void SubtitleBox::doubleFirstPassOCR(vector<cv::Mat> & ROIhalves, string & textLineOne, string & textLineTwo, int& prevLineOneConfidence, int& prevLineTwoConfidence, int wordConfidence, int lineConfidence)
+void SubtitleBox::doubleFirstPassOCR(vector<cv::Mat> & SubtitleBoxLines, string & textLineOne, string & textLineTwo, int& prevLineOneConfidence, int& prevLineTwoConfidence, int wordConfidence, int lineConfidence)
 {
-	thread t1(ocr, ROIhalves[0], ref(textLineOne), ref(prevLineOneConfidence), ref(wordConfidence), ref(lineConfidence));
-	thread t2(ocr, ROIhalves[1], ref(textLineTwo), ref(prevLineTwoConfidence), ref(wordConfidence), ref(lineConfidence));
+	thread t1(ocr, SubtitleBoxLines[0], ref(textLineOne), ref(prevLineOneConfidence), ref(wordConfidence), ref(lineConfidence));
+	thread t2(ocr, SubtitleBoxLines[1], ref(textLineTwo), ref(prevLineTwoConfidence), ref(wordConfidence), ref(lineConfidence));
 
 	t1.join();
 	t2.join();
 }
 
-void SubtitleBox::singleToDoubleOCR(vector<cv::Mat> & ROIhalves, string & textLineOne, string & textLineTwo, string & readTextLineOne, string & readTextLineTwo, int& lineOneConfidence, int& lineTwoConfidence, int& prevLineOneConfidence, int& prevLineTwoConfidence, vector<string> & frameTexts, int wordConfidence, int lineConfidence)
+void SubtitleBox::singleToDoubleOCR(vector<cv::Mat> & SubtitleBoxLines, string & textLineOne, string & textLineTwo, string & readTextLineOne, string & readTextLineTwo, int& lineOneConfidence, int& lineTwoConfidence, int& prevLineOneConfidence, int& prevLineTwoConfidence, vector<string> & frameTexts, int wordConfidence, int lineConfidence)
 {
 	frameTexts.push_back(textLineOne);
 
-	thread t1(ocr, ROIhalves[0], ref(readTextLineOne), ref(lineOneConfidence), ref(wordConfidence), ref(lineConfidence));
-	thread t2(ocr, ROIhalves[1], ref(readTextLineTwo), ref(lineTwoConfidence), ref(wordConfidence), ref(lineConfidence));
+	thread t1(ocr, SubtitleBoxLines[0], ref(readTextLineOne), ref(lineOneConfidence), ref(wordConfidence), ref(lineConfidence));
+	thread t2(ocr, SubtitleBoxLines[1], ref(readTextLineTwo), ref(lineTwoConfidence), ref(wordConfidence), ref(lineConfidence));
 
 	t1.join();
 	t2.join();
@@ -290,14 +290,14 @@ void SubtitleBox::singleToDoubleOCR(vector<cv::Mat> & ROIhalves, string & textLi
 	prevLineTwoConfidence = lineTwoConfidence;
 }
 
-void SubtitleBox::doubleToDoubleOCR(vector<cv::Mat> & ROIhalves, string & textLineOne, string & textLineTwo, string & readTextLineOne, string & readTextLineTwo, int& lineOneConfidence, int& lineTwoConfidence, int& prevLineOneConfidence, int& prevLineTwoConfidence, vector<string> & frameTexts, int wordConfidence, int lineConfidence, double compareThreshold)
+void SubtitleBox::doubleToDoubleOCR(vector<cv::Mat> & SubtitleBoxLines, string & textLineOne, string & textLineTwo, string & readTextLineOne, string & readTextLineTwo, int& lineOneConfidence, int& lineTwoConfidence, int& prevLineOneConfidence, int& prevLineTwoConfidence, vector<string> & frameTexts, int wordConfidence, int lineConfidence, double compareThreshold)
 {
 	StringComparer stringComparer;
 	double JWdistance;
 	double JWdistance2;
 
-	thread t1(ocr, ROIhalves[0], ref(readTextLineOne), ref(lineOneConfidence), ref(wordConfidence), ref(lineConfidence));
-	thread t2(ocr, ROIhalves[1], ref(readTextLineTwo), ref(lineTwoConfidence), ref(wordConfidence), ref(lineConfidence));
+	thread t1(ocr, SubtitleBoxLines[0], ref(readTextLineOne), ref(lineOneConfidence), ref(wordConfidence), ref(lineConfidence));
+	thread t2(ocr, SubtitleBoxLines[1], ref(readTextLineTwo), ref(lineTwoConfidence), ref(wordConfidence), ref(lineConfidence));
 
 	t1.join();
 	t2.join();
@@ -341,14 +341,14 @@ void SubtitleBox::doubleToDoubleOCR(vector<cv::Mat> & ROIhalves, string & textLi
 	}
 }
 
-void SubtitleBox::singleFirstPassOCR(vector<cv::Mat> & ROIhalves, string & textLineOne, int& lineOneConfidence, int& prevLineOneConfidence, int wordConfidence, int lineConfidence)
+void SubtitleBox::singleFirstPassOCR(vector<cv::Mat> & SubtitleBoxLines, string & textLineOne, int& lineOneConfidence, int& prevLineOneConfidence, int wordConfidence, int lineConfidence)
 {
-	thread t1(ocr, ROIhalves[0], ref(textLineOne), ref(lineOneConfidence), ref(wordConfidence), ref(lineConfidence));
+	thread t1(ocr, SubtitleBoxLines[0], ref(textLineOne), ref(lineOneConfidence), ref(wordConfidence), ref(lineConfidence));
 	t1.join();
 	prevLineOneConfidence = lineOneConfidence;
 }
 
-void SubtitleBox::doubleToSingleOCR(vector<cv::Mat> & ROIhalves, string & textLineOne, string & textLineTwo, int& lineOneConfidence, int& prevLineOneConfidence, int& prevLineTwoConfidence, vector<string> & frameTexts, int wordConfidence, int lineConfidence)
+void SubtitleBox::doubleToSingleOCR(vector<cv::Mat> & SubtitleBoxLines, string & textLineOne, string & textLineTwo, int& lineOneConfidence, int& prevLineOneConfidence, int& prevLineTwoConfidence, vector<string> & frameTexts, int wordConfidence, int lineConfidence)
 {
 	frameTexts.push_back(textLineOne);
 	frameTexts.push_back(textLineTwo);
@@ -356,17 +356,17 @@ void SubtitleBox::doubleToSingleOCR(vector<cv::Mat> & ROIhalves, string & textLi
 	textLineOne.clear();
 	textLineTwo.clear();
 
-	thread t1(ocr, ROIhalves[0], ref(textLineOne), ref(lineOneConfidence), ref(wordConfidence), ref(lineConfidence));
+	thread t1(ocr, SubtitleBoxLines[0], ref(textLineOne), ref(lineOneConfidence), ref(wordConfidence), ref(lineConfidence));
 	t1.join();
 	prevLineOneConfidence = lineOneConfidence;
 	prevLineTwoConfidence = 0;
 }
 
-void SubtitleBox::singleToSingleOCR(vector<cv::Mat> & ROIhalves, string & readTextLineOne, string & textLineOne, int& lineOneConfidence, int& prevLineOneConfidence, vector<string> & frameTexts, int wordConfidence, int lineConfidence, double compareThreshold)
+void SubtitleBox::singleToSingleOCR(vector<cv::Mat> & SubtitleBoxLines, string & readTextLineOne, string & textLineOne, int& lineOneConfidence, int& prevLineOneConfidence, vector<string> & frameTexts, int wordConfidence, int lineConfidence, double compareThreshold)
 {
 	StringComparer stringComparer;
 
-	thread t1(ocr, ROIhalves[0], ref(readTextLineOne), ref(lineOneConfidence), ref(wordConfidence), ref(lineConfidence));
+	thread t1(ocr, SubtitleBoxLines[0], ref(readTextLineOne), ref(lineOneConfidence), ref(wordConfidence), ref(lineConfidence));
 	t1.join();
 
 	int JWdistance = stringComparer.jaroWinklerDistance(readTextLineOne, textLineOne);

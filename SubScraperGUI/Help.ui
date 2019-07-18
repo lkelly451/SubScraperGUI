@@ -23,7 +23,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>5</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="mainTab">
       <attribute name="title">
@@ -329,7 +329,7 @@ crop area manually. </string>
                     <string>Click the '...' button next to 'Video file to scan:' at the top of the screen, then use
 the file explorer to navigate to a video and select it.
 
-Subscraper supports .mp4 and .avi video formats.</string>
+Subscraper supports MPEG, .mp4 and .avi video formats.</string>
                    </property>
                   </widget>
                  </item>

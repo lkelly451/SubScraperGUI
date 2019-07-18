@@ -782,7 +782,7 @@ public:
 
         retranslateUi(Help);
 
-        helpMenu->setCurrentIndex(5);
+        helpMenu->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(Help);
@@ -813,7 +813,7 @@ public:
         label_3->setText(QCoreApplication::translate("Help", "Click the '...' button next to 'Video file to scan:' at the top of the screen, then use\n"
 "the file explorer to navigate to a video and select it.\n"
 "\n"
-"Subscraper supports .mp4 and .avi video formats.", nullptr));
+"Subscraper supports MPEG, .mp4 and .avi video formats.", nullptr));
         label_4->setText(QCoreApplication::translate("Help", "Cropping a subtitle zone", nullptr));
         label_5->setText(QCoreApplication::translate("Help", "After selecting a video, click the 'preview' at the top of the screen to preview \n"
 "the video in the viewing area. Use the '<<' and '>>' to navigate through\n"
