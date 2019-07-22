@@ -39,7 +39,7 @@ void SubtitleBox::getText(string& textLineOne, string& textLineTwo, int& prevLin
 
 	//filter out duplicate text outputs from previous frames and output result
 	Output o(outputFileName);
-	o.multiOutputResults(frameTexts, outTexts, outputFileName);
+	o.outputResults(frameTexts, outTexts, outputFileName);
 
 }
 
@@ -89,9 +89,8 @@ void SubtitleBox::ocr(cv::Mat image, std::string & frameText, int& confidence, i
 		if (ri != 0) {
 			frameText.clear();
 			do {
-				//only continue if confidence for the entire output averages over 70
+				//output if word confidence and line confidence thresholds are met
 				if (ri->Confidence(wordLevel) > wordConfidence && confidence > lineConfidence) {
-					//print word to console if confidence level is higher than 80
 					frameText.append(ri->GetUTF8Text(wordLevel));
 					frameText.append(" ");
 				}

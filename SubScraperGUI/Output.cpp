@@ -48,7 +48,7 @@ void Output::letterConverter()
 	remove(provisionalFileName.c_str());
 }
 
-void Output::multiOutputResults(vector<string>& frameTexts, string outTexts[2])
+void Output::outputResults(vector<string>& frameTexts, string outTexts[2])
 {
 	double JWdistance;
 	StringComparer stringComparer;
@@ -68,7 +68,7 @@ void Output::multiOutputResults(vector<string>& frameTexts, string outTexts[2])
 
 }
 
-void Output::multiOutputResults(vector<string>& frameTexts, string outTexts[2], string outputFileName)
+void Output::outputResults(vector<string>& frameTexts, string outTexts[2], string outputFileName)
 {
 	ofstream outputFile;
 	double JWdistance;

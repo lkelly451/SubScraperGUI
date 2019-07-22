@@ -387,13 +387,13 @@ bool Video::subtitleBoxCheck(cv::Mat image, int singleHeight, int doubleHeight)
 		//split the box
 		s.splitBox(image, ROIhalves, doubleHeight);
 
-		//analyse the whitespace in the box halves
+		//get the whitespace in the box halves
 		int whiteSpaceTop = countNonZero(ROIhalves[0]);
 		int totalPixelsTop = ROIhalves[0].cols * ROIhalves[0].rows;
 		float averageWhiteSpaceTop = (float)whiteSpaceTop / (float)totalPixelsTop;
 
-		//as the bottom subtitle line is often in different positions, run a 30px sliding window over the area and check for whitespace concentration of 60% \
-		  if an area is returned by widthCutterLeft, then an area has been detected
+		//as the bottom subtitle line is often in different positions, run a 30px sliding window over the area and check for whitespace concentration of 85% \
+		(higher concentration is due to the much smaller area checked)
 		if (averageWhiteSpaceTop > 0.4 && subtitleBoxBottomLineCheck(ROIhalves[1], 50)) {
 			return true;
 		}
@@ -520,7 +520,6 @@ void Video::markPotentialDuplicates(string outputFileName, int dupeThreshold)
 
 	while (getline(outputFile, line)) {
 		bool flag = false;
-		cout << "entered" << endl;
 		//first pass - append first line and store following line for future comparisons
 		if (prevLine.empty()) {
 			getline(outputFile, prevLine);
@@ -535,22 +534,16 @@ void Video::markPotentialDuplicates(string outputFileName, int dupeThreshold)
 			line.clear();
 		}
 		else {
-			cout << "PrevLine: " << prevLine << endl;
-			cout << "Line: " << line << endl;
-
 			//count the number of consecutive matches at the end of prevLine and beginning of line
 			if (line != " ") {
-				//need to establish that this match can only be at the end of prevLine/beginning of line
-				cout << "match check" << endl;
+				//iterate through line, checking if the previous line contains each character
 				string substring = line.substr(0, 1);
 				while (prevLine.find(substring) != string::npos) {
+					//increment matches for each character shared between the two
 					matches++;
 					if (matches > (line.length()) || matches > (prevLine.length())) {
 						break;
 					}
-					cout << "Matches: " << matches << endl;
-					cout << "Line length: " << line.size() << endl;
-					cout << "prevLine length: " << prevLine.size() << endl;
 					substring = line.substr(0, matches);
 				}
 			}
@@ -559,20 +552,13 @@ void Video::markPotentialDuplicates(string outputFileName, int dupeThreshold)
 			if (matches != 0) {
 				matches--;
 			}
-
-			cout << "Matches: " << matches << endl;
-			cout << endl;
-			//supposed to compare a match-length end slice of previous line with the beginning of line, but doesn't work?
+			//compare a match-length end slice of previous line with the beginning of line
 			if (matches > 0) {
 				for (size_t i = 0; i < matches; i++) {
 					if (line[i] == prevLine[((prevLine.length()) - matches) + i]) {
-						cout << "Line: " << line[i] << endl;
-						cout << "Prevline: " << prevLine[((prevLine.length()) - matches) + i] << endl;
 						locationCheck += 1;
 					}
 				}
-				cout << "LocationCheck: " << locationCheck << endl;
-
 				if (matches == locationCheck) {
 					flag = true;
 				}
@@ -580,7 +566,6 @@ void Video::markPotentialDuplicates(string outputFileName, int dupeThreshold)
 
 			//if number of matches equals the duplicate threshold, mark the duplicate in the text
 			if (matches > dupeThreshold && flag) {
-				cout << "match mark" << endl;
 				//delete old prevLine
 				for (size_t i = 0; i < prevLine.length(); i++) {
 					interim.pop_back();

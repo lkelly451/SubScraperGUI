@@ -1,4 +1,5 @@
 #include "SubScraperGUI.h"
+#include "StringComparer.h"
 
 
 SubScraperGUI::SubScraperGUI(QWidget *parent)

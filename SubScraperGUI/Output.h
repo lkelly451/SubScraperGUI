@@ -14,8 +14,8 @@ public:
 	Output(std::string outputFileName);
 	~Output();
 	void letterConverter();
-	void multiOutputResults(std::vector<std::string>& frameTexts, std::string outTexts[2]);
-	void multiOutputResults(std::vector<std::string>& frameTexts, std::string outTexts[2], std::string outputFileName);
+	void outputResults(std::vector<std::string>& frameTexts, std::string outTexts[2]);
+	void outputResults(std::vector<std::string>& frameTexts, std::string outTexts[2], std::string outputFileName);
 	void outputFinalLines(std::string textLineOne, std::string textLineTwo);
 };
 
