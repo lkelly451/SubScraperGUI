@@ -1,7 +1,6 @@
 #include "StringComparer.h"
 
 
-using namespace std;
 
 
 StringComparer::StringComparer()

@@ -9,6 +9,7 @@ class Frame
 private:
 	cv::Mat frame;
 public:
+	Frame();
 	Frame(cv::Mat frame);
 	~Frame();
 

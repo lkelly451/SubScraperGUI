@@ -1,8 +1,9 @@
 #include "SubtitleBox.h"
 
+SubtitleBox::SubtitleBox()
+{
 
-using namespace std;
-using namespace cv;
+}
 
 SubtitleBox::SubtitleBox(cv::Mat frame, int heightStart, int heightEnd)
 {
@@ -12,7 +13,7 @@ SubtitleBox::SubtitleBox(cv::Mat frame, int heightStart, int heightEnd)
 	if (interimFrame.channels() > 1) {
 		cv::cvtColor(interimFrame, interimFrame, cv::COLOR_BGR2GRAY);
 	}
-	//set height of subtitle box to boundaries identified during box scan
+	//set height of subtitle box 
 	interimFrame = interimFrame.rowRange(heightStart, heightEnd);
 
 	this->Box = interimFrame;
@@ -22,7 +23,7 @@ SubtitleBox::~SubtitleBox()
 {
 }
 
-void SubtitleBox::getText(string& textLineOne, string& textLineTwo, int& prevLineOneConfidence, int& prevLineTwoConfidence, vector<string> frameTexts, int doubleHeight, string outputFileName, string outTexts[2], int windowSizeLeft, int windowSizeRight, int wordConfidence, int lineConfidence, double compareThreshold)
+void SubtitleBox::getText(std::string& textLineOne, std::string& textLineTwo, int& prevLineOneConfidence, int& prevLineTwoConfidence, std::vector<std::string> frameTexts, int doubleHeight, std::string outputFileName, std::string outTexts[2], int windowSizeLeft, int windowSizeRight, int wordConfidence, int lineConfidence, double compareThreshold)
 {
 
 	//split ROI 
@@ -43,7 +44,7 @@ void SubtitleBox::getText(string& textLineOne, string& textLineTwo, int& prevLin
 
 }
 
-void SubtitleBox::splitBox(cv::Mat box, vector<cv::Mat>& dst, int doubleHeight)
+void SubtitleBox::splitBox(cv::Mat box, std::vector<cv::Mat>& dst, int doubleHeight)
 {
 	//split the image if it is the size of a double line subtitle box or bigger
 	if (box.rows >= doubleHeight) {
@@ -89,7 +90,8 @@ void SubtitleBox::ocr(cv::Mat image, std::string & frameText, int& confidence, i
 		if (ri != 0) {
 			frameText.clear();
 			do {
-				//output if word confidence and line confidence thresholds are met
+				//replace text prepared for output if confidence thresholds are met and the line confidence score is higher \
+				than previous prepared text's confidence
 				if (ri->Confidence(wordLevel) > wordConfidence && confidence > lineConfidence) {
 					frameText.append(ri->GetUTF8Text(wordLevel));
 					frameText.append(" ");
@@ -101,7 +103,7 @@ void SubtitleBox::ocr(cv::Mat image, std::string & frameText, int& confidence, i
 	ocr->End();
 }
 
-void SubtitleBox::addBorders(vector<cv::Mat> & SubtitleBoxLines)
+void SubtitleBox::addBorders(std::vector<cv::Mat> & SubtitleBoxLines)
 {
 	//loop through the ROI areas
 	for (size_t i = 0; i < SubtitleBoxLines.size(); i++) {
@@ -113,10 +115,10 @@ void SubtitleBox::addBorders(vector<cv::Mat> & SubtitleBoxLines)
 	}
 }
 
-void SubtitleBox::multiOCR(vector<cv::Mat> & SubtitleBoxLines, string & textLineOne, string & textLineTwo, vector<string> & frameTexts, int& prevLineOneConfidence, int& prevLineTwoConfidence, int wordConfidence, int lineConfidence, double compareThreshold)
+void SubtitleBox::multiOCR(std::vector<cv::Mat> & SubtitleBoxLines, std::string & textLineOne, std::string & textLineTwo, std::vector<std::string> & frameTexts, int& prevLineOneConfidence, int& prevLineTwoConfidence, int wordConfidence, int lineConfidence, double compareThreshold)
 {
-	string readTextLineOne;
-	string readTextLineTwo;
+	std::string readTextLineOne;
+	std::string readTextLineTwo;
 	double JWdistance;
 	double JWdistance2;
 	int lineOneConfidence;
@@ -171,7 +173,7 @@ int SubtitleBox::widthCutterRight(cv::Mat image, int sliceWidth)
 	int blackCount;
 	float averageBlack;
 	float averageWhite;
-	vector<int> sliceAt;
+	std::vector<int> sliceAt;
 	for (int slices = 0; slices < (image.cols - sliceWidth); slices++) {
 		cv::Mat slice = image.colRange(start, start + sliceWidth);
 		pixelCount = slice.cols * slice.rows;
@@ -212,7 +214,7 @@ int SubtitleBox::widthCutterLeft(cv::Mat image, int sliceWidth)
 	int blackCount;
 	float averageBlack;
 	float averageWhite;
-	vector<int> sliceAt;
+	std::vector<int> sliceAt;
 	//return zero if no window is used
 	if (sliceWidth == 0) {
 		return 0;
@@ -251,7 +253,7 @@ void SubtitleBox::boxPreprocessing(cv::Mat image, cv::Mat & dst)
 	morphologyEx(dst, dst, cv::MORPH_CLOSE, kernel);
 }
 
-void SubtitleBox::reduceWidth(vector<cv::Mat> & SubtitleBoxLines, int windowSizeLeft, int windowSizeRight)
+void SubtitleBox::reduceWidth(std::vector<cv::Mat> & SubtitleBoxLines, int windowSizeLeft, int windowSizeRight)
 {
 	cv::Mat morph;
 	for (size_t i = 0; i < SubtitleBoxLines.size(); i++) {
@@ -263,40 +265,42 @@ void SubtitleBox::reduceWidth(vector<cv::Mat> & SubtitleBoxLines, int windowSize
 	}
 }
 
-void SubtitleBox::doubleFirstPassOCR(vector<cv::Mat> & SubtitleBoxLines, string & textLineOne, string & textLineTwo, int& prevLineOneConfidence, int& prevLineTwoConfidence, int wordConfidence, int lineConfidence)
+void SubtitleBox::doubleFirstPassOCR(std::vector<cv::Mat> & SubtitleBoxLines, std::string & textLineOne, std::string & textLineTwo, int& prevLineOneConfidence, int& prevLineTwoConfidence, int wordConfidence, int lineConfidence)
 {
-	thread t1(ocr, SubtitleBoxLines[0], ref(textLineOne), ref(prevLineOneConfidence), ref(wordConfidence), ref(lineConfidence));
-	thread t2(ocr, SubtitleBoxLines[1], ref(textLineTwo), ref(prevLineTwoConfidence), ref(wordConfidence), ref(lineConfidence));
+	std::thread t1(ocr, SubtitleBoxLines[0], std::ref(textLineOne), std::ref(prevLineOneConfidence), std::ref(wordConfidence), std::ref(lineConfidence));
+	std::thread t2(ocr, SubtitleBoxLines[1], std::ref(textLineTwo), std::ref(prevLineTwoConfidence), std::ref(wordConfidence), std::ref(lineConfidence));
 
 	t1.join();
 	t2.join();
 }
 
-void SubtitleBox::singleToDoubleOCR(vector<cv::Mat> & SubtitleBoxLines, string & textLineOne, string & textLineTwo, string & readTextLineOne, string & readTextLineTwo, int& lineOneConfidence, int& lineTwoConfidence, int& prevLineOneConfidence, int& prevLineTwoConfidence, vector<string> & frameTexts, int wordConfidence, int lineConfidence)
+void SubtitleBox::singleToDoubleOCR(std::vector<cv::Mat> & SubtitleBoxLines, std::string & textLineOne, std::string & textLineTwo, std::string & readTextLineOne, std::string & readTextLineTwo, int& lineOneConfidence, int& lineTwoConfidence, int& prevLineOneConfidence, int& prevLineTwoConfidence, std::vector<std::string> & frameTexts, int wordConfidence, int lineConfidence)
 {
 	frameTexts.push_back(textLineOne);
 
-	thread t1(ocr, SubtitleBoxLines[0], ref(readTextLineOne), ref(lineOneConfidence), ref(wordConfidence), ref(lineConfidence));
-	thread t2(ocr, SubtitleBoxLines[1], ref(readTextLineTwo), ref(lineTwoConfidence), ref(wordConfidence), ref(lineConfidence));
+	std::thread t1(ocr, SubtitleBoxLines[0], std::ref(readTextLineOne), std::ref(lineOneConfidence), std::ref(wordConfidence), std::ref(lineConfidence));
+	std::thread t2(ocr, SubtitleBoxLines[1], std::ref(readTextLineTwo), std::ref(lineTwoConfidence), std::ref(wordConfidence), std::ref(lineConfidence));
 
 	t1.join();
 	t2.join();
 
+	//update text line and confidence value for future comparisons
 	textLineOne = readTextLineOne;
 	prevLineOneConfidence = lineOneConfidence;
 
+	//update text line and confidence values for future comparisons
 	textLineTwo = readTextLineTwo;
 	prevLineTwoConfidence = lineTwoConfidence;
 }
 
-void SubtitleBox::doubleToDoubleOCR(vector<cv::Mat> & SubtitleBoxLines, string & textLineOne, string & textLineTwo, string & readTextLineOne, string & readTextLineTwo, int& lineOneConfidence, int& lineTwoConfidence, int& prevLineOneConfidence, int& prevLineTwoConfidence, vector<string> & frameTexts, int wordConfidence, int lineConfidence, double compareThreshold)
+void SubtitleBox::doubleToDoubleOCR(std::vector<cv::Mat> & SubtitleBoxLines, std::string & textLineOne, std::string & textLineTwo, std::string & readTextLineOne, std::string & readTextLineTwo, int& lineOneConfidence, int& lineTwoConfidence, int& prevLineOneConfidence, int& prevLineTwoConfidence, std::vector<std::string> & frameTexts, int wordConfidence, int lineConfidence, double compareThreshold)
 {
 	StringComparer stringComparer;
 	double JWdistance;
 	double JWdistance2;
 
-	thread t1(ocr, SubtitleBoxLines[0], ref(readTextLineOne), ref(lineOneConfidence), ref(wordConfidence), ref(lineConfidence));
-	thread t2(ocr, SubtitleBoxLines[1], ref(readTextLineTwo), ref(lineTwoConfidence), ref(wordConfidence), ref(lineConfidence));
+	std::thread t1(ocr, SubtitleBoxLines[0], std::ref(readTextLineOne), std::ref(lineOneConfidence), std::ref(wordConfidence), std::ref(lineConfidence));
+	std::thread t2(ocr, SubtitleBoxLines[1], std::ref(readTextLineTwo), std::ref(lineTwoConfidence), std::ref(wordConfidence), std::ref(lineConfidence));
 
 	t1.join();
 	t2.join();
@@ -340,14 +344,14 @@ void SubtitleBox::doubleToDoubleOCR(vector<cv::Mat> & SubtitleBoxLines, string &
 	}
 }
 
-void SubtitleBox::singleFirstPassOCR(vector<cv::Mat> & SubtitleBoxLines, string & textLineOne, int& lineOneConfidence, int& prevLineOneConfidence, int wordConfidence, int lineConfidence)
+void SubtitleBox::singleFirstPassOCR(std::vector<cv::Mat> & SubtitleBoxLines, std::string & textLineOne, int& lineOneConfidence, int& prevLineOneConfidence, int wordConfidence, int lineConfidence)
 {
-	thread t1(ocr, SubtitleBoxLines[0], ref(textLineOne), ref(lineOneConfidence), ref(wordConfidence), ref(lineConfidence));
+	std::thread t1(ocr, SubtitleBoxLines[0], std::ref(textLineOne), std::ref(lineOneConfidence), std::ref(wordConfidence), std::ref(lineConfidence));
 	t1.join();
 	prevLineOneConfidence = lineOneConfidence;
 }
 
-void SubtitleBox::doubleToSingleOCR(vector<cv::Mat> & SubtitleBoxLines, string & textLineOne, string & textLineTwo, int& lineOneConfidence, int& prevLineOneConfidence, int& prevLineTwoConfidence, vector<string> & frameTexts, int wordConfidence, int lineConfidence)
+void SubtitleBox::doubleToSingleOCR(std::vector<cv::Mat> & SubtitleBoxLines, std::string & textLineOne, std::string & textLineTwo, int& lineOneConfidence, int& prevLineOneConfidence, int& prevLineTwoConfidence, std::vector<std::string> & frameTexts, int wordConfidence, int lineConfidence)
 {
 	frameTexts.push_back(textLineOne);
 	frameTexts.push_back(textLineTwo);
@@ -355,17 +359,17 @@ void SubtitleBox::doubleToSingleOCR(vector<cv::Mat> & SubtitleBoxLines, string &
 	textLineOne.clear();
 	textLineTwo.clear();
 
-	thread t1(ocr, SubtitleBoxLines[0], ref(textLineOne), ref(lineOneConfidence), ref(wordConfidence), ref(lineConfidence));
+	std::thread t1(ocr, SubtitleBoxLines[0], std::ref(textLineOne), std::ref(lineOneConfidence), std::ref(wordConfidence), std::ref(lineConfidence));
 	t1.join();
 	prevLineOneConfidence = lineOneConfidence;
 	prevLineTwoConfidence = 0;
 }
 
-void SubtitleBox::singleToSingleOCR(vector<cv::Mat> & SubtitleBoxLines, string & readTextLineOne, string & textLineOne, int& lineOneConfidence, int& prevLineOneConfidence, vector<string> & frameTexts, int wordConfidence, int lineConfidence, double compareThreshold)
+void SubtitleBox::singleToSingleOCR(std::vector<cv::Mat> & SubtitleBoxLines, std::string & readTextLineOne, std::string & textLineOne, int& lineOneConfidence, int& prevLineOneConfidence, std::vector<std::string> & frameTexts, int wordConfidence, int lineConfidence, double compareThreshold)
 {
 	StringComparer stringComparer;
 
-	thread t1(ocr, SubtitleBoxLines[0], ref(readTextLineOne), ref(lineOneConfidence), ref(wordConfidence), ref(lineConfidence));
+	std::thread t1(ocr, SubtitleBoxLines[0], std::ref(readTextLineOne), std::ref(lineOneConfidence), std::ref(wordConfidence), std::ref(lineConfidence));
 	t1.join();
 
 	int JWdistance = stringComparer.jaroWinklerDistance(readTextLineOne, textLineOne);

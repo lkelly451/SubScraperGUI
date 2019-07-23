@@ -14,6 +14,7 @@ private:
 	cv::Mat Box;
 	std::vector<cv::Mat> SubtitleBoxLines;
 public:
+	SubtitleBox();
 	SubtitleBox(cv::Mat frame, int heightStart, int heightEnd);
 	~SubtitleBox();
 

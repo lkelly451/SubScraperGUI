@@ -3,6 +3,11 @@
 
 using namespace std;
 
+Frame::Frame()
+{
+
+}
+
 Frame::Frame(cv::Mat frame)
 {
 	//clone here to prevent underlying Video frame from being altered

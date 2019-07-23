@@ -2,7 +2,7 @@
 #include "StringComparer.h"
 
 
-SubScraperGUI::SubScraperGUI(QWidget *parent)
+SubScraperGUI::SubScraperGUI(QWidget* parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
@@ -19,9 +19,8 @@ SubScraperGUI::SubScraperGUI(QWidget *parent)
 	this->layout()->setMenuBar(menuBar);
 
 	connect(help, &QAction::triggered, this, &SubScraperGUI::on_help_clicked);
-	connect(about, &QAction::triggered, this, &SubScraperGUI::on_about_clicked);
+	connect(about, &QAction::triggered, this, &SubScraperGUI::on_about_clicked);	
 }
-
 void SubScraperGUI::on_continueButton_clicked()
 {
 	//move to new window depending on radio button selection

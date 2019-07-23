@@ -1,8 +1,7 @@
 #include "Output.h"
 
-using namespace std;
 
-Output::Output(string outputFileName)
+Output::Output(std::string outputFileName)
 {
 
 	this->outputFileName = outputFileName;
@@ -18,9 +17,9 @@ Output::~Output()
 //Deletes and replaces some common OCR mistakes
 void Output::letterConverter()
 {
-	string provisionalFileName = outputFileName + "prov";
-	ifstream output(provisionalFileName);
-	ofstream outputFile(outputFileName);
+	std::string provisionalFileName = outputFileName + "prov";
+	std::ifstream output(provisionalFileName);
+	std::ofstream outputFile(outputFileName);
 	cv::String interimOutput;
 
 	while (getline(output, interimOutput)) {
@@ -37,9 +36,9 @@ void Output::letterConverter()
 			}
 		}
 
-		outputFile << interimOutput << endl;
-		cout << "Executed" << endl;
-		cout << interimOutput << endl;
+		outputFile << interimOutput << std::endl;
+		std::cout << "Executed" << std::endl;
+		std::cout << interimOutput << std::endl;
 	}
 
 
@@ -48,7 +47,7 @@ void Output::letterConverter()
 	remove(provisionalFileName.c_str());
 }
 
-void Output::outputResults(vector<string>& frameTexts, string outTexts[2])
+void Output::outputResults(std::vector<std::string>& frameTexts, std::string outTexts[2])
 {
 	double JWdistance;
 	StringComparer stringComparer;
@@ -59,7 +58,7 @@ void Output::outputResults(vector<string>& frameTexts, string outTexts[2])
 		//then print it to console
 		if (JWdistance < 0.7 && !frameTexts[i].empty()) {
 			outTexts[i] = frameTexts[i];
-			cout << i << outTexts[i] << endl;
+			std::cout << i << outTexts[i] << std::endl;
 		}
 
 	}
@@ -68,9 +67,9 @@ void Output::outputResults(vector<string>& frameTexts, string outTexts[2])
 
 }
 
-void Output::outputResults(vector<string>& frameTexts, string outTexts[2], string outputFileName)
+void Output::outputResults(std::vector<std::string>& frameTexts, std::string outTexts[2], std::string outputFileName)
 {
-	ofstream outputFile;
+	std::ofstream outputFile;
 	double JWdistance;
 	StringComparer stringComparer;
 	if (!frameTexts.empty()) {
@@ -87,17 +86,17 @@ void Output::outputResults(vector<string>& frameTexts, string outTexts[2], strin
 				output.pop_back();
 			}
 			JWdistance = stringComparer.jaroWinklerDistance(output, outTexts[i]);
-			cout << "frameText/output: " << output << endl;
-			cout << "frameText/output length: " << output.length() << endl;
-			cout << "outText: " << outTexts[i] << endl;
-			cout << "JW distance: " << JWdistance << endl;
+			std::cout << "frameText/output: " << output << std::endl;
+			std::cout << "frameText/output length: " << output.length() << std::endl;
+			std::cout << "outText: " << outTexts[i] << std::endl;
+			std::cout << "JW distance: " << JWdistance << std::endl;
 
 
 			//store text if it isn't too similar to previously output text (and isn't empty), then output to text file
 			if (JWdistance < 0.75 && !output.empty()) {
 
-				outputFile.open(outputFileName + "prov", ios_base::app);
-				outputFile << output << endl;
+				outputFile.open(outputFileName + "prov", std::ios_base::app);
+				outputFile << output << std::endl;
 				outputFile.close();
 				outTexts[i] = output;
 
@@ -109,18 +108,18 @@ void Output::outputResults(vector<string>& frameTexts, string outTexts[2], strin
 	}
 }
 //outputs final lines, which will be left in textLineOne and textLineTwo just before the program OCR loop terminates
-void Output::outputFinalLines(string textLineOne, string textLineTwo)
+void Output::outputFinalLines(std::string textLineOne, std::string textLineTwo)
 {
-	ofstream outputFile;
+	std::ofstream outputFile;
 
 	if (!textLineOne.empty()) {
-		outputFile.open(outputFileName + "prov", ios_base::app);
+		outputFile.open(outputFileName + "prov", std::ios_base::app);
 		outputFile << textLineOne << "\n ";
 		outputFile.close();
 	}
 
 	if (!textLineTwo.empty()) {
-		outputFile.open(outputFileName + "prov", ios_base::app);
+		outputFile.open(outputFileName + "prov", std::ios_base::app);
 		outputFile << textLineTwo << "\n ";
 		outputFile.close();
 	}
