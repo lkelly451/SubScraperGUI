@@ -84,7 +84,7 @@ void HeightSelect::on_continueButton_clicked()
 			messageBox.warning(0, "Box height cannot be larger than the image", "Please specify a box height that is within the image boundaries");
 			messageBox.setFixedSize(500, 200);
 		}
-		else if (ui.doubleLineEdit->text().toInt() == 0 || ui.singleLineEdit->text().toInt()==0) {
+		else if (ui.doubleLineEdit->text().toInt() == 0 && !ui.autoCheckBox->isChecked() || ui.singleLineEdit->text().toInt()==0 && !ui.autoCheckBox->isChecked()) {
 			QMessageBox messageBox;
 			messageBox.warning(0, "Box heights cannot be zero", "Please input a height for single and double line boxes that is greater than zero");
 			messageBox.setFixedSize(500, 200);

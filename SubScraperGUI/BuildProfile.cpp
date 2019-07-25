@@ -75,6 +75,12 @@ void BuildProfile::on_backButton_clicked()
 
 void BuildProfile::on_continueButton_clicked()
 {
+	//get the file extension of the video file selected by the user
+	std::string inputFileName = ui.inputLineEdit->text().toStdString();
+	std::string inputFileExtension;
+	int positionFileExtension = (inputFileName.find_last_of('.') + 1);
+	inputFileExtension = inputFileName.substr(positionFileExtension, (inputFileName.length() - positionFileExtension));
+
 	if (ui.widthBegin->text().isEmpty() || ui.widthEnd->text().isEmpty() || ui.heightBegin->text().isEmpty() || ui.heightEnd->text().isEmpty() || ui.inputLineEdit->text().isEmpty() || frame.empty()) {
 		QMessageBox messageBox;
 		messageBox.warning(0, "Cannot continue without required information", "Please select a video file, click preview to check it and ensure all crop height and width parameters are filled before continuing.");
@@ -86,7 +92,18 @@ void BuildProfile::on_continueButton_clicked()
 		messageBox.warning(0, "Crop parameters outside image bounds", "Please crop an area within the image");
 		messageBox.setFixedSize(500, 200);
 	}
+	else if (ui.widthEnd->text().toInt() < 0 || ui.widthBegin->text().toInt() < 0 || ui.heightEnd->text().toInt() < 0 || ui.heightBegin->text().toInt() < 0) {
+		QMessageBox messageBox;
+		messageBox.warning(0, "Crop parameters outside image bounds", "One of the crop parameters is a negative. Please preview the video, then crop an area within it.");
+		messageBox.setFixedSize(500, 200);
+	}
+	else if (inputFileExtension != "avi" && inputFileExtension != "mp4" && inputFileExtension != "mpeg") {
+		QMessageBox messageBox;
+		messageBox.warning(0, "Invalid video file type", "Please select a video of type .avi, .mp4 or .mpeg.");
+		messageBox.setFixedSize(500, 200);
+	}
 	else {
+		cout << (ui.widthEnd->text().toInt() - ui.widthBegin->text().toInt()) << endl;
 		HeightSelect* heightSelect = new HeightSelect(ui.widthBegin->text(), ui.widthEnd->text(), ui.heightBegin->text(), ui.heightEnd->text(), ui.inputLineEdit->text(), cap.get(CAP_PROP_POS_FRAMES));
 		heightSelect->setAttribute(Qt::WA_DeleteOnClose);
 		heightSelect->show();
@@ -97,7 +114,7 @@ void BuildProfile::on_continueButton_clicked()
 void BuildProfile::on_fileSelect_clicked()
 {
 	QString filename = QFileDialog::getOpenFileName(
-	this, tr("Open File"), "C://", tr("Videos (*.mkv *.avi *.mp4 *.wmv)"));
+	this, tr("Open File"), "C://", tr("Videos (*.mkv *.avi *.mp4)"));
 	ui.inputLineEdit->setText(filename);
 }
 

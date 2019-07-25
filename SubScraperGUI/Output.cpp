@@ -46,7 +46,7 @@ void Output::letterConverter()
 	outputFile.close();
 	remove(provisionalFileName.c_str());
 }
-
+//Outputs results to console
 void Output::outputResults(std::vector<std::string>& frameTexts, std::string outTexts[2])
 {
 	double JWdistance;
@@ -66,7 +66,7 @@ void Output::outputResults(std::vector<std::string>& frameTexts, std::string out
 	frameTexts.clear();
 
 }
-
+//Outputs results to text file
 void Output::outputResults(std::vector<std::string>& frameTexts, std::string outTexts[2], std::string outputFileName)
 {
 	std::ofstream outputFile;

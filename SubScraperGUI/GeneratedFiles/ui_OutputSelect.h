@@ -11,7 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
-#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QFormLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -25,19 +25,22 @@ QT_BEGIN_NAMESPACE
 class Ui_OutputSelect
 {
 public:
-    QGridLayout *gridLayout;
+    QFormLayout *formLayout;
+    QVBoxLayout *verticalLayout_3;
+    QHBoxLayout *horizontalLayout_12;
     QVBoxLayout *verticalLayout_2;
     QLabel *outputLabel;
     QHBoxLayout *horizontalLayout_2;
     QLineEdit *outputLineEdit;
     QPushButton *outputFileSelect;
-    QVBoxLayout *verticalLayout_4;
+    QSpacerItem *horizontalSpacer_9;
+    QHBoxLayout *horizontalLayout_11;
     QVBoxLayout *verticalLayout;
-    QHBoxLayout *horizontalLayout;
     QLabel *profileLabel;
+    QHBoxLayout *horizontalLayout;
     QLineEdit *profileName;
     QPushButton *saveProfileButton;
-    QLabel *continueWarning;
+    QSpacerItem *horizontalSpacer_10;
     QVBoxLayout *verticalLayout_5;
     QLabel *advancedLabel;
     QHBoxLayout *horizontalLayout_5;
@@ -84,11 +87,17 @@ public:
     {
         if (OutputSelect->objectName().isEmpty())
             OutputSelect->setObjectName(QString::fromUtf8("OutputSelect"));
-        OutputSelect->resize(580, 345);
-        gridLayout = new QGridLayout(OutputSelect);
-        gridLayout->setSpacing(6);
-        gridLayout->setContentsMargins(11, 11, 11, 11);
-        gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
+        OutputSelect->resize(390, 390);
+        formLayout = new QFormLayout(OutputSelect);
+        formLayout->setSpacing(6);
+        formLayout->setContentsMargins(11, 11, 11, 11);
+        formLayout->setObjectName(QString::fromUtf8("formLayout"));
+        verticalLayout_3 = new QVBoxLayout();
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setObjectName(QString::fromUtf8("verticalLayout_3"));
+        horizontalLayout_12 = new QHBoxLayout();
+        horizontalLayout_12->setSpacing(6);
+        horizontalLayout_12->setObjectName(QString::fromUtf8("horizontalLayout_12"));
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setSpacing(6);
         verticalLayout_2->setObjectName(QString::fromUtf8("verticalLayout_2"));
@@ -116,22 +125,29 @@ public:
         verticalLayout_2->addLayout(horizontalLayout_2);
 
 
-        gridLayout->addLayout(verticalLayout_2, 0, 0, 1, 1);
+        horizontalLayout_12->addLayout(verticalLayout_2);
 
-        verticalLayout_4 = new QVBoxLayout();
-        verticalLayout_4->setSpacing(6);
-        verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
+        horizontalSpacer_9 = new QSpacerItem(198, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_12->addItem(horizontalSpacer_9);
+
+
+        verticalLayout_3->addLayout(horizontalLayout_12);
+
+        horizontalLayout_11 = new QHBoxLayout();
+        horizontalLayout_11->setSpacing(6);
+        horizontalLayout_11->setObjectName(QString::fromUtf8("horizontalLayout_11"));
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(6);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
-        horizontalLayout = new QHBoxLayout();
-        horizontalLayout->setSpacing(6);
-        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         profileLabel = new QLabel(OutputSelect);
         profileLabel->setObjectName(QString::fromUtf8("profileLabel"));
 
-        horizontalLayout->addWidget(profileLabel);
+        verticalLayout->addWidget(profileLabel);
 
+        horizontalLayout = new QHBoxLayout();
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setObjectName(QString::fromUtf8("horizontalLayout"));
         profileName = new QLineEdit(OutputSelect);
         profileName->setObjectName(QString::fromUtf8("profileName"));
 
@@ -145,16 +161,18 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
-        continueWarning = new QLabel(OutputSelect);
-        continueWarning->setObjectName(QString::fromUtf8("continueWarning"));
 
-        verticalLayout->addWidget(continueWarning);
+        horizontalLayout_11->addLayout(verticalLayout);
+
+        horizontalSpacer_10 = new QSpacerItem(148, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_11->addItem(horizontalSpacer_10);
 
 
-        verticalLayout_4->addLayout(verticalLayout);
+        verticalLayout_3->addLayout(horizontalLayout_11);
 
 
-        gridLayout->addLayout(verticalLayout_4, 0, 1, 1, 1);
+        formLayout->setLayout(0, QFormLayout::LabelRole, verticalLayout_3);
 
         verticalLayout_5 = new QVBoxLayout();
         verticalLayout_5->setSpacing(6);
@@ -526,7 +544,7 @@ public:
         verticalLayout_5->addLayout(horizontalLayout_10);
 
 
-        gridLayout->addLayout(verticalLayout_5, 1, 0, 1, 2);
+        formLayout->setLayout(1, QFormLayout::LabelRole, verticalLayout_5);
 
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setSpacing(6);
@@ -537,7 +555,7 @@ public:
 
         horizontalLayout_4->addWidget(backButton);
 
-        horizontalSpacer = new QSpacerItem(398, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        horizontalSpacer = new QSpacerItem(198, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
         horizontalLayout_4->addItem(horizontalSpacer);
 
@@ -548,7 +566,7 @@ public:
         horizontalLayout_4->addWidget(goButton);
 
 
-        gridLayout->addLayout(horizontalLayout_4, 2, 0, 1, 2);
+        formLayout->setLayout(2, QFormLayout::LabelRole, horizontalLayout_4);
 
 
         retranslateUi(OutputSelect);
@@ -563,7 +581,6 @@ public:
         outputFileSelect->setText(QCoreApplication::translate("OutputSelect", "...", nullptr));
         profileLabel->setText(QCoreApplication::translate("OutputSelect", "Profile name:", nullptr));
         saveProfileButton->setText(QCoreApplication::translate("OutputSelect", "Save Profile", nullptr));
-        continueWarning->setText(QString());
         advancedLabel->setText(QCoreApplication::translate("OutputSelect", "Advanced options (mouse over 'i' next to each option for more information): ", nullptr));
         lengthFilterLabel->setText(QCoreApplication::translate("OutputSelect", "Box length filter(px):                          ", nullptr));
         lengthFilterLineEdit->setText(QCoreApplication::translate("OutputSelect", "0", nullptr));

@@ -58,7 +58,7 @@ void ExistingProfiles::on_backButton_clicked()
 void ExistingProfiles::on_fileSelect_clicked()
 {
 	QString filename = QFileDialog::getOpenFileName(
-		this, tr("Open File"), "C://", tr("Videos (*.mkv *.avi *.mp4 *.wmv)"));
+		this, tr("Open File"), "C://", tr("Videos (*.mkv *.avi *.mp4)"));
 	ui.inputLineEdit->setText(filename);
 }
 
@@ -118,14 +118,29 @@ void ExistingProfiles::on_goButton_clicked()
 	inputFileName = ui.inputLineEdit->text();
 	outputFileName = ui.outputLineEdit->text();
 
+	//get the file extension of the video file selected by the user
+	std::string fullFileName = ui.inputLineEdit->text().toStdString();
+	std::string inputFileExtension;
+	int positionFileExtension = (fullFileName.find_last_of('.') + 1);
+	inputFileExtension = fullFileName.substr(positionFileExtension, (inputFileName.length() - positionFileExtension));
+
+	
 	//if inputs are all filled, get subtitles
 	if (!inputFileName.isEmpty() && !outputFileName.isEmpty() && cropWidthStart >= 0 && cropWidthEnd >= 0 && cropHeightStart >= 0 && cropHeightEnd >= 0 && singleHeight >= 0 && doubleHeight >= 0 && dropLength >=0
 		&& windowSizeLeft >= 0 && windowSizeRight >= 0 && wordConfidence >= 0 && lineConfidence >= 0 && compareThreshold >= 0) {
-		Diagnostics* diagnostics = new Diagnostics(singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength, windowSizeLeft, windowSizeRight, wordConfidence, lineConfidence,
-			dupeThreshold, compareThreshold, inputFileName.toStdString(), outputFileName.toStdString(), autoDetectHeights, false);
-		diagnostics->setAttribute(Qt::WA_DeleteOnClose);
-		diagnostics->show();
-		this->close();
+		//error if video file extension is invalid
+		if (inputFileExtension != "avi" && inputFileExtension != "mp4" && inputFileExtension != "mpeg") {
+			QMessageBox messageBox;
+			messageBox.warning(0, "Invalid video file type", "Please select a video of type .avi, .mp4 or .mpeg.");
+			messageBox.setFixedSize(500, 200);
+		}
+		else {
+			Diagnostics* diagnostics = new Diagnostics(singleHeight, doubleHeight, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd, dropLength, windowSizeLeft, windowSizeRight, wordConfidence, lineConfidence,
+				dupeThreshold, compareThreshold, inputFileName.toStdString(), outputFileName.toStdString(), autoDetectHeights, false);
+			diagnostics->setAttribute(Qt::WA_DeleteOnClose);
+			diagnostics->show();
+			this->close();
+		}
 	}
 	//alternative branch for scanning multiple files
 	else if (!ui.multiLineEdit->text().isEmpty() && !ui.multiOutputLineEdit->text().isEmpty() && cropWidthStart >= 0 && cropWidthEnd >= 0 && cropHeightStart >= 0 && cropHeightEnd >= 0 && singleHeight >= 0 && doubleHeight >= 0 && dropLength >= 0
@@ -155,9 +170,6 @@ void ExistingProfiles::on_deleteProfileButton_clicked()
 			if (line == selectedProfile) {
 				for (size_t i = 0; i < 15; i++) {
 					loadProfile.ignore(256, '\n');
-					QMessageBox messageBox;
-					messageBox.information(0, "Profile deleted", "Profile has been deleted");
-					messageBox.setFixedSize(500, 200);
 				}
 			}
 			else {
@@ -192,6 +204,10 @@ void ExistingProfiles::on_deleteProfileButton_clicked()
 		//load attributes of default selected profile
 		on_item_clicked(ui.profileList->currentItem());
 	}
+
+	QMessageBox messageBox;
+	messageBox.information(0, "Profile deleted", "Profile has been deleted");
+	messageBox.setFixedSize(500, 200);
 
 }
 

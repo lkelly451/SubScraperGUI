@@ -5,6 +5,10 @@
 using namespace std;
 using namespace cv;
 
+Video::Video() {
+
+}
+
 Video::Video(std::string inputFileName, std::string outputFileName, int singleHeight, int doubleHeight, int cropHeightStart, int cropHeightEnd, int cropWidthStart, int cropWidthEnd,  int dropLength, int windowSizeLeft,
 	int windowSizeRight, bool autoDetectHeights, int wordConfidence, int lineConfidence, double compareThreshold, int dupeThreshold) {
 	this->inputFileName = inputFileName;
@@ -45,6 +49,10 @@ void Video::run(){
 	map<int, int> frequency;
 	double frameProgress;
 	
+	//get file extension of video file
+	std::string inputFileExtension;
+	int positionFileExtension = (inputFileName.find_last_of('.') + 1);
+	inputFileExtension = inputFileName.substr(positionFileExtension, (inputFileName.length() - positionFileExtension));
 
 	if (!cap.isOpened()) {
 		cancelled = true;
@@ -66,6 +74,11 @@ void Video::run(){
 		emit error(QString("The output comparison threshold is not set between 0.0 and 1.0. Please try a different profile, or use build profile to build a new one with a valid output comparison threshold. This video will be skipped."));
 	}
 
+	if (inputFileExtension != "avi" && inputFileExtension != "mp4" && inputFileExtension != "mpeg") {
+		cancelled = true;
+		emit error(QString("Invalid video file type. This file will be skipped."));
+	}
+
 
 	
 	//Auto detect subtitle heights
@@ -78,7 +91,11 @@ void Video::run(){
 
 			cap >> frame;
 
-			if (cropHeightStart <= frame.rows || cropHeightEnd <= frame.rows || cropWidthStart <= frame.cols || cropWidthEnd <= frame.cols) {
+			if (frame.empty()) {
+				break;
+			}
+
+			if (cropHeightStart > frame.rows || cropHeightEnd > frame.rows || cropWidthStart > frame.cols || cropWidthEnd > frame.cols) {
 				cancelled = true;
 				emit error(QString("The profile crop parameters are outside the range of this video. Please try a different profile, or use build profile to build a new one with a smaller cropped area. This video will be skipped."));
 			}
@@ -104,9 +121,7 @@ void Video::run(){
 				cap.grab();
 			}
 
-			if (frame.empty()) {
-				break;
-			}
+			
 
 			//crop frame image
 			crop(frame, frame, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd);
@@ -143,14 +158,38 @@ void Video::run(){
 
 		cap >> frame;
 
+		if (frame.empty()) {
+			break;
+		}
+
+		if (cropHeightStart > frame.rows || cropHeightEnd > frame.rows || cropWidthStart > frame.cols || cropWidthEnd > frame.cols) {
+			cancelled = true;
+			emit error(QString("The profile crop parameters are outside the range of this video. Please try a different profile, or use build profile to build a new one with a smaller cropped area. This video will be skipped."));
+		}
+		if (singleHeight > frame.rows || doubleHeight > frame.rows) {
+			cancelled = true;
+			emit error(QString("The subtitle height parameters are outside the range of this video. Please try a different profile, or use build profile to build a new one with smaller height parameters. This video will be skipped."));
+		}
+		if (dropLength > frame.cols) {
+			cancelled = true;
+			emit error(QString("The box length filter threshold is wider than the video frames. Please try a different profile, or use build profile to build a new one with a lower threshold. This video will be skipped."));
+		}
+		if (windowSizeLeft > frame.cols) {
+			cancelled = true;
+			emit error(QString("The left sliding window is wider than the video frames. Please try a different profile, or use build profile to build a new one with a smaller sliding window value. This video will be skipped."));
+		}
+		if (windowSizeRight > frame.cols) {
+			cancelled = true;
+			emit error(QString("The right sliding window is wider than the video frames. Please try a different profile, or use build profile to build a new one with a smaller sliding window value. This video will be skipped."));
+		}
+
+
 		//skip 15 frames (around half a second at 30fps - most subs are up for four, shortest seems to be around one)
 		for (int i = 0; i < 15; i++) {
 			cap.grab();
 		}
 
-		if (frame.empty()) {
-			break;
-		}
+		
 		//crop frame image
 		crop(frame, frame, cropHeightStart, cropHeightEnd, cropWidthStart, cropWidthEnd);
 
